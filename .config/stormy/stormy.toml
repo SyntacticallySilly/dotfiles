@@ -1,0 +1,8 @@
+provider = "OpenMeteo"
+api_key = ""
+city = "Kutch/Bhachau"
+units = "metric"
+showcityname = false
+use_colors = true
+live_mode = false
+compact = false
