@@ -16,4 +16,5 @@
 ## How to install.
 
 Run the following command in your termux '~' directory.
-```apt upgrade && pkg update && pkg install git && git clone https://github.com/SyntacticallySilly/dotfiles.git && bash ~/.dotfiles/init.sh```
+
+```apt upgrade && pkg update && pkg install git stow && git clone https://github.com/SyntacticallySilly/dotfiles.git && bash ~/.dotfiles/init.sh```
