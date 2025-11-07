@@ -85,23 +85,6 @@ zinit snippet OMZP::command-not-found
 zinit snippet OMZP::copypath
 zinit snippet OMZP::catimg
 zinit snippet OMZP::vi-mode
-
-# 3) Zinit annexes (no Turbo required)
-# zinit light-mode for \
-#  zdharma-continuum/zinit-annex-as-monitor \
-#  zdharma-continuum/zinit-annex-bin-gem-node \
-#  zdharma-continuum/zinit-annex-patch-dl \
-#  zdharma-continuum/zinit-annex-rust
-
-## Configuration for Vi mode.
-# -------------------------------
-# zinit: load vi-mode (you said it's already installed via snippet)
-# Example (uncomment/adjust yours):
-# zinit snippet OMZP::vi-mode
-# or
-# zinit light ohmyzsh/ohmyzsh path:plugins/vi-mode
-# -------------------------------
-
 # Ensure vi-mode redraws the prompt on mode change (plugin-compatible)
 export VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true  # redraw prompt on mode switch [plugin behavior]
 # If the plugin tries to print its own right prompt marker, suppress it
@@ -151,7 +134,7 @@ export VI_MODE_CURSOR_INSERT=5
 # Oh My Posh init
 # Adjust the config path to your file location
 # -------------------------------
-eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/omp.toml)"
+# eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/omp.toml)"
 
 
 ### Style Completion
@@ -174,13 +157,23 @@ bindkey '^p' history-search-backward
 
 ########## Atuin ##########
 # Initialize Atuin first, then custom keybindings
-eval "$(atuin init zsh)"
+# eval "$(atuin init zsh)"
 
 # Vi-mode Atuin bindings (only if vi keymap is used)
 bindkey -M vicmd '\' atuin-search
 bindkey -M vicmd '^[[A' atuin-up-search-vicmd
 bindkey -M vicmd '^[OA' atuin-up-search-vicmd
 bindkey -M vicmd '^k' atuin-up-search-vicmd
+
+########## Yazi ############
+function y() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+}
 
 ########## Zoxide (recommended at end) ##########
 eval "$(zoxide init zsh)"
@@ -216,11 +209,61 @@ alias shizuku='zsh ~/scripts/shizuku'
 
 
 ########## Cosmetic (interactive only) ##########
-# Auto-start SSH server silently
-pgrep -x "sshd" > /dev/null || sshd
+# Auto-start SSH server silently, enable this after setting up your Mixplorer.
+# pgrep -x "sshd" > /dev/null || sshd
 
 # Welcome greeting with neofetch.
 if [[ -o interactive ]]; then
   command -v neofetch >/dev/null && clear && neofetch
 fi
 
+# ───────────────────────────────────────────────────────────────
+# Syndot: check for upstream updates and prompt after neofetch
+# ───────────────────────────────────────────────────────────────
+
+function _syndot_check_updates() {
+  local repo="$HOME/dotfiles"
+  local remote="origin"
+  local branch
+
+  [[ -d "$repo/.git" ]] || return 0
+
+  branch="$(git -C "$repo" rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null)"
+  if [[ -z "$branch" ]]; then
+    if git -C "$repo" show-ref --verify --quiet refs/remotes/origin/main; then
+      branch="origin/main"
+    elif git -C "$repo" show-ref --verify --quiet refs/remotes/origin/master; then
+      branch="origin/master"
+    else
+      return 0
+    fi
+  fi
+
+  git -C "$repo" fetch --quiet "$remote" >/dev/null 2>&1 || return 0
+
+  local upstream="$branch"
+  local left_right_count
+  left_right_count="$(git -C "$repo" rev-list --left-right --count "$upstream"...@ 2>/dev/null)" || return 0
+  local behind ahead
+  behind="${left_right_count%% *}"
+  ahead="${left_right_count##* }"
+
+  if [[ "${behind:-0}" -gt 0 ]]; then
+    export SYNDOT_NEEDS_UPDATE=1
+  fi
+}
+
+if [[ -o interactive ]]; then
+  _syndot_check_updates
+fi
+
+if [[ -o interactive && -n "${SYNDOT_NEEDS_UPDATE:-}" ]]; then
+  print -P "%F{39}Syndot updates are available for ~/dotfiles. Update now?%f [Y/n] "
+  local _syndot_reply
+  read -sk 1 _syndot_reply
+  echo
+  if [[ -z "$_syndot_reply" || "$_syndot_reply" == [Yy] ]]; then
+    bash "$HOME/dotfiles/uodate.sh"
+  fi
+  unset SYNDOT_NEEDS_UPDATE _syndot_reply
+fi

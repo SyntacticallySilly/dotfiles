@@ -1,0 +1,11 @@
+# Git repository files
+.git
+.gitignore
+
+# Setup scripts
+^/install.sh
+^/update.sh
+
+# Documentation
+^/README.md
+^/LICENSE

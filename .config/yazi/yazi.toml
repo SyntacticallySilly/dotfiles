@@ -1,0 +1,10 @@
+[open]
+prepend_rules = [
+    { run = 'termux-open "$1"', desc = "Open", for = "android" },
+]
+
+[reveal]
+prepend_rules = [
+    { run = 'termux-open "$(dirname "$1")"', desc = "Reveal", for = "android" },
+]
+
