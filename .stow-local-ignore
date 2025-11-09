@@ -2,6 +2,7 @@
 .git
 .gitignore
 
+
 # Setup scripts
 ^/install.sh
 ^/update.sh
@@ -9,3 +10,5 @@
 # Documentation
 ^/README.md
 ^/LICENSE
+^/synvim.md
+^/general-man.md

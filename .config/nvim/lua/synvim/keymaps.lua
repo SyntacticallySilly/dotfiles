@@ -178,23 +178,57 @@ end
 -- ============================================================================
 
 M.formatting_keymaps = function()
-  -- Format entire file with LSP (if available)
+  -- Format entire file with LSP (if available, otherwise fallback to indent)
   map("n", "<leader>f", function()
-    vim.lsp.buf.format({ async = true })
-  end, { desc = "Format file" })
+    -- Try LSP format first
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+    if #clients > 0 then
+      vim.lsp.buf.format({ async = true })
+    else
+      -- Fallback: use treesitter-based indenting if available
+      vim.notify("No LSP formatter available, use <leader>i for manual indent", vim.log.levels.WARN)
+    end
+  end, { desc = "Format file (LSP)" })
   
   -- Format selection in visual mode
   map("v", "<leader>f", function()
     vim.lsp.buf.format({ async = true })
   end, { desc = "Format selection" })
   
-  -- Fix indentation manually (no LSP needed)
-  map("n", "<leader>i", "gg=G``", { desc = "Fix indentation" })
+  -- Fix indentation manually (preserves content, only fixes indent)
+  map("n", "<leader>i", function()
+    -- Save cursor position
+    local save_cursor = vim.api.nvim_win_get_cursor(0)
+    -- Store the view to restore scroll position
+    local save_view = vim.fn.winsaveview()
+    
+    -- Use treesitter indenting if available, otherwise vim's indent
+    if vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] then
+      -- Reindent using treesitter
+      vim.cmd("normal! gg=G")
+    else
+      -- Fallback to simple reindent
+      vim.cmd("normal! gg=G")
+    end
+    
+    -- Restore view and cursor
+    vim.fn.winrestview(save_view)
+    vim.api.nvim_win_set_cursor(0, save_cursor)
+    
+    vim.notify("Indentation fixed", vim.log.levels.INFO)
+  end, { desc = "Fix indentation" })
   
-  -- Format current paragraph
-  map("n", "<leader>fp", "gqip", { desc = "Format paragraph" })
+  -- Alternative: Format with external formatter (if you have prettier, black, etc.)
+  map("n", "<leader>F", function()
+    -- This will use conform.nvim if you install it, or fallback to LSP
+    local ok, conform = pcall(require, "conform")
+    if ok then
+      conform.format({ lsp_fallback = true, async = true })
+    else
+      vim.lsp.buf.format({ async = true })
+    end
+  end, { desc = "Format with external tool" })
 end
-
 -- ============================================================================
 -- THEME SWITCHER KEYMAP
 -- ============================================================================

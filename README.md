@@ -13,6 +13,9 @@
 - Modern and beautiful theming.
 - Modernization of the package manager.
 
+## Documentation
+
+
 ## How to install.
 
 Run the following command in your termux '~' directory.

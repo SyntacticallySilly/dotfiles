@@ -21,7 +21,8 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim with plugin directory
 require("lazy").setup({
   spec = {
-    { import = "synvim.plugins" },  -- Only import from plugins directory
+    { import = "synvim.plugins" },  -- Regular plugins
+    { import = "synvim.themes" },   -- Theme plugins
   },
   -- Performance optimization for Termux
   performance = {

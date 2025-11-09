@@ -54,7 +54,6 @@ alias zadd="zoxide add"
 alias zedit="zoxide edit"
 alias terstr="sshd"
 alias killter="pkill sshd"
-alias rish="sh ~/scripts/rish"
 ########## Zinit bootstrap ##########
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
     print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum%F{220})…%f"
@@ -151,19 +150,8 @@ bindkey '\' menu-select
 bindkey '`' forward-word
 
 # zsh-autosuggestions
-bindkey '^n' history-search-forward
-bindkey '^p' history-search-backward
-
-
-########## Atuin ##########
-# Initialize Atuin first, then custom keybindings
-# eval "$(atuin init zsh)"
-
-# Vi-mode Atuin bindings (only if vi keymap is used)
-bindkey -M vicmd '\' atuin-search
-bindkey -M vicmd '^[[A' atuin-up-search-vicmd
-bindkey -M vicmd '^[OA' atuin-up-search-vicmd
-bindkey -M vicmd '^k' atuin-up-search-vicmd
+bindkey '^[n' history-search-forward
+bindkey '^[p' history-search-backward
 
 ########## Yazi ############
 function y() {
@@ -182,35 +170,19 @@ eval "$(zoxide init zsh)"
 eval "$(oh-my-posh init zsh --config ~/.config/omp/zen.toml)"
 
 # ═══════════════════════════════════════════════════════════════
-#  Script Aliases
+#  Scripts
 # ═══════════════════════════════════════════════════════════════
-
-# System Monitor
-alias sysmon='zsh ~/scripts/system-health-monitor.zsh'
-
-# Boom Package Manager
-alias apt='zsh ~/scripts/boom-beautifier.zsh'
-
-# Clipboard Manager
-alias clipman='zsh ~/scripts/clipboard-manager.zsh'
-alias clipsave='zsh ~/scripts/clipboard-manager.zsh save'
-alias cliplist='zsh ~/scripts/clipboard-manager.zsh list'
-alias clipsearch='zsh ~/scripts/clipboard-manager.zsh search'
-alias clipall='zsh ~/scripts/clipboard-manager.zsh paste-all'
-alias clipcurrent='zsh ~/scripts/clipboard-manager.zsh current'
-
 # File Organizer
 alias organize='zsh ~/scripts/file-organizer.zsh'
 alias orgdown='zsh ~/scripts/file-organizer.zsh organize'
 alias orgstats='zsh ~/scripts/file-organizer.zsh stats'
 
 # Shizuku stuff.
-alias shizuku='zsh ~/scripts/shizuku'
-
+alias rish='zsh ~/scripts/rish'
 
 ########## Cosmetic (interactive only) ##########
 # Auto-start SSH server silently, enable this after setting up your Mixplorer.
-# pgrep -x "sshd" > /dev/null || sshd
+pgrep -x "sshd" > /dev/null || sshd
 
 # Welcome greeting with neofetch.
 if [[ -o interactive ]]; then

@@ -18,6 +18,25 @@ M.switch_theme = function()
     "tokyonight-moon",
     "gruvbox",
     "nord",
+    "rose-pine",
+    "rose-pine-main",
+    "rose-pine-moon",
+    "rose-pine-dawn",
+    "kanagawa",
+    "kanagawa-wave",
+    "kanagawa-dragon",
+    "kanagawa-lotus",
+    "dracula",
+    "everforest",
+    "bamboo",
+    "nightfox",
+    "nordfox",
+    "duskfox",
+    "carbonfox",
+    "monokai-pro",
+    "monokai-pro-octagon",
+    "monokai-pro-ristretto",
+    "monokai-pro-spectrum",
   }
   
   -- Store current theme to restore if cancelled
@@ -80,7 +99,7 @@ M.load_theme = function()
   if file then
     local theme = file:read("*all")
     file:close()
-    theme = theme:gsub("%s+", "") -- Remove whitespace
+    theme = theme:gsub("%s+", "")
     if theme and theme ~= "" then
       pcall(vim.cmd, "colorscheme " .. theme)
       return
