@@ -14,7 +14,8 @@
 - Modernization of the package manager.
 
 ## Documentation
-
+[For General use case.](<https://github.com/SyntacticallySilly/dotfiles/blob/main/general-man.md>)
+[For SynVim configuration.](<https://github.com/SyntacticallySilly/dotfiles/blob/main/synvim.md>)
 
 ## How to install.
 
