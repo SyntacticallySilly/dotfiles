@@ -1,0 +1,54 @@
+-- SynVim Noice Plugin
+-- Floating command bar and message UI with blink.cmp integration
+
+return {
+  "folke/noice.nvim",
+  event = "VeryLazy",
+  dependencies = {
+    "MunifTanjim/nui.nvim",
+    "rcarriga/nvim-notify",
+    "saghen/blink.cmp",  -- Add blink.cmp as dependency
+  },
+
+  opts = {
+    -- Floating cmdline UI (like LazyVim)
+    cmdline = {
+      enabled = true,
+      view = "cmdline_popup",  -- Floating popup instead of bottom
+      opts = {
+        border = "rounded",
+        size = {
+          width = 60,
+          height = "auto",
+        },
+      },
+    },
+
+    -- Messages UI
+    messages = {
+      enabled = true,
+      view = "notify",
+      view_error = "notify",
+      view_warn = "notify",
+    },
+
+    -- Popup menu - disable and let blink.cmp handle it
+    popupmenu = {
+      enabled = true,  -- Changed to false - blink.cmp handles cmdline completion
+    },
+
+    -- LSP progress indicator
+    lsp = {
+      progress = {
+        enabled = true,
+        view = "mini",
+      },
+      hover = {
+        enabled = true,
+      },
+      signature = {
+        enabled = false,  -- Let blink.cmp handle signatures
+      },
+    },
+  },
+}

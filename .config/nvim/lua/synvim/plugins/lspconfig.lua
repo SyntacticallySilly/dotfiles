@@ -1,14 +1,24 @@
 -- SynVim LSPConfig Plugin
--- LSP configurations and keymaps (modern vim.lsp.config API)
+-- LSP configurations with blink.cmp integration
 
 return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
-    "hrsh7th/cmp-nvim-lsp",
+    "saghen/blink.cmp",
   },
   
   config = function()
+    -- Only set up default capabilities if using old API
+    if not vim.lsp.config then
+      local lspconfig_defaults = require('lspconfig').util.default_config
+      lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+        'force',
+        lspconfig_defaults.capabilities,
+        require('blink.cmp').get_lsp_capabilities()
+      )
+    end
+    
     -- LSP keymaps (only when LSP attaches to buffer)
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),

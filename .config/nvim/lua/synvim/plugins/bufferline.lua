@@ -6,22 +6,22 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
   event = "VeryLazy",
   version = "*",
-  
+
   opts = {
     options = {
       mode = "buffers",  -- Show buffers, not tabs
       themable = true,
-      
+
       -- Appearance
       indicator = {
         style = "none",  -- No indicator for minimal look
       },
-      buffer_close_icon = "",
-      modified_icon = "●",
-      close_icon = "",
-      left_trunc_marker = "",
-      right_trunc_marker = "",
-      
+      buffer_close_icon = "x",
+      modified_icon = "",
+      close_icon = "x",
+      left_trunc_marker = "<",
+      right_trunc_marker = ">",
+
       -- Behavior
       always_show_bufferline = true,
       offsets = {
@@ -32,10 +32,10 @@ return {
           separator = true,
         },
       },
-      
+
       -- Separator (minimal thin lines)
       separator_style = "thin",
-      
+
       -- Diagnostics
       diagnostics = "nvim_lsp",
       diagnostics_indicator = function(count, level)

@@ -1,5 +1,5 @@
 -- SynVim Noice Plugin
--- Floating command bar and message UI
+-- Floating command bar and search with wilder.nvim
 
 return {
   "folke/noice.nvim",
@@ -10,15 +10,36 @@ return {
   },
   
   opts = {
-    -- Floating cmdline UI (like LazyVim)
+    -- Floating cmdline for commands
     cmdline = {
       enabled = true,
-      view = "cmdline_popup",  -- Floating popup instead of bottom
+      view = "cmdline_popup",
       opts = {
         border = "rounded",
         size = {
           width = 60,
           height = "auto",
+        },
+        position = {
+          row = "50%",  -- Center vertically
+          col = "50%",  -- Center horizontally
+        },
+      },
+      format = {
+        -- Keep search floating too (not at bottom)
+        search_down = {
+          kind = "search",
+          pattern = "^/",
+          icon = " ",
+          lang = "regex",
+          view = "cmdline_popup",  -- Make search floating
+        },
+        search_up = {
+          kind = "search",
+          pattern = "^%?",
+          icon = " ",
+          lang = "regex",
+          view = "cmdline_popup",  -- Make search floating
         },
       },
     },
@@ -31,13 +52,12 @@ return {
       view_warn = "notify",
     },
     
-    -- Popup menu for completions
+    -- Disable popupmenu (wilder handles it)
     popupmenu = {
-      enabled = true,
-      backend = "nui",
+      enabled = false,
     },
     
-    -- LSP progress indicator
+    -- LSP progress
     lsp = {
       progress = {
         enabled = true,
@@ -47,8 +67,14 @@ return {
         enabled = true,
       },
       signature = {
-        enabled = true,
+        enabled = false,
       },
+    },
+    
+    presets = {
+      bottom_search = false,  -- IMPORTANT: Don't use bottom search
+      command_palette = false,  -- Don't combine cmdline and popupmenu
+      long_message_to_split = true,
     },
   },
 }
