@@ -7,13 +7,13 @@ return {
 
   opts = {
     cursor = {
-      duration = 300,        -- Faster for Termux performance
-      easing = "ease-in",
+      duration = 1000,        -- Faster for Termux performance
+      easing = "ease-in-out",
       enabled = true,
     },
     scroll = {
-      duration = 250,        -- Smooth but not too slow
-      easing = "ease-out",
+      duration = 1000,        -- Smooth but not too slow
+      easing = "ease-in-out",
       enabled = true,
     },
     performance = {
@@ -21,7 +21,7 @@ return {
     },
     keymaps = {
       cursor = true,         -- Enable smooth cursor movement
-      scroll = true,         -- Enable smooth scrolling
+      scroll = false,         -- Enable smooth scrolling
     },
   },
 

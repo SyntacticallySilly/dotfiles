@@ -16,11 +16,11 @@ return {
       indicator = {
         style = "none",  -- No indicator for minimal look
       },
-      buffer_close_icon = "x",
+      buffer_close_icon = "",
       modified_icon = "",
-      close_icon = "x",
-      left_trunc_marker = "<",
-      right_trunc_marker = ">",
+      close_icon = "",
+      left_trunc_marker = "",
+      right_trunc_marker = "  ",
 
       -- Behavior
       always_show_bufferline = true,

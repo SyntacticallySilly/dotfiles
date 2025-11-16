@@ -8,28 +8,28 @@ return {
   opts = {
     animation = {
       enabled = true,
-      duration = 500,
-      animation_type = "zoom",
+      duration = 1000,
+      animation_type = "slide",
       window_scoped = true,
     },
     highlights = {
       undo = {
-        hl_color = { bg = "#dbdbff" },
+        hl_color = { bg = "#6464ff" },
       },
       redo = {
-        hl_color = { bg = "#bdbdff" },
+        hl_color = { bg = "#64eeff" },
       },
       yank = {
-        hl_color = { bg = "#dbdbff" },
+        hl_color = { bg = "#db43ee" },
       },
       paste = {
-        hl_color = { bg = "#bdbdff" },
+        hl_color = { bg = "#43bdff" },
       },
       search = {
-        hl_color = { bg = "#bdeeff" },
+        hl_color = { bg = "#865eff" },
       },
       cursor = {
-        hl_color = { bg = "#eebdff" },
+        hl_color = { bg = "#ee78ff" },
       },
     },
     priority = 2048 * 3,
@@ -43,7 +43,7 @@ return {
     {
       "n",
       function()
-        require("undo-glow").search_next({ animation = { animation_type = "strobe" } })
+        require("undo-glow").search_next({ animation = { animation_type = "slide" } })
       end,
       mode = "n",
       desc = "Search next with glow",
@@ -51,7 +51,7 @@ return {
     {
       "N",
       function()
-        require("undo-glow").search_prev({ animation = { animation_type = "strobe" } })
+        require("undo-glow").search_prev({ animation = { animation_type = "slide" } })
       end,
       mode = "n",
       desc = "Search prev with glow",

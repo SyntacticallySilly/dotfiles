@@ -7,9 +7,9 @@ return {
 
   opts = {
     enable = true,
-    size = 40,
+    size = 20,
     fade = true,
-    minimal_jump = 10,
+    minimal_jump = 5,
     show_jumps = true,
     focus_gained = true,
     shrink = true,

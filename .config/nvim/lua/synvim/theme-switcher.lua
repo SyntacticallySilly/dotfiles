@@ -9,7 +9,7 @@ M.switch_theme = function()
   local pickers = require("telescope.pickers")
   local finders = require("telescope.finders")
   local conf = require("telescope.config").values
-  
+
   -- Available themes
   local themes = {
     "catppuccin-mocha",
@@ -37,16 +37,17 @@ M.switch_theme = function()
     "monokai-pro-octagon",
     "monokai-pro-ristretto",
     "monokai-pro-spectrum",
+    "darkvoid"
   }
-  
+
   -- Store current theme to restore if cancelled
   local current_theme = vim.g.colors_name or "catppuccin-mocha"
-  
+
   pickers.new({}, {
     prompt_title = "Select Theme",
     finder = finders.new_table({ results = themes }),
     sorter = conf.generic_sorter({}),
-    
+
     attach_mappings = function(prompt_bufnr, map)
       -- Preview theme as you navigate
       local function preview_theme()
@@ -55,7 +56,7 @@ M.switch_theme = function()
           pcall(vim.cmd, "colorscheme " .. selection[1])
         end
       end
-      
+
       -- Apply theme on selection
       actions.select_default:replace(function()
         local selection = action_state.get_selected_entry()
@@ -70,24 +71,24 @@ M.switch_theme = function()
         end
         actions.close(prompt_bufnr)
       end)
-      
+
       -- Preview on navigation
       map("i", "<C-j>", function()
         actions.move_selection_next(prompt_bufnr)
         preview_theme()
       end)
-      
+
       map("i", "<C-k>", function()
         actions.move_selection_previous(prompt_bufnr)
         preview_theme()
       end)
-      
+
       -- Restore original theme on cancel
       map("i", "<Esc>", function()
         pcall(vim.cmd, "colorscheme " .. current_theme)
         actions.close(prompt_bufnr)
       end)
-      
+
       return true
     end,
   }):find()

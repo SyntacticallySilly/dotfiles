@@ -1,7 +1,7 @@
 # Git repository files
 .git
 .gitignore
-
+.gitconfig
 
 # Setup scripts
 ^/install.sh

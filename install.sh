@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Essential packages to install
-ESSENTIAL_PACKAGES="termux-tools zoxide yazi eza fd ripgrep fzf zsh neofetch neovim chafa man"
+ESSENTIAL_PACKAGES="termux-tools nala zoxide yazi eza fd ripgrep fzf zsh neofetch neovim chafa man stow"
 
 # Colors
 RED="\u001B[1;31m"
@@ -103,5 +103,11 @@ pkg install -y ${ESSENTIAL_PACKAGES}
 printf "
 ${GRN}✓ All packages installed successfully!${NC}
 "
+# changes thw default shell to zsh.
+printf "
+${GRN} Setting up the shell...${NC}
+"
+chsh -s zsh
+
 printf "${CYAN}Setup complete!${NC}
 "

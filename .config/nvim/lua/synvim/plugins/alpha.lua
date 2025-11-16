@@ -24,14 +24,18 @@ return {
 
     -- Helper function to handle Obsidian vault selection
     local function open_obsidian_vault()
-      local obsidian = require("obsidian")
+      local ok_obsidian, obsidian = pcall(require, "obsidian")
+      if not ok_obsidian then
+        vim.notify("Obsidian not installed", vim.log.levels.ERROR)
+        return
+      end
+
       local client = obsidian.get_client()
       local workspaces = client.opts.workspaces
 
       if #workspaces == 1 then
-        -- Only one vault, open it directly
-        vim.cmd("cd " .. workspaces[1].path)
-        vim.cmd("NvimTreeToggle")
+        -- Only one vault, open file browser in that path
+        vim.cmd("Telescope file_browser path=" .. workspaces[1].path)
       else
         -- Multiple vaults, show Telescope picker
         local pickers = require("telescope.pickers")
@@ -57,8 +61,7 @@ return {
             actions.select_default:replace(function()
               local selection = action_state.get_selected_entry()
               actions.close(prompt_bufnr)
-              vim.cmd("cd " .. selection.value.path)
-              vim.cmd("NvimTreeToggle")
+              vim.cmd("Telescope file_browser path=" .. selection.value.path)
             end)
             return true
           end,
@@ -70,9 +73,10 @@ return {
     dashboard.section.buttons.val = {
       dashboard.button("f", "  Find files", ":Telescope find_files<CR>"),
       dashboard.button("n", "  New file", ":enew<CR>"),
+      dashboard.button("e", "  File Explorer", ":Telescope file_browser<CR>"),
       dashboard.button("o", "  Obsidian vault", open_obsidian_vault),
       dashboard.button("p", "  Practice", ":VimBeGood<CR>"),
-      dashboard.button("c", "  Config", ":Telescope find_files cwd=" .. vim.fn.stdpath("config") .. "<CR>"),
+      dashboard.button("c", "  Config", ":Telescope file_browser path=" .. vim.fn.stdpath("config") .. "<CR>"),
       dashboard.button("l", "  Lazy", ":Lazy<CR>"),
       dashboard.button("q", "  Quit", ":qa<CR>"),
     }

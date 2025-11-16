@@ -8,7 +8,7 @@ return {
     "MunifTanjim/nui.nvim",
     "rcarriga/nvim-notify",
   },
-  
+
   opts = {
     -- Floating cmdline for commands
     cmdline = {
@@ -26,24 +26,31 @@ return {
         },
       },
       format = {
+      --   cmdline = {
+      --     kind = "command",
+      --     pattern = "^:",
+      --     icon = "  ",
+      --     lang = "regex",
+      --     view = "cmdline_popup"
+      --   },
         -- Keep search floating too (not at bottom)
         search_down = {
           kind = "search",
           pattern = "^/",
-          icon = " ",
+          icon = "│ " ,
           lang = "regex",
           view = "cmdline_popup",  -- Make search floating
         },
         search_up = {
           kind = "search",
           pattern = "^%?",
-          icon = " ",
+          icon = "│󰈞 ",
           lang = "regex",
           view = "cmdline_popup",  -- Make search floating
         },
       },
     },
-    
+
     -- Messages UI
     messages = {
       enabled = true,
@@ -51,12 +58,12 @@ return {
       view_error = "notify",
       view_warn = "notify",
     },
-    
+
     -- Disable popupmenu (wilder handles it)
     popupmenu = {
       enabled = false,
     },
-    
+
     -- LSP progress
     lsp = {
       progress = {
@@ -70,7 +77,7 @@ return {
         enabled = false,
       },
     },
-    
+
     presets = {
       bottom_search = false,  -- IMPORTANT: Don't use bottom search
       command_palette = false,  -- Don't combine cmdline and popupmenu

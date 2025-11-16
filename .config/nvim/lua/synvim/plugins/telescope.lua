@@ -1,68 +1,109 @@
 -- SynVim Telescope Plugin
--- Fuzzy finder for files, buffers, grep, and more
+-- Fuzzy finder for files, text, and more
 
 return {
   "nvim-telescope/telescope.nvim",
-  tag = "0.1.8",
+  branch = "0.1.x",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    -- Optional: fzf-native for faster sorting
+    "nvim-tree/nvim-web-devicons",
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
-      cond = function()
-        return vim.fn.executable("make") == 1
-      end,
     },
   },
-  
-  -- Load on command or keymap
   cmd = "Telescope",
-  event = "VeryLazy",
-  
+
+  keys = {
+    { "<leader>sf", "<cmd>Telescope find_files<CR>", desc = "Search Files" },
+    { "<leader>sg", "<cmd>Telescope live_grep<CR>", desc = "Search Grep" },
+    { "<leader>sb", "<cmd>Telescope buffers<CR>", desc = "Search Buffers" },
+    { "<leader>sh", "<cmd>Telescope help_tags<CR>", desc = "Search Help" },
+    { "<leader>sr", "<cmd>Telescope oldfiles<CR>", desc = "Search Recent" },
+    { "<leader>sk", "<cmd>Telescope keymaps<CR>", desc = "Search Keymaps" },
+    { "<leader>sc", "<cmd>Telescope commands<CR>", desc = "Search Commands" },
+    { "<leader>st", "<cmd>TodoTelescope<CR>", desc = "Search Todos" },
+    { "<leader>sts", "<cmd>lua require('synvim.theme-switcher').switch_theme()<CR>", desc = "Switch Theme" },
+  },
+
   config = function()
     local telescope = require("telescope")
     local actions = require("telescope.actions")
-    
+
     telescope.setup({
       defaults = {
-        -- UI layout - prompt at top
-        layout_config = {
-          prompt_position = "top",
-        },
+        prompt_prefix = "  ",
+        selection_caret = " ",
+        entry_prefix = "",
+
         sorting_strategy = "ascending",
-        
-        -- Don't preview files by default (faster on Termux)
-        preview = {
-          hide_on_startup = true,
+        layout_strategy = "horizontal",
+
+        layout_config = {
+          horizontal = {
+            prompt_position = "bottom",
+            preview_width = 0.55,
+            results_width = 0.8,
+          },
+          vertical = {
+            mirror = false,
+          },
+          width = 0.87,
+          height = 0.80,
+          preview_cutoff = 120,
         },
-        
-        -- Mappings in Telescope
+
+        -- Transparent background
+        winblend = 0,
+--[[         borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" }, ]]
+
         mappings = {
           i = {
-            -- Insert mode mappings
-            ["<C-c>"] = actions.close,
             ["<C-j>"] = actions.move_selection_next,
             ["<C-k>"] = actions.move_selection_previous,
-            ["<C-u>"] = actions.preview_scrolling_up,
-            ["<C-d>"] = actions.preview_scrolling_down,
+            ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+            ["<C-x>"] = actions.delete_buffer,
+            ["<Esc>"] = actions.close,
           },
           n = {
-            -- Normal mode mappings
             ["q"] = actions.close,
-            ["j"] = actions.move_selection_next,
-            ["k"] = actions.move_selection_previous,
-            ["<C-u>"] = actions.preview_scrolling_up,
-            ["<C-d>"] = actions.preview_scrolling_down,
+            ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+            ["x"] = actions.delete_buffer,
           },
+        },
+
+        file_ignore_patterns = {
+          "node_modules",
+          ".git/",
+          "%.jpg",
+          "%.jpeg",
+          "%.png",
+          "%.svg",
+          "%.otf",
+          "%.ttf",
+        },
+
+        vimgrep_arguments = {
+          "rg",
+          "--color=always",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+          "--hidden",
+        },
+      },
+
+      pickers = {
+        find_files = {
+          hidden = true,
+          find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
         },
       },
     })
-    
-    -- Load fzf extension if available
+
+    -- Load extensions
     pcall(telescope.load_extension, "fzf")
-    
-    -- NOW load telescope keymaps after telescope is configured
-    require("synvim.keymaps").telescope_keymaps()
   end,
 }

@@ -13,7 +13,7 @@ return {
     local wilder = require("wilder")
 
     wilder.setup({
-      modes = { ":", "/", "?" },
+      modes = { ":", "/" },
     })
 
     -- Lua-only pipeline
@@ -42,12 +42,12 @@ return {
         max_height = 8,
         min_height = 0,
 
-        pumblend = 0,
+        pumblend = 1,
         reverse = 1,
 
         -- Icons ONLY - no prompt column
         left = { " " },  -- Just padding, no prompt
-        right = { " ", wilder.popupmenu_scrollbar() },
+        right = { "", wilder.popupmenu_scrollbar() },
 
         highlights = {
           border = "FloatBorder",

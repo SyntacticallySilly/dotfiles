@@ -2,12 +2,12 @@ version = 3
 final_space = true
 
 [secondary_prompt]
-  template = '  … '
+#  template = '  … '
   foreground = 'default'
   background = 'black'
 
 [transient_prompt]
-  template = '{{ if gt .Code 0 }}{{ else }}{{ end }}  {{ .Segments.Path.Path }}  '
+  template = '{{ if gt .Code 0 }}{{ else }}  {{ end }}{{ .Segments.Path.Path }}  '
   foreground = 'default'
   background = 'transparent'
 
@@ -28,7 +28,7 @@ final_space = true
     style = 'powerline'
     foreground = 'default'
     background = 'black'
-    template = '  {{ .FormattedMs }} '
+    template = ' 󰔟 {{ .FormattedMs }}'
 
     [blocks.segments.properties]
       cache_duration = 'none'
@@ -47,15 +47,17 @@ final_space = true
 
     [blocks.segments.properties]
       cache_duration = 'none'
-      folder_icon = ''
-      folder_separator_icon = ' / '
+      folder_icon = '  '
+      folder_separator_icon = '/'
       hide_root_location = false
-      home_icon = ''
+      home_icon = ' '
       max_depth = 3
       style = 'agnoster_short'
 
       [blocks.segments.properties.mapped_locations]
-        '~' = ''
+        '~' = ' '
+        '~/downloads' = ' '
+        '~/dotfiles' = ' '
 
   [[blocks.segments]]
     type = 'git'
@@ -102,7 +104,7 @@ final_space = true
     style = 'powerline'
     foreground = 'default'
     background = 'black'
-    template = ' » '
+    template = ' '
 
     [blocks.segments.properties]
       cache_duration = 'none'

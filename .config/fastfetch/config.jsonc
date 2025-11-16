@@ -27,11 +27,11 @@
       "key": "OS",
       "keyColor": "blue"
     },
-    {
-      "type": "kernel",
-      "key": "Kernel",
-      "keyColor": "blue"
-    },
+    // {
+    //   "type": "kernel",
+    //   "key": "Kernel",
+    //   "keyColor": "blue"
+    // },
     {
       "type": "shell",
       "key": "Shell",
@@ -66,12 +66,12 @@
       "keyColor": "green"
     },
     "break",
-    {
-      "type": "localip",
-      "key": "Local IP",
-      "keyColor": "yellow",
-      "compact": true
-    },
+    // {
+    //   "type": "localip",
+    //   "key": "Local IP",
+    //   "keyColor": "yellow",
+    //   "compact": true
+    // },
     {
       "type": "command",
       "key": "Weather",
@@ -102,25 +102,25 @@
       "key": "Packages",
       "keyColor": "yellow"
     },
-    {
-      "type": "command",
-      "key": "Git Status",
-      "keyColor": "yellow",
-      "text": "cd ~/dotfiles 2>/dev/null && git status -sb 2>/dev/null | head -1 || echo 'N/A'"
-    },
+    // {
+    //   "type": "command",
+    //   "key": "Git Status",
+    //   "keyColor": "yellow",
+    //   "text": "cd ~/dotfiles 2>/dev/null && git status -sb 2>/dev/null | head -1 || echo 'N/A'"
+    // },
     "break",
-    {
-      "type": "datetime",
-      "key": "Date",
-      "keyColor": "blue",
-      "format": "{date-format-custom}"
-    },
-    {
-      "type": "command",
-      "key": "Neofetch Ver",
-      "keyColor": "cyan",
-      "text": "neofetch --version 2>/dev/null | head -1 || echo 'Not installed'"
-    },
+    // {
+    //   "type": "datetime",
+    //   "key": "Date",
+    //   "keyColor": "blue",
+    //   "format": "{date-format-custom}"
+    // },
+    // {
+    //   "type": "command",
+    //   "key": "Neofetch Ver",
+    //   "keyColor": "cyan",
+    //   "text": "neofetch --version 2>/dev/null | head -1 || echo 'Not installed'"
+    // },
     "break",
     {
       "type": "colors",

@@ -1,5 +1,5 @@
 -- SynVim Which-Key Plugin
--- Shows available keybindings in a floating popup
+-- Display keybindings in a popup
 
 return {
   "folke/which-key.nvim",
@@ -7,35 +7,41 @@ return {
 
   opts = {
     preset = "modern",
+    delay = 300,
+    plugins = {
+      marks = true,
+      registers = true,
+      spelling = {
+        enabled = true,
+        suggestions = 10,
+      },
+    },
     win = {
-      border = "rounded",  -- Outlined container
-      padding = { 1, 2 },  -- Padding inside popup
+      border = "rounded",
+      padding = { 1, 2 },
     },
-    layout = {
-      height = { min = 4, max = 30 },  -- Dynamic height
-      spacing = 3,  -- Space between columns
-    },
-    show_help = true,  -- Show help message
-    show_keys = true,  -- Show keys in popup
   },
 
   config = function(_, opts)
     local wk = require("which-key")
     wk.setup(opts)
 
-    -- Register key groups with descriptions (v3 API)
+    -- Register key groups
     wk.add({
       { "<leader>s", group = "Search" },
+      { "<leader>sn", group = "Nerd Icons" },
       { "<leader>h", group = "Harpoon" },
       { "<leader>g", group = "Git" },
+      { "<leader>gd", group = "Git Diff" },
       { "<leader>b", group = "Buffer" },
       { "<leader>w", group = "Window" },
       { "<leader>f", group = "Format" },
-      { "<leader>x", group = "Diagnostics"},
-      { "<leader>sn", group = "Nerd Font Icons" },
-      { "<leader>c", group = "Color" },
+      { "<leader>x", group = "Diagnostics" },
+      { "<leader>c", group = "Code/Color" },
       { "<leader>o", group = "Obsidian" },
+      { "<leader>q", group = "Quit" },
       { "<leader>gt", group = "Git Toggle" },
+      { "<leader>v", group = "Vim Practice" },
     })
   end,
 }

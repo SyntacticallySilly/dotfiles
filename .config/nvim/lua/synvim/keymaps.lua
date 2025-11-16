@@ -240,6 +240,24 @@ M.theme_keymaps = function()
 end
 
 -- ============================================================================
+-- FILE EXPLORER KEYMAPS - Telescope File Browser
+-- ============================================================================
+
+M.file_explorer_keymaps = function()
+  -- Open file browser in current file's directory
+  map("n", "<leader>e", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>", 
+    { desc = "File Explorer (current dir)" })
+  
+  -- Open file browser in cwd
+  map("n", "<leader>E", "<cmd>Telescope file_browser<CR>", 
+    { desc = "File Explorer (cwd)" })
+  
+  -- Toggle between last file and file browser
+  map("n", "<C-n>", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>", 
+    { desc = "Toggle File Explorer" })
+end
+
+-- ============================================================================
 -- Setup function - Call keymaps that don't depend on plugins
 -- Plugin-dependent keymaps are called from their plugin configs
 -- ============================================================================
@@ -252,8 +270,9 @@ M.setup = function()
   M.bufferline_keymaps()
   M.formatting_keymaps()
   M.theme_keymaps()
+  M.file_explorer_keymaps()
   -- Plugin-dependent keymaps are called from their plugin configs
   -- See telescope.lua and harpoon.lua for when these are called
 end
 
-return M	
+return M

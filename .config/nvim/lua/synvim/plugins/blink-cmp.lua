@@ -1,21 +1,27 @@
 -- SynVim Blink.cmp Plugin
--- Performant completion engine with cmdline and path support
+-- Performant completion with Enter key and lspkind icons
 
 return {
   "saghen/blink.cmp",
   lazy = false,
-  dependencies = "rafamadriz/friendly-snippets",
+  dependencies = {
+    "rafamadriz/friendly-snippets",
+    "onsails/lspkind.nvim",
+  },
   version = "v0.*",
 
   opts = {
     keymap = {
-      preset = "default",
+      preset = "enter",
+
+      ["<CR>"] = { "accept", "fallback" },
       ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-      ["<C-e>"] = { "hide" },
-      ["<Enter>"] = { "select_and_accept" },
+      ["<C-e>"] = { "hide", "fallback" },
 
       ["<C-p>"] = { "select_prev", "fallback" },
       ["<C-n>"] = { "select_next", "fallback" },
+      ["<Up>"] = { "select_prev", "fallback" },
+      ["<Down>"] = { "select_next", "fallback" },
 
       ["<C-b>"] = { "scroll_documentation_up", "fallback" },
       ["<C-f>"] = { "scroll_documentation_down", "fallback" },
@@ -58,13 +64,17 @@ return {
         enabled = true,
         min_width = 15,
         max_height = 10,
-        border = "rounded",
-        winblend = 8,
-        scrollbar = false,
+        border = "none",
+        winblend = 0,
+        winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
+        scrollbar = true,
 
         draw = {
           treesitter = { "lsp" },
-          columns = { { "kind_icon" }, { "label", "label_description", gap = 1 } },
+          columns = {
+            { "kind_icon" },
+            { "label", "label_description", gap = 1 },
+          },
         },
       },
 
@@ -73,12 +83,14 @@ return {
         auto_show_delay_ms = 200,
         window = {
           border = "rounded",
+          winblend = 0,
+          winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
         },
       },
 
       list = {
         selection = {
-          preselect = false,
+          preselect = true,
           auto_insert = true,
         },
       },
@@ -88,9 +100,23 @@ return {
       enabled = true,
       window = {
         border = "rounded",
+        winblend = 0,
+        winhighlight = "Normal:BlinkCmpSignatureHelp,FloatBorder:BlinkCmpSignatureHelpBorder",
       },
     },
   },
 
   opts_extend = { "sources.default" },
+
+  config = function(_, opts)
+    -- Setup blink.cmp
+    require("blink.cmp").setup(opts)
+
+    -- Integrate lspkind formatting
+    local lspkind_ok, lspkind = pcall(require, "lspkind")
+    if lspkind_ok then
+      -- lspkind is already initialized in its own plugin file
+      -- blink.cmp will use the kind_icon_provider if needed
+    end
+  end,
 }

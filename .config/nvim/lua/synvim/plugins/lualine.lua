@@ -39,12 +39,12 @@ return {
 
     -- Mode icon map
     local mode_icons = {
-      n = "󰆾",
-      i = "",
-      v = "󰩭",
-      [""] = "󱊅",
-      c = "󰘳",
-      t = "",
+      n = "󰆾 ",
+      i = " ",
+      v = "󰩭 ",
+      V = "󱊅 ",
+      c = "󰘳 ",
+      t = " ",
     }
 
     -- Function to get theme name dynamically
@@ -73,6 +73,7 @@ return {
         ["duskfox"] = "nightfox",
         ["carbonfox"] = "nightfox",
         ["monokai-pro"] = "auto",
+        ["darkvoid"] = "auto",
       }
 
       return theme_map[colorscheme] or "auto"
@@ -138,7 +139,8 @@ return {
               local mode = vim.fn.mode()
               return mode_icons[mode] or mode
             end,
-            padding = { left = 1, right = 2 },
+            padding = { left = 0.8, right = 0.8 },
+            separator = { left = '', right = '' },
             color = "lualine_a_normal",
           },
         },
@@ -149,10 +151,13 @@ return {
             "branch",
             icon = "󰘬",
             color = "lualine_b_normal",
+            separator = { right = '' },
+
           },
           {
             "diff",
             colored = true,
+            separator = { left = '', right = '' },
             symbols = { added = " ", modified = " ", removed = " " },
             source = function()
               local gitsigns = vim.b.gitsigns_status_dict
