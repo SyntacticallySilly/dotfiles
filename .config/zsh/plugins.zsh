@@ -35,10 +35,11 @@ zinit light oknowton/zsh-dwim
 
 # Enhanced eza integration
 zinit light duggum/zeza
-
-# ───────────────────────────────────────────────────────────────
-#  Oh My Zsh Plugins (Loaded as Snippets)
-# ───────────────────────────────────────────────────────────────
+#
+# # ───────────────────────────────────────────────────────────────
+# #  Oh My Zsh Plugins (Loaded as Snippets)
+# # ───────────────────────────────────────────────────────────────
+# zinit snippet OMZP::*
 # Colorized man pages
 zinit snippet OMZP::colored-man-pages
 
@@ -53,3 +54,24 @@ zinit snippet OMZP::catimg
 
 # Vi-mode support (keybindings and indicators)
 zinit snippet OMZP::vi-mode
+
+zinit snippet OMZP::zinit
+
+# # ───────────────────────────────────────────────────────────────
+# #  Appearance & Feedback Plugins
+# # ───────────────────────────────────────────────────────────────
+# # Colorize output of various commands
+# zinit light zdharma-continuum/zsh-colorize
+zinit load zdharma-continuum/zsh-colorize
+
+# Use bat for man pages and other previews (requires bat)
+zinit light knu/zsh-bat
+
+# Notifications for long-running commands (uses termux-notification)
+zinit light marzocchi/zsh-notify
+
+# Gentle reminders to use aliases you have defined
+zinit light MichaelAquilina/zsh-you-should-use
+
+# YouTube-DL/yt-dlp integration with fzf for searching
+zinit snippet OMZP::yt-dlp

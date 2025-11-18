@@ -56,8 +56,11 @@ final_space = true
 
       [blocks.segments.properties.mapped_locations]
         '~' = ' '
-        '~/downloads' = ' '
         '~/dotfiles' = ' '
+        '~/storage/shared/Download/' = ' '
+        '~/storage/shared/indev/' = '󰘦 '
+        '~/dev' = ' '
+        '~/storage/shared/Documents/Syn' = '󰠮b'
 
   [[blocks.segments]]
     type = 'git'

@@ -14,6 +14,6 @@ pgrep -x "sshd" > /dev/null || sshd
 #  Welcome Screen
 # ───────────────────────────────────────────────────────────────
 # Display neofetch system info in interactive shells only
-if [[ -o interactive ]]; then
-  command -v clear >/dev/null && clear && fastfetch
-fi
+# if [[ -o interactive ]]; then
+#   command -v clear >/dev/null && clear && fastfetch
+# fi

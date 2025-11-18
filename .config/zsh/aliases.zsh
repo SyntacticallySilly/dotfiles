@@ -60,7 +60,7 @@ alias killter="pkill sshd"   # Stop SSH server
 #  Custom Scripts
 # ───────────────────────────────────────────────────────────────
 # File organizer script
-alias organize='zsh ~/dotfiles/scripts/file-organizer.zsh'
+alias orgctl='zsh ~/dotfiles/scripts/file-organizer.zsh'
 alias orgdown='zsh ~/dotfiles/scripts/file-organizer.zsh organize'
 alias orgstats='zsh ~/dotfiles/scripts/file-organizer.zsh stats'
 

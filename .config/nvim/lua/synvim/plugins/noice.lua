@@ -37,14 +37,14 @@ return {
         search_down = {
           kind = "search",
           pattern = "^/",
-          icon = "│ " ,
+          icon = " " ,
           lang = "regex",
           view = "cmdline_popup",  -- Make search floating
         },
         search_up = {
           kind = "search",
           pattern = "^%?",
-          icon = "│󰈞 ",
+          icon = "󰈞 ",
           lang = "regex",
           view = "cmdline_popup",  -- Make search floating
         },

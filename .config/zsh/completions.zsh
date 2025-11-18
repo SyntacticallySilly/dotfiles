@@ -31,6 +31,24 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -RAl --color=always --i
 # Custom appearance for fzf-tab menu
 zstyle ':fzf-tab:*' fzf-flags --height=50% --border --color=fg:240,bg:233,hl:65,fg+:15,bg+:237,hl+:108
 
+
+# Autocomplete plugin
+
+# Note: -e lets you specify a dynamically generated value.
+#
+# # Override default for all listings
+# # $LINES is the number of lines that fit on screen.
+zstyle -e ':autocomplete:*:*' list-lines 'reply=( $(( LINES / 1  )) )'
+#
+# # Override for recent path search only
+# zstyle ':autocomplete:recent-paths:*' list-lines 10
+#
+# # Override for history search only
+# zstyle ':autocomplete:history-incremental-search-backward:*' list-lines 8
+#
+# # Override for history menu only
+zstyle ':autocomplete:history-search-backward:*' list-lines 100
+
 # ───────────────────────────────────────────────────────────────
 #  Custom Completions
 # ───────────────────────────────────────────────────────────────
