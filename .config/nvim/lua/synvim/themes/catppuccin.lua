@@ -6,11 +6,11 @@ return {
   lazy = false,
   priority = 1000,
   name = "catppuccin",
-  
+
   opts = {
-    flavour = "mocha",
+    flavour = "auto",
     transparent_background = true,
-    
+
     integrations = {
       treesitter = true,
       cmp = true,
@@ -22,7 +22,7 @@ return {
       indent_blankline = { enabled = true },
     },
   },
-  
+
   config = function(_, opts)
     require("catppuccin").setup(opts)
   end,

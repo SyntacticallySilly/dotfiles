@@ -14,14 +14,19 @@ return {
   opts = {
     workspaces = {
       {
-        name = "personal",
+        name = "Personal",
         path = "~/storage/shared/Documents/Syn",  -- Change to your vault path
       },
+      -- {
+      --   name = "Research",
+      --   path = "~/storage/shared/Documents/Research",
+      -- },
     },
 
     daily_notes = {
       folder = "daily",
-      date_format = "%Y-%m-%d",
+--    date_format = "%Y-%m-%d",
+      date_format = "%d-%m-%Y",
       template = nil,
     },
 

@@ -36,8 +36,11 @@ M.setup = function()
     "NoicePopupmenuBorder",
     "NoiceCmdlinePopup",
     "NoiceCmdlinePopupBorder",
+    "LualineB",
+    "LualineC",
+    "LualineY",
   }
-  
+
   for _, group in ipairs(transparent_groups) do
     vim.api.nvim_set_hl(0, group, { bg = "NONE", ctermbg = "NONE" })
   end

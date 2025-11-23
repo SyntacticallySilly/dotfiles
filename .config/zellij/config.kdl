@@ -23,52 +23,52 @@ default_mode "locked"  // Start locked to avoid key collisions
 ui {
     pane_frames {
         rounded_corners true
-        hide_session_name false
+        hide_session_name true
     }
 }
 
 // === ANDROID-OPTIMIZED KEYBINDINGS ===
 keybinds clear-defaults=true {
-    
+
     // LOCKED MODE (Default) - No key collisions
     locked {
-        bind "Ctrl g" { SwitchToMode "normal"; }
-        bind "Alt g" { SwitchToMode "normal"; }
+        bind "Tab" { SwitchToMode "normal"; }
+        bind "Tab" { SwitchToMode "normal"; }
     }
-    
+
     // NORMAL MODE - Quick access
     normal {
-        bind "Ctrl g" { SwitchToMode "locked"; }
+        bind "Tab" { SwitchToMode "locked"; }
         bind "Esc" { SwitchToMode "locked"; }
-        
+
         // Mode switching - Single key access
         bind "p" { SwitchToMode "pane"; }
         bind "t" { SwitchToMode "tab"; }
         bind "r" { SwitchToMode "resize"; }
         bind "s" { SwitchToMode "scroll"; }
         bind "m" { SwitchToMode "move"; }
-        bind "h" { SwitchToMode "search"; }
+        bind "f" { SwitchToMode "search"; }
         bind "q" { Quit; }
-        
+
         // Quick actions without mode switch
         bind "n" { NewPane; }
         bind "x" { CloseFocus; }
         bind "z" { ToggleFocusFullscreen; }
         bind "w" { ToggleFloatingPanes; }
-        
+
         // Navigation - Arrow key friendly
-        bind "Left" { MoveFocus "Left"; }
-        bind "Right" { MoveFocus "Right"; }
-        bind "Up" { MoveFocus "Up"; }
-        bind "Down" { MoveFocus "Down"; }
+        bind "h" { MoveFocus "Left"; }
+        bind "l" { MoveFocus "Right"; }
+        bind "k" { MoveFocus "Up"; }
+        bind "j" { MoveFocus "Down"; }
     }
-    
+
     // PANE MODE - Easy pane management
     pane {
         bind "Esc" { SwitchToMode "locked"; }
         bind "Enter" { SwitchToMode "locked"; }
-        bind "g" { SwitchToMode "locked"; }
-        
+        bind "Tab" {SwitchToMode "locked"; }
+
         bind "n" { NewPane; SwitchToMode "locked"; }
         bind "h" { NewPane "Left"; SwitchToMode "locked"; }
         bind "j" { NewPane "Down"; SwitchToMode "locked"; }
@@ -78,7 +78,7 @@ keybinds clear-defaults=true {
         bind "Down" { NewPane "Down"; SwitchToMode "locked"; }
         bind "Up" { NewPane "Up"; SwitchToMode "locked"; }
         bind "Right" { NewPane "Right"; SwitchToMode "locked"; }
-        
+
         bind "x" { CloseFocus; SwitchToMode "locked"; }
         bind "f" { ToggleFocusFullscreen; SwitchToMode "locked"; }
         bind "z" { ToggleFocusFullscreen; SwitchToMode "locked"; }
@@ -86,24 +86,24 @@ keybinds clear-defaults=true {
         bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "locked"; }
         bind "r" { SwitchToMode "resize"; }
     }
-    
+
     // TAB MODE - Tab management
     tab {
         bind "Esc" { SwitchToMode "locked"; }
         bind "Enter" { SwitchToMode "locked"; }
-        bind "g" { SwitchToMode "locked"; }
-        
+        bind "Tab" { SwitchToMode "locked"; }
+
         bind "n" { NewTab; SwitchToMode "locked"; }
         bind "x" { CloseTab; SwitchToMode "locked"; }
         bind "r" { SwitchToMode "renametab"; }
-        
+
         // Navigation
         bind "h" { GoToPreviousTab; }
         bind "l" { GoToNextTab; }
         bind "Left" { GoToPreviousTab; }
         bind "Right" { GoToNextTab; }
         bind "Tab" { ToggleTab; }
-        
+
         // Direct tab access
         bind "1" { GoToTab 1; SwitchToMode "locked"; }
         bind "2" { GoToTab 2; SwitchToMode "locked"; }
@@ -115,29 +115,30 @@ keybinds clear-defaults=true {
         bind "8" { GoToTab 8; SwitchToMode "locked"; }
         bind "9" { GoToTab 9; SwitchToMode "locked"; }
     }
-    
+
     // RESIZE MODE - Touch-friendly
     resize {
         bind "Esc" { SwitchToMode "locked"; }
         bind "Enter" { SwitchToMode "locked"; }
-        bind "g" { SwitchToMode "locked"; }
-        
+        bind "Tab" { SwitchToMode "locked"; }
+
         bind "h" "Left" { Resize "Increase Left"; }
         bind "j" "Down" { Resize "Increase Down"; }
         bind "k" "Up" { Resize "Increase Up"; }
         bind "l" "Right" { Resize "Increase Right"; }
-        
+
         bind "=" { Resize "Increase"; }
         bind "-" { Resize "Decrease"; }
     }
-    
+
     // MOVE MODE - Pane movement
     move {
         bind "Esc" { SwitchToMode "locked"; }
         bind "Enter" { SwitchToMode "locked"; }
-        bind "g" { SwitchToMode "locked"; }
-        
+        bind "Tab" { SwitchToMode "locked"; }
+
         bind "n" { MovePane; }
+        bind "Tab" { SwitchToMode "locked"; }
         bind "p" { MovePaneBackwards; }
         bind "h" "Left" { MovePane "Left"; }
         bind "j" "Down" { MovePane "Down"; }
@@ -145,53 +146,53 @@ keybinds clear-defaults=true {
         bind "l" "Right" { MovePane "Right"; }
         bind "t" { SwitchToMode "tab"; }
     }
-    
+
     // SCROLL MODE - For viewing history
     scroll {
         bind "Esc" { SwitchToMode "locked"; }
-        bind "g" { SwitchToMode "locked"; }
+        bind "Tab" { SwitchToMode "locked"; }
         bind "e" { EditScrollback; SwitchToMode "locked"; }
-        
+
         bind "j" "Down" { ScrollDown; }
         bind "k" "Up" { ScrollUp; }
         bind "Ctrl f" "PageDown" { PageScrollDown; }
         bind "Ctrl b" "PageUp" { PageScrollUp; }
         bind "d" { HalfPageScrollDown; }
         bind "u" { HalfPageScrollUp; }
-        
+
         bind "/" { SwitchToMode "entersearch"; }
     }
-    
+
     // SEARCH MODE
     search {
         bind "Esc" { SwitchToMode "locked"; }
-        bind "g" { SwitchToMode "locked"; }
-        
+        bind "Tab" { SwitchToMode "locked"; }
+
         bind "n" { Search "down"; }
         bind "p" { Search "up"; }
         bind "c" { SearchToggleOption "CaseSensitivity"; }
         bind "w" { SearchToggleOption "Wrap"; }
         bind "o" { SearchToggleOption "WholeWord"; }
     }
-    
+
     entersearch {
         bind "Esc" { SwitchToMode "scroll"; }
         bind "Enter" { SwitchToMode "search"; }
     }
-    
+
     renametab {
         bind "Esc" { UndoRenameTab; SwitchToMode "tab"; }
         bind "Enter" { SwitchToMode "locked"; }
     }
-    
+
     renamepane {
         bind "Esc" { UndoRenamePane; SwitchToMode "pane"; }
         bind "Enter" { SwitchToMode "locked"; }
     }
-    
+
     session {
         bind "Esc" { SwitchToMode "locked"; }
-        bind "g" { SwitchToMode "locked"; }
+        bind "Tab" { SwitchToMode "locked"; }
         bind "d" { Detach; }
         bind "w" { SwitchToMode "locked"; }
     }

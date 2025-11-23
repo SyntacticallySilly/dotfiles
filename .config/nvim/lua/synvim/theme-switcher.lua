@@ -13,6 +13,8 @@ M.switch_theme = function()
   -- Available themes
   local themes = {
     "catppuccin-mocha",
+    "catppuccin-latte",
+    "catppuccin-frappe",
     "tokyonight-night",
     "tokyonight-storm",
     "tokyonight-moon",

@@ -8,12 +8,12 @@
 # ───────────────────────────────────────────────────────────────
 # zsh-autocomplete MUST load first - manages compinit internally
 zinit light marlonrichert/zsh-autocomplete
-
-# Autosuggestions - suggests commands based on history
+#
+# # Autosuggestions - suggests commands based on history
 zinit light zsh-users/zsh-autosuggestions
-
-# Fzf tab completipn.
-zinit light Aloxaf/fzf-tab
+#
+# # Fzf tab completipn.
+# zinit light Aloxaf/fzf-tab
 
 # Additional completions for common commands
 zinit light zsh-users/zsh-completions
@@ -35,7 +35,14 @@ zinit light oknowton/zsh-dwim
 
 # Enhanced eza integration
 zinit light duggum/zeza
-#
+
+# Use bat for man pages and other previews (requires bat)
+zinit light knu/zsh-bat
+
+# Gentle reminders to use aliases you have defined
+zinit light MichaelAquilina/zsh-you-should-use
+
+
 # # ───────────────────────────────────────────────────────────────
 # #  Oh My Zsh Plugins (Loaded as Snippets)
 # # ───────────────────────────────────────────────────────────────
@@ -43,35 +50,9 @@ zinit light duggum/zeza
 # Colorized man pages
 zinit snippet OMZP::colored-man-pages
 
-# Suggests package installation for unknown commands
-zinit snippet OMZP::command-not-found
-
-# Copy current directory path to clipboard
-zinit snippet OMZP::copypath
-
 # Display images in terminal (catimg command)
 zinit snippet OMZP::catimg
 
 # Vi-mode support (keybindings and indicators)
 zinit snippet OMZP::vi-mode
 
-zinit snippet OMZP::zinit
-
-# # ───────────────────────────────────────────────────────────────
-# #  Appearance & Feedback Plugins
-# # ───────────────────────────────────────────────────────────────
-# # Colorize output of various commands
-# zinit light zdharma-continuum/zsh-colorize
-zinit load zdharma-continuum/zsh-colorize
-
-# Use bat for man pages and other previews (requires bat)
-zinit light knu/zsh-bat
-
-# Notifications for long-running commands (uses termux-notification)
-zinit light marzocchi/zsh-notify
-
-# Gentle reminders to use aliases you have defined
-zinit light MichaelAquilina/zsh-you-should-use
-
-# YouTube-DL/yt-dlp integration with fzf for searching
-zinit snippet OMZP::yt-dlp

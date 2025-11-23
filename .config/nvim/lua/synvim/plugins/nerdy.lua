@@ -3,18 +3,18 @@
 
 return {
   "2KAbhishek/nerdy.nvim",
-  dependencies = { 
+  dependencies = {
     "nvim-telescope/telescope.nvim",
     "nvim-lua/plenary.nvim",
   },
   cmd = "Nerdy",
-  
+
   config = function()
     -- Load the extension
     require("telescope").load_extension("nerdy")
   end,
-  
+
   keys = {
-    { "<leader>sni", "<cmd>Telescope nerdy<CR>", desc = "Search Nerd Icons" },
+    { "<leader>sn", "<cmd>Telescope nerdy<CR>", desc = "Search Nerd Icons" },
   },
 }

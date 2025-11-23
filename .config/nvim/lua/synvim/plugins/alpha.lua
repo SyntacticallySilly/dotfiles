@@ -82,7 +82,7 @@ return {
     }
 
     -- Footer
-    dashboard.section.footer.val = { "SynVim - Performance-focused Neovim for Termux" }
+    dashboard.section.footer.val = { "SynVim - Perfect Neovim for Termux" }
 
     dashboard.config.opts.noautocmd = true
 

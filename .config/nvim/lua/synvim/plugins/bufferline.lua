@@ -10,7 +10,7 @@ return {
   opts = {
     options = {
       mode = "buffers",  -- Show buffers, not tabs
-      themable = true,
+      themable = false,
 
       -- Appearance
       indicator = {
@@ -23,7 +23,7 @@ return {
       right_trunc_marker = "  ",
 
       -- Behavior
-      always_show_bufferline = true,
+      always_show_bufferline = false,
       offsets = {
         {
           filetype = "NvimTree",
@@ -34,7 +34,7 @@ return {
       },
 
       -- Separator (minimal thin lines)
-      separator_style = "thin",
+      separator_style = "rounded",
 
       -- Diagnostics
       diagnostics = "nvim_lsp",

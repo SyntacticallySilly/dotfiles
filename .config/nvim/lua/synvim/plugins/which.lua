@@ -29,7 +29,6 @@ return {
     -- Register key groups
     wk.add({
       { "<leader>s", group = "Search" },
-      { "<leader>sn", group = "Nerd Icons" },
       { "<leader>h", group = "Harpoon" },
       { "<leader>g", group = "Git" },
       { "<leader>gd", group = "Git Diff" },

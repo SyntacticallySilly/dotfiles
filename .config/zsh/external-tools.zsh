@@ -19,4 +19,4 @@ eval "$(oh-my-posh init zsh --config ~/.config/omp/zen.toml)"
 #  Zsh-Notify Configuration
 # ───────────────────────────────────────────────────────────────
 # Set the title for notifications sent by zsh-notify
-export ZSH_NOTIFY_TITLE="Termux Shell"
+# export ZSH_NOTIFY_TITLE="Termux Shell"

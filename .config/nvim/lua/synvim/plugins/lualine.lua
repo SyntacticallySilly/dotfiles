@@ -1,12 +1,11 @@
 -- SynVim Lualine Plugin
--- Minimal statusline with time and battery
+-- Minimal statusline with time
 
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = {
     "nvim-tree/nvim-web-devicons",
     "lewis6991/gitsigns.nvim",
-    "massix/termux.nvim",
   },
   event = "VeryLazy",
 
@@ -53,6 +52,8 @@ return {
 
       local theme_map = {
         ["catppuccin-mocha"] = "catppuccin",
+        ["catppuccin-frappe"] = "catppuccin",
+        ["catppuccin-latte"] = "catppuccin",
         ["tokyonight-night"] = "tokyonight",
         ["tokyonight-storm"] = "tokyonight",
         ["tokyonight-moon"] = "tokyonight",
@@ -79,45 +80,9 @@ return {
       return theme_map[colorscheme] or "auto"
     end
 
-    -- Battery component using termux.nvim
-    local function battery_status()
-      local ok, termux = pcall(require, "termux")
-      if not ok then
-        return ""
-      end
-
-      local battery = termux.battery.get_status()
-      if not battery then
-        return ""
-      end
-
-      local percent = battery.percentage or 0
-      local status = battery.status or "Unknown"
-
-      -- Battery icon based on percentage
-      local icon
-      if status == "CHARGING" then
-        icon = "󱎗"
-      elseif percent >= 90 then
-        icon = "90"
-      elseif percent >= 70 then
-        icon = "70"
-      elseif percent >= 50 then
-        icon = "50"
-      elseif percent >= 30 then
-        icon = "30"
-      elseif percent >= 10 then
-        icon = "Low"
-      else
-        icon = ""
-      end
-
-      return string.format("%s %d%%", icon, percent)
-    end
-
     -- Time component (12-hour format)
     local function current_time()
-      return os.date("%I:%M %p")  -- 12-hour format with AM/PM
+      return os.date(" %I:%M")  -- 12-hour format with AM/PM
     end
 
     lualine.setup({
@@ -126,7 +91,7 @@ return {
         component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
         disabled_filetypes = {
-          statusline = { "alpha", "dashboard", "startify" },
+          statusline = { "dashboard", "startify" },
           tabline = {},
         },
       },
@@ -158,7 +123,7 @@ return {
             "diff",
             colored = true,
             separator = { left = '', right = '' },
-            symbols = { added = " ", modified = " ", removed = " " },
+            symbols = { added = " ", modified = " ", removed = " " },
             source = function()
               local gitsigns = vim.b.gitsigns_status_dict
               if gitsigns then
@@ -177,26 +142,23 @@ return {
           {
             truncated_path,
             color = "lualine_c_normal",
+            separator = { right = '' },
             padding = { left = 1, right = 1 },
           },
         },
 
-        -- Right side: buffer count, battery, time, filetype
+        -- Right side: buffer count, time, filetype
         lualine_x = {
           {
             function()
               local total = #vim.fn.getbufinfo({buflisted = 1})
-              return "󰓩 " .. total
+              return " " .. total
             end,
             color = "lualine_x_normal",
           },
         },
 
         lualine_y = {
-          {
-            battery_status,
-            color = "lualine_y_normal",
-          },
           {
             current_time,
             color = "lualine_y_normal",
@@ -207,7 +169,7 @@ return {
           {
             "filetype",
             colored = true,
-            icon_only = false,
+            icon_only = true,
             icon = { align = "left" },
             padding = { left = 1, right = 1 },
           },

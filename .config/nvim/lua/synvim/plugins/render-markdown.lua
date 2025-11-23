@@ -3,18 +3,18 @@
 
 return {
   "MeanderingProgrammer/render-markdown.nvim",
-  dependencies = { 
+  dependencies = {
     "nvim-treesitter/nvim-treesitter",
     "nvim-tree/nvim-web-devicons",
   },
   ft = "markdown",  -- Load only for markdown files
-  
+
   opts = {
     -- Headings
     heading = {
       enabled = true,
       sign = true,
-      icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
+      icons = { "󰎤 ", "󰎧 ", "󰎪 ", "󰎭 ", "󰎱 ", "󰎳 " },
       backgrounds = {
         "RenderMarkdownH1Bg",
         "RenderMarkdownH2Bg",
@@ -32,7 +32,7 @@ return {
         "RenderMarkdownH6",
       },
     },
-    
+
     -- Code blocks
     code = {
       enabled = true,
@@ -41,36 +41,36 @@ return {
       left_pad = 2,
       right_pad = 2,
       width = "block",
-      border = "thin",
+      border = "rounded",
     },
-    
+
     -- Bullet points
     bullet = {
       enabled = true,
       icons = { "●", "○", "◆", "◇" },
     },
-    
+
     -- Checkboxes
     checkbox = {
       enabled = true,
       unchecked = { icon = "󰄱 " },
       checked = { icon = "󰱒 " },
     },
-    
+
     -- Links
     link = {
       enabled = true,
       image = "󰥶 ",
       hyperlink = "󰌹 ",
     },
-    
+
     -- Tables
     pipe_table = {
       enabled = true,
       style = "full",
       cell = "padded",
     },
-    
+
     -- Quotes
     quote = {
       enabled = true,
@@ -78,7 +78,7 @@ return {
       repeat_linebreak = true,
     },
   },
-  
+
   config = function(_, opts)
     require("render-markdown").setup(opts)
   end,

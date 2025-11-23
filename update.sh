@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Essential packages to keep updated (same as setup script)
-ESSENTIAL_PACKAGES="termux-tools nala stow zoxide yazi eza fd ripgrep fzf zsh neofetch neovim chafa man"
+ESSENTIAL_PACKAGES="termux-tools nala tur-repo stow zoxide yazi eza fd ripgrep fzf zsh neofetch neovim chafa man"
 
 # Colors
 RED="\u001B[1;31m"
@@ -75,7 +75,7 @@ nala update -y
 # Upgrade all installed packages
 printf "${CYAN}Upgrading all packages...${NC}
 "
-nala upgrade -y
+nala full-upgrade -y
 
 # Ensure essential packages are installed/updated
 printf "${CYAN}Verifying essential packages: ${ESSENTIAL_PACKAGES}${NC}

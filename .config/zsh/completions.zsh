@@ -44,13 +44,13 @@ zstyle -e ':autocomplete:*:*' list-lines 'reply=( $(( LINES / 1  )) )'
 # zstyle ':autocomplete:recent-paths:*' list-lines 10
 #
 # # Override for history search only
-# zstyle ':autocomplete:history-incremental-search-backward:*' list-lines 8
-#
-# # Override for history menu only
-zstyle ':autocomplete:history-search-backward:*' list-lines 100
+zstyle ':autocomplete:history-incremental-search-backward:*' list-lines 5
+# #
+# # # Override for history menu only
+zstyle ':autocomplete:history-search-backward:*' list-lines 500
 
 # ───────────────────────────────────────────────────────────────
 #  Custom Completions
 # ───────────────────────────────────────────────────────────────
-# Use apt completions for nala package manager
-compdef nala=apt
+# Completions for nala package manager
+

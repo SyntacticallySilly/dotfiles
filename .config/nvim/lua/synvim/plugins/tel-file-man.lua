@@ -23,7 +23,7 @@ return {
         file_browser = {
           theme = "dropdown",
           hijack_netrw = true,
-          grouped = false,
+          grouped = true,
           path_display = { "truncate" },
           hidden = { file_browser = true, folder_browser = true },
           respect_gitignore = true,
@@ -31,10 +31,10 @@ return {
           layout_config = {
             prompt_position = "bottom",
           },
-          auto_depth = false,
+          auto_depth = true,
           display_stat = false,
-          collapse_dirs = false,
-          cwd_to_path = false,
+          collapse_dirs = true,
+          cwd_to_path = true,
 
           mappings = {
             ["i"] = {

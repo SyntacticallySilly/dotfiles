@@ -29,7 +29,7 @@ if [ ${#theme_names[@]} -eq 0 ]; then
 fi
 
 # Use fzf to select a theme
-selected_theme_name=$(printf "%s\n" "${theme_names[@]}" | fzf --prompt="  Select a theme: ")
+selected_theme_name=$(printf "%s\n" "${theme_names[@]}" | fzf --prompt="  Select a theme: " --preview-window=hidden)
 
 # Exit if no theme was selected
 if [ -z "$selected_theme_name" ]; then
