@@ -2,12 +2,12 @@ version = 3
 final_space = true
 
 [secondary_prompt]
-#  template = '  … '
+  template = '  > '
   foreground = 'default'
   background = 'black'
 
 [transient_prompt]
-  template = '{{ if gt .Code 0 }}{{ else }}  {{ end }}{{ .Segments.Path.Path }}  '
+  template = '{{ if gt .Code 0 }} {{ else }}󰘳 {{ end }}{{ .Segments.Path.Path }}  '
   foreground = 'default'
   background = 'transparent'
 
@@ -60,10 +60,12 @@ final_space = true
         '~/storage/shared/Download/' = ' '
         '~/storage/shared/indev/' = '󰘦 '
         '~/dev' = ' '
-        '~/storage/shared/Documents/Syn' = '󰠮b'
-        '/storage/emulated/0/Documents/Syn' = '󰠮b'
-        'data/data/com.termux/files/usr' = ' '
-        'data/data/com.termux/files/usr/bin' = ' '
+        '~/storage/shared/Documents/personal' = '󰠮b'
+        '/storage/emulated/0/Documents/personal' = '󰠮b'
+        '/data/data/com.termux/files/usr' = ' '
+        '/data/data/com.termux/files/usr/bin' = ' '
+        '/data/data/com.termux/files' = ' '
+        '/data/data/com.termux' = ' '
 
   [[blocks.segments]]
     type = 'git'
@@ -99,7 +101,7 @@ final_space = true
     style = 'powerline'
     foreground = 'default'
     background = 'black'
-    template = '{{ if gt .Code 0 }} {{ .Code }}{{ end }}'
+    template = '{{ if gt .Code 0 }}  {{ .Code }}{{ end }}'
 
     [blocks.segments.properties]
       always_enabled = false
@@ -110,7 +112,7 @@ final_space = true
     style = 'powerline'
     foreground = 'default'
     background = 'black'
-    template = ' '
+    template = ' '
 
     [blocks.segments.properties]
       cache_duration = 'none'
