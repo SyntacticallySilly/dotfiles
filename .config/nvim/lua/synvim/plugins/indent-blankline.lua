@@ -5,22 +5,22 @@ return {
   "lukas-reineke/indent-blankline.nvim",
   event = { "BufReadPre", "BufNewFile" },
   main = "ibl",
-  
+
   opts = {
     indent = {
       char = "│",  -- Indent line character
       tab_char = "│",
     },
-    
+
     scope = {
       enabled = true,  -- Highlight current scope
       show_start = true,
-      show_end = false,
+      show_end = true,
       injected_languages = true,
       highlight = { "Function", "Label" },
       priority = 500,
     },
-    
+
     exclude = {
       filetypes = {
         "help",

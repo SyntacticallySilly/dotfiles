@@ -1,8 +1,7 @@
 -- SynVim Dracula Theme
 return {
   "Mofiqul/dracula.nvim",
-  lazy = false,
-  priority = 1000,
+  lazy = true,
   
   opts = {
     transparent_bg = true,

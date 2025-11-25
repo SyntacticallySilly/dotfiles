@@ -1,15 +1,13 @@
--- SynVim Blink.cmp Plugin
--- Performant completion with cmdline support (v1.7.0+ compatible)
-
 return {
   "saghen/blink.cmp",
   lazy = false,
   dependencies = {
     "rafamadriz/friendly-snippets",
     "onsails/lspkind.nvim",
+    "mikavilpas/blink-ripgrep.nvim",
   },
   version = "v1.*",
-  
+
   opts = {
     keymap = {
       preset = "enter",
@@ -24,16 +22,21 @@ return {
       ["<C-f>"] = { "scroll_documentation_down", "fallback" },
       ["<Tab>"] = { "snippet_forward", "fallback" },
       ["<S-Tab>"] = { "snippet_backward", "fallback" },
+      ["<C-g>"] = {
+        function()
+          require("blink.cmp").show({ providers = { "ripgrep" } })
+        end,
+      },
     },
-    
+
     appearance = {
-      use_nvim_cmp_as_default = true,
+      use_nvim_cmp_as_default = false,
       nerd_font_variant = "mono",
     },
-    
+
     sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
-      
+      default = { "lsp", "path", "snippets", "buffer", "ripgrep" },
+
       providers = {
         lsp = {
           name = "LSP",
@@ -50,7 +53,7 @@ return {
             get_cwd = function(context)
               return vim.fn.expand(("#%d:p:h"):format(context.bufnr))
             end,
-            show_hidden_files_by_default = false,
+            show_hidden_files_by_default = true,
           },
         },
         snippets = {
@@ -62,32 +65,55 @@ return {
           module = "blink.cmp.sources.buffer",
           min_keyword_length = 2,
         },
+        cmdline = {
+          name = "Cmdline",
+          module = "blink.cmp.sources.cmdline",
+        },
+        ripgrep = {
+          module = "blink-ripgrep",
+          name = "Ripgrep",
+          opts = {
+            prefix_min_len = 3,
+            context_size = 5,
+            max_filesize = "1M",
+            project_root_marker = ".git",
+            search_casing = "--ignore-case",
+          },
+          transform_items = function(_, items)
+            for _, item in ipairs(items) do
+              item.labelDetails = {
+                description = "(rg)",
+              }
+            end
+            return items
+          end,
+        },
       },
     },
-    
+
     completion = {
-      accept = { 
+      accept = {
         auto_brackets = { enabled = true },
       },
-      
+
       menu = {
         enabled = true,
         min_width = 15,
         max_height = 10,
-        border = "none",
+        border = "rounded",
         winblend = 0,
         winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
         scrollbar = true,
-        
+
         draw = {
           treesitter = { "lsp" },
-          columns = { 
-            { "kind_icon" }, 
+          columns = {
+            { "kind_icon" },
             { "label", "label_description", gap = 1 },
           },
         },
       },
-      
+
       documentation = {
         auto_show = true,
         auto_show_delay_ms = 200,
@@ -97,16 +123,20 @@ return {
           winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
         },
       },
-      
+
       list = {
         selection = {
           preselect = true,
-          auto_insert = true,
+          auto_insert = false,
         },
       },
+
+      ghost_text = {
+        enabled = false,
+      },
     },
-    
-    signature = { 
+
+    signature = {
       enabled = true,
       window = {
         border = "rounded",
@@ -114,7 +144,21 @@ return {
         winhighlight = "Normal:BlinkCmpSignatureHelp,FloatBorder:BlinkCmpSignatureHelpBorder",
       },
     },
+
+    cmdline = {
+      enabled = true,
+      sources = function()
+        local type = vim.fn.getcmdtype()
+        if type == "/" or type == "?" then
+          return { "buffer" }
+        end
+        if type == ":" then
+          return { "cmdline", "path" }
+        end
+        return {}
+      end,
+    },
   },
-  
+
   opts_extend = { "sources.default" },
 }

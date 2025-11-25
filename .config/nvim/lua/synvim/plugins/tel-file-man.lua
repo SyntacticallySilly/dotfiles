@@ -28,6 +28,7 @@ return {
           hidden = { file_browser = true, folder_browser = true },
           respect_gitignore = true,
           git_status = true,
+          sorting_strategy = "descending",
           layout_config = {
             prompt_position = "bottom",
           },

@@ -1,8 +1,7 @@
 -- SynVim Bamboo Theme
 return {
   "ribru17/bamboo.nvim",
-  lazy = false,
-  priority = 1000,
+  lazy = true,
   
   opts = {
     transparent = true,

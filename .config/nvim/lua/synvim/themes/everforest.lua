@@ -1,9 +1,7 @@
 -- SynVim Everforest Theme
 return {
   "neanias/everforest-nvim",
-  lazy = false,
-  priority = 1000,
-  
+  lazy = true,
   config = function()
     vim.g.everforest_background = "hard"  -- hard, medium, soft
     vim.g.everforest_transparent_background = 2  -- 0=no, 1=partial, 2=full

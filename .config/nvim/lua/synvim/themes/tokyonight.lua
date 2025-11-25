@@ -3,8 +3,7 @@
 
 return {
   "folke/tokyonight.nvim",
-  lazy = false,
-  priority = 1000,
+  lazy = true,
   
   opts = {
     style = "night",  -- night, storm, moon, or day

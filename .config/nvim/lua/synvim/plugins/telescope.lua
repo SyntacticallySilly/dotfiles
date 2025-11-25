@@ -15,15 +15,21 @@ return {
   cmd = "Telescope",
 
   keys = {
-    { "<leader>sf", "<cmd>Telescope find_files<CR>", desc = "Search Files" },
-    { "<leader>sg", "<cmd>Telescope live_grep<CR>", desc = "Search Grep" },
-    { "<leader>sb", "<cmd>Telescope buffers<CR>", desc = "Search Buffers" },
-    { "<leader>sh", "<cmd>Telescope help_tags<CR>", desc = "Search Help" },
-    { "<leader>sr", "<cmd>Telescope oldfiles<CR>", desc = "Search Recent" },
-    { "<leader>sk", "<cmd>Telescope keymaps<CR>", desc = "Search Keymaps" },
-    { "<leader>sc", "<cmd>Telescope commands<CR>", desc = "Search Commands" },
-    { "<leader>st", "<cmd>TodoTelescope<CR>", desc = "Search Todos" },
-    { "<leader>sts", "<cmd>lua require('synvim.theme-switcher').switch_theme()<CR>", desc = "Switch Theme" },
+    { "<leader>sf", "<cmd>Telescope find_files<cr>", desc = "Files" },
+    { "<leader>sgi", "<cmd>Telescope git_files<cr>", desc = "Git Files" },
+    { "<leader>sg", function()
+      require('telescope.builtin').live_grep()
+    end, desc = "Live Grep" },
+    { "<leader>sb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+    { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help" },
+    { "<leader>sr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
+    { "<leader>sc", "<cmd>Telescope commands<cr>", desc = "Commands" },
+    { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
+    { "<leader>sw", function()
+      require('telescope.builtin').grep_string()
+    end, desc = "Search Word" },
+    { "<leader>sd", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
+    { "<leader>st", "<cmd>Telescope colorscheme<cr>", desc = "Themes" },
   },
 
   config = function()
@@ -36,13 +42,12 @@ return {
         selection_caret = " ",
         entry_prefix = "",
 
-        sorting_strategy = "ascending",
+        sorting_strategy = "descending",
         layout_strategy = "horizontal",
 
         layout_config = {
           horizontal = {
             prompt_position = "bottom",
-            results_position = "bottom",
             preview_width = 0.55,
             results_width = 0.8,
           },
@@ -56,7 +61,7 @@ return {
 
         -- Transparent background
         winblend = 0,
---[[         borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" }, ]]
+        --[[         borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" }, ]]
 
         mappings = {
           i = {

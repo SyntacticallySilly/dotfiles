@@ -1,8 +1,7 @@
 -- SynVim Nightfox Theme Family
 return {
   "EdenEast/nightfox.nvim",
-  lazy = false,
-  priority = 1000,
+  lazy = true,
   
   opts = {
     options = {

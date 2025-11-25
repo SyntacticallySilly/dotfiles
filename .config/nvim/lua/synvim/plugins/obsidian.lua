@@ -15,7 +15,7 @@ return {
     workspaces = {
       {
         name = "Personal",
-        path = "~/storage/shared/Documents/Syn",  -- Change to your vault path
+        path = "~/storage/shared/Documents/personal/",  -- Change to your vault path
       },
       -- {
       --   name = "Research",

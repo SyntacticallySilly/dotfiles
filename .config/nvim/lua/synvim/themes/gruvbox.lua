@@ -3,8 +3,7 @@
 
 return {
   "ellisonleao/gruvbox.nvim",
-  lazy = false,
-  priority = 1000,
+  lazy = true,
   
   opts = {
     terminal_colors = true,

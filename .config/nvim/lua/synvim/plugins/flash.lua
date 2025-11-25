@@ -4,11 +4,11 @@
 return {
   "folke/flash.nvim",
   event = "VeryLazy",
-  
+
   opts = {
     modes = {
       search = {
-        enabled = true,  -- Enhanced search
+--[[         enabled = true,  -- Enhanced search ]]
       },
       char = {
         enabled = true,  -- Enhanced f/F/t/T
@@ -16,7 +16,7 @@ return {
       },
     },
   },
-  
+
   keys = {
     { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
     { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },

@@ -21,7 +21,7 @@ return {
     },
     keymaps = {
       cursor = true,         -- Enable smooth cursor movement
-      scroll = false,         -- Enable smooth scrolling
+      scroll = true,         -- Enable smooth scrolling
     },
   },
 

@@ -3,8 +3,7 @@
 
 return {
   "aliqyan-21/darkvoid.nvim",
-  lazy = false,
-  priority = 1000,
+  lazy = true,
   
   opts = {
     transparent = true,
@@ -12,8 +11,8 @@ return {
     
     colors = {
       -- You can override colors here if needed
-      -- bg = "#000000",
-      -- fg = "#c0c0c0",
+      bg = "#000000",
+      fg = "#c0c0c0",
     },
     
     plugins = {

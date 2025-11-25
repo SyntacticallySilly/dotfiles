@@ -3,8 +3,7 @@
 
 return {
   "goolord/alpha-nvim",
-  lazy = false,
-  priority = 1000,
+  event = "VimEnter",
 
   config = function()
     local alpha = require("alpha")
@@ -78,6 +77,8 @@ return {
       dashboard.button("p", "  Practice", ":VimBeGood<CR>"),
       dashboard.button("c", "  Config", ":Telescope file_browser path=" .. vim.fn.stdpath("config") .. "<CR>"),
       dashboard.button("l", "  Lazy", ":Lazy<CR>"),
+      dashboard.button("m", "  Mason", ":Mason<CR>"),
+      dashboard.button("s", "  Store", ":Store<CR>"),
       dashboard.button("q", "  Quit", ":qa<CR>"),
     }
 

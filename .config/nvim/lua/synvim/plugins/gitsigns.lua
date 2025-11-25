@@ -4,7 +4,7 @@
 return {
   "lewis6991/gitsigns.nvim",
   event = { "BufReadPre", "BufNewFile" },
-  
+
   opts = {
     signs = {
       add = { text = "│" },
@@ -14,28 +14,28 @@ return {
       changedelete = { text = "~" },
       untracked = { text = "┆" },
     },
-    
+
     signcolumn = true,  -- Show signs in sign column
-    numhl = false,      -- Don't highlight line numbers
+    numhl = true,      -- Don't highlight line numbers
     linehl = false,     -- Don't highlight lines
     word_diff = false,  -- Don't show word diff
-    
+
     current_line_blame = false,  -- Don't show blame by default
     current_line_blame_opts = {
       virt_text = true,
       virt_text_pos = "eol",
       delay = 500,
     },
-    
+
     on_attach = function(bufnr)
       local gs = package.loaded.gitsigns
-      
+
       local function map(mode, l, r, opts)
         opts = opts or {}
         opts.buffer = bufnr
         vim.keymap.set(mode, l, r, opts)
       end
-      
+
       -- Navigation between hunks
       map("n", "]h", function()
         if vim.wo.diff then
@@ -44,7 +44,7 @@ return {
         vim.schedule(function() gs.next_hunk() end)
         return "<Ignore>"
       end, { expr = true, desc = "Next hunk" })
-      
+
       map("n", "[h", function()
         if vim.wo.diff then
           return "[c"
@@ -52,7 +52,7 @@ return {
         vim.schedule(function() gs.prev_hunk() end)
         return "<Ignore>"
       end, { expr = true, desc = "Previous hunk" })
-      
+
       -- Git actions (using <leader>g prefix for git)
       map("n", "<leader>gs", gs.stage_hunk, { desc = "Stage hunk" })
       map("n", "<leader>gr", gs.reset_hunk, { desc = "Reset hunk" })
@@ -65,7 +65,7 @@ return {
       map("n", "<leader>gb", function() gs.blame_line({full = true}) end, { desc = "Blame line" })
       map("n", "<leader>gd", gs.diffthis, { desc = "Diff this" })
       map("n", "<leader>gD", function() gs.diffthis("~") end, { desc = "Diff this ~" })
-      
+
       -- Toggle options
       map("n", "<leader>gtb", gs.toggle_current_line_blame, { desc = "Toggle git blame" })
       map("n", "<leader>gtd", gs.toggle_deleted, { desc = "Toggle deleted" })

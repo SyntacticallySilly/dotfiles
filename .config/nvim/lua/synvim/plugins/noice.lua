@@ -59,9 +59,10 @@ return {
       view_warn = "notify",
     },
 
-    -- Disable popupmenu (wilder handles it)
     popupmenu = {
-      enabled = false,
+      enabled = true,
+      backend = "nui",
+      kind_icons = {},
     },
 
     -- LSP progress
@@ -80,7 +81,7 @@ return {
 
     presets = {
       bottom_search = false,  -- IMPORTANT: Don't use bottom search
-      command_palette = false,  -- Don't combine cmdline and popupmenu
+      command_palette = true,  -- Don't combine cmdline and popupmenu
       long_message_to_split = true,
     },
   },

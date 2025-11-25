@@ -4,11 +4,11 @@
 return {
   "stevearc/dressing.nvim",
   event = "VeryLazy",
-  
+
   opts = {
     input = {
       enabled = true,
-      default_prompt = "Input:",
+      default_prompt = " : ",
       border = "rounded",
       relative = "editor",
       prefer_width = 40,
