@@ -17,7 +17,7 @@ edit = [
     { run = 'nvim "$@"', block = true },
 ]
 open = [
-    { run = 'xdg-open "$@"', desc = "Open with default application" },
+    { run = 'termux-open "$@"', desc = "Open with default application" },
 ]
 # reveal = [
 #     { run = 'echo "$@"', desc = "Reveal in file manager" },

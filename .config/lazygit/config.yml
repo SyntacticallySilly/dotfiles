@@ -1,0 +1,97 @@
+# ~/.config/lazygit/config.yml
+
+# Performance-critical settings
+git:
+  # Use default log order for better performance on large repos
+  log:
+    order: default # Much faster than topo-order
+    showGraph: when-maximised # Only show graph when needed
+    showWholeGraph: false
+  # Disable expensive auto-operations
+  autoFetch: false
+  autoRefresh: true
+  fetchAll: false
+  # Optimize diff performance
+  pagers:
+    - colorArg: always
+      pager: "" # Use built-in pager for speed
+  # Faster branch operations
+  localBranchSortOrder: recency
+  remoteBranchSortOrder: alphabetical
+# Reduce refresh overhead
+refresher:
+  refreshInterval: 15 # Increase from 10
+  fetchInterval: 120 # Increase from 60
+# Disable startup overhead
+disableStartupPopups: true
+update:
+  method: never
+## Beautiful UI Configuration
+gui:
+  # Catppuccin Mocha theme (beautiful + readable)
+  theme:
+    activeBorderColor:
+      - '#89b4fa' # Blue
+      - bold
+    inactiveBorderColor:
+      - '#45475a' # Surface1
+    searchingActiveBorderColor:
+      - '#f9e2af' # Yellow
+      - bold
+    optionsTextColor:
+      - '#89dceb' # Sky
+    selectedLineBgColor:
+      - '#313244' # Surface0
+    inactiveViewSelectedLineBgColor:
+      - '#313244'
+    cherryPickedCommitBgColor:
+      - '#45475a'
+    cherryPickedCommitFgColor:
+      - '#89b4fa'
+    markedBaseCommitBgColor:
+      - '#f9e2af'
+    markedBaseCommitFgColor:
+      - '#1e1e2e'
+    unstagedChangesColor:
+      - '#f38ba8' # Red
+    defaultFgColor:
+      - '#cdd6f4' # Text
+  # Nerd Fonts for beauty (Termux supports this)
+  nerdFontsVersion: "3"
+  showFileIcons: true
+  # Clean, efficient layout
+  border: rounded
+  showCommandLog: false # Hide for cleaner UI
+  showBottomLine: true
+  showListFooter: true
+  showRandomTip: false
+  animateExplosion: false # Disable for performance
+  # Optimize panel sizes for phone screen
+  sidePanelWidth: 0.35
+  expandFocusedSidePanel: false
+  mainPanelSplitMode: flexible
+  # Better scrolling on small screen
+  scrollHeight: 3
+  scrollOffMargin: 3
+  scrollOffBehavior: margin
+  # Compact view settings
+  commitAuthorShortLength: 2
+  commitHashLength: 7
+  showBranchCommitHash: false
+  commandLogSize: 4
+  # Performance-friendly display
+  showFileTree: true
+  filterMode: substring # Faster than fuzzy
+# Termux-optimized editor config
+os:
+  editPreset: "nvim"
+  editInTerminal: true
+# Optimized keybindings (vim-style, familiar to you)
+keybinding:
+  universal:
+    quit: 'q'
+    return: '<esc>'
+    scrollUpMain-alt2: '<c-b>'
+    scrollDownMain-alt2: '<c-f>'
+confirmOnQuit: false
+quitOnTopLevelReturn: true

@@ -7,8 +7,8 @@
 #  History File Settings
 # ───────────────────────────────────────────────────────────────
 HISTFILE=~/.zsh_history
-HISTSIZE=200        # Number of commands in memory
-SAVEHIST=200        # Number of commands saved to file
+HISTSIZE=2000        # Number of commands in memory
+SAVEHIST=2000       # Number of commands saved to file
 
 # ───────────────────────────────────────────────────────────────
 #  History Options

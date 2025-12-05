@@ -4,7 +4,7 @@
     "type": "chafa",
     "source": "~/dotfiles/.config/fastfetch/mommy.png",
     "width": 30,
-    "height": 15,
+    "height": 21,
     "padding": {
       "top": 1
     }
@@ -47,13 +47,13 @@
       "type": "cpu",
       "key": "CPU",
       "keyColor": "green",
-      "format": "{name} ({cores})"
+      "format": "{name}"
     },
     {
       "type": "memory",
       "key": "Memory",
       "keyColor": "green",
-      "format": "{used} / {total} ({percentage})"
+      "format": "{total} ({percentage})"
     },
     {
       "type": "disk",
@@ -102,19 +102,19 @@
       "key": "Packages",
       "keyColor": "yellow"
     },
-    // {
-    //   "type": "command",
-    //   "key": "Git Status",
-    //   "keyColor": "yellow",
-    //   "text": "cd ~/dotfiles 2>/dev/null && git status -sb 2>/dev/null | head -1 || echo 'N/A'"
-    // },
+    {
+      "type": "command",
+      "key": "Git Status",
+      "keyColor": "yellow",
+      "text": "cd ~/dotfiles 2>/dev/null && git status -sb 2>/dev/null | head -1 || echo 'N/A'"
+    },
     "break",
-    // {
-    //   "type": "datetime",
-    //   "key": "Date",
-    //   "keyColor": "blue",
-    //   "format": "{date-format-custom}"
-    // },
+    {
+      "type": "datetime",
+      "key": "Date",
+      "keyColor": "blue",
+      "format": "{dd/MM/YYYY}"
+    },
     // {
     //   "type": "command",
     //   "key": "Neofetch Ver",

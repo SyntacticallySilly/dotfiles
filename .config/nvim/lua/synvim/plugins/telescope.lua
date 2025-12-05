@@ -11,15 +11,17 @@ return {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
     },
+    "jvgrootveld/telescope-zoxide",
   },
   cmd = "Telescope",
 
   keys = {
     { "<leader>sf", "<cmd>Telescope find_files<cr>", desc = "Files" },
-    { "<leader>sgi", "<cmd>Telescope git_files<cr>", desc = "Git Files" },
-    { "<leader>sg", function()
-      require('telescope.builtin').live_grep()
-    end, desc = "Live Grep" },
+    { "<leader>sv", "<cmd>Telescope git_files<cr>", desc = "Git Files" },
+    -- { "<leader>sg", function()
+    --   require('telescope.builtin').live_grep()
+    -- end, desc = "Live Grep" },
+    { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
     { "<leader>sb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
     { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help" },
     { "<leader>sr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
@@ -30,6 +32,7 @@ return {
     end, desc = "Search Word" },
     { "<leader>sd", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
     { "<leader>st", "<cmd>Telescope colorscheme<cr>", desc = "Themes" },
+    { "<leader>sz", "<cmd>Telescope zoxide list<cr>", desc = "Zoxide"}
   },
 
   config = function()
@@ -106,10 +109,17 @@ return {
           hidden = true,
           find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
         },
+        live_grep = {
+          theme = "ivy",
+        },
+        keymaps = {
+          theme = "ivy",
+        }
       },
     })
 
     -- Load extensions
     pcall(telescope.load_extension, "fzf")
+    pcall(telescope.load_extension, "zoxide")
   end,
 }

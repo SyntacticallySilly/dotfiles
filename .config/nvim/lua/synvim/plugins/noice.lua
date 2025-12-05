@@ -26,13 +26,13 @@ return {
         },
       },
       format = {
-      --   cmdline = {
-      --     kind = "command",
-      --     pattern = "^:",
-      --     icon = "  ",
-      --     lang = "regex",
-      --     view = "cmdline_popup"
-      --   },
+        --   cmdline = {
+        --     kind = "command",
+        --     pattern = "^:",
+        --     icon = "  ",
+        --     lang = "regex",
+        --     view = "cmdline_popup"
+        --   },
         -- Keep search floating too (not at bottom)
         search_down = {
           kind = "search",
@@ -68,21 +68,26 @@ return {
     -- LSP progress
     lsp = {
       progress = {
-        enabled = true,
-        view = "mini",
-      },
-      hover = {
-        enabled = true,
-      },
-      signature = {
         enabled = false,
-      },
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
+        },
+      view = "mini",
     },
-
-    presets = {
-      bottom_search = false,  -- IMPORTANT: Don't use bottom search
-      command_palette = true,  -- Don't combine cmdline and popupmenu
-      long_message_to_split = true,
+    hover = {
+      enabled = true,
+    },
+    signature = {
+      enabled = false,
     },
   },
+
+  presets = {
+    bottom_search = false,  -- IMPORTANT: Don't use bottom search
+    command_palette = true,  -- Don't combine cmdline and popupmenu
+    long_message_to_split = true,
+  },
+},
 }

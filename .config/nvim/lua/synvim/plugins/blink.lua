@@ -1,12 +1,16 @@
+-- SynVim Blink.cmp Plugin
+-- Performant completion with cmdline popup menu & color highlighting
+
 return {
   "saghen/blink.cmp",
   lazy = false,
   dependencies = {
     "rafamadriz/friendly-snippets",
     "onsails/lspkind.nvim",
-    "mikavilpas/blink-ripgrep.nvim",
+    -- "mikavilpas/blink-ripgrep.nvim",
+    "brenoprata10/nvim-highlight-colors", -- Added dependency
   },
-  version = "v1.*",
+  version = "v0.*",
 
   opts = {
     keymap = {
@@ -30,12 +34,12 @@ return {
     },
 
     appearance = {
-      use_nvim_cmp_as_default = false,
+      use_nvim_cmp_as_default = true,
       nerd_font_variant = "mono",
     },
 
     sources = {
-      default = { "lsp", "path", "snippets", "buffer", "ripgrep" },
+      default = { "lsp", "path", "snippets", "buffer" },
 
       providers = {
         lsp = {
@@ -53,7 +57,7 @@ return {
             get_cwd = function(context)
               return vim.fn.expand(("#%d:p:h"):format(context.bufnr))
             end,
-            show_hidden_files_by_default = true,
+            show_hidden_files_by_default = false,
           },
         },
         snippets = {
@@ -63,31 +67,30 @@ return {
         buffer = {
           name = "Buffer",
           module = "blink.cmp.sources.buffer",
-          min_keyword_length = 2,
         },
         cmdline = {
           name = "Cmdline",
           module = "blink.cmp.sources.cmdline",
         },
-        ripgrep = {
-          module = "blink-ripgrep",
-          name = "Ripgrep",
-          opts = {
-            prefix_min_len = 3,
-            context_size = 5,
-            max_filesize = "1M",
-            project_root_marker = ".git",
-            search_casing = "--ignore-case",
-          },
-          transform_items = function(_, items)
-            for _, item in ipairs(items) do
-              item.labelDetails = {
-                description = "(rg)",
-              }
-            end
-            return items
-          end,
-        },
+        -- ripgrep = {
+        --   module = "blink-ripgrep",
+        --   name = "Ripgrep",
+        --   opts = {
+        --     prefix_min_len = 3,
+        --     context_size = 5,
+        --     max_filesize = "1M",
+        --     project_root_marker = ".git",
+        --     search_casing = "--ignore-case",
+        --   },
+        --   transform_items = function(_, items)
+        --     for _, item in ipairs(items) do
+        --       item.labelDetails = {
+        --         description = "(rg)",
+        --       }
+        --     end
+        --     return items
+        --   end,
+        -- },
       },
     },
 
@@ -100,7 +103,7 @@ return {
         enabled = true,
         min_width = 15,
         max_height = 10,
-        border = "rounded",
+        border = "none",
         winblend = 0,
         winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
         scrollbar = true,
@@ -111,11 +114,39 @@ return {
             { "kind_icon" },
             { "label", "label_description", gap = 1 },
           },
+          components = {
+            kind_icon = {
+              text = function(ctx)
+                -- Check if nvim-highlight-colors is available
+                local has_hl, hl_colors = pcall(require, "nvim-highlight-colors")
+                if has_hl and ctx.item.documentation then
+                  -- Try to extract color from documentation
+                  local color_item = hl_colors.format(ctx.item.documentation, { kind = ctx.kind })
+                  if color_item and color_item.abbr and color_item.abbr ~= "" then
+                    return color_item.abbr .. ctx.icon_gap
+                  end
+                end
+                return ctx.kind_icon .. ctx.icon_gap
+              end,
+              highlight = function(ctx)
+                -- Check if nvim-highlight-colors is available
+                local has_hl, hl_colors = pcall(require, "nvim-highlight-colors")
+                if has_hl and ctx.item.documentation then
+                  -- Try to extract color from documentation
+                  local color_item = hl_colors.format(ctx.item.documentation, { kind = ctx.kind })
+                  if color_item and color_item.abbr_hl_group then
+                    return color_item.abbr_hl_group
+                  end
+                end
+                return "BlinkCmpKind" .. ctx.kind
+              end,
+            },
+          },
         },
       },
 
       documentation = {
-        auto_show = true,
+        auto_show = false,
         auto_show_delay_ms = 200,
         window = {
           border = "rounded",
@@ -161,4 +192,8 @@ return {
   },
 
   opts_extend = { "sources.default" },
+
+  config = function(_, opts)
+    require("blink.cmp").setup(opts)
+  end,
 }

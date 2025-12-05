@@ -43,10 +43,10 @@ layout {
 
                 tab_normal              "#[fg=#6C7086] {index} {name} "
                 tab_normal_fullscreen   "#[fg=#6C7086] {index} {name} [] "
-                tab_normal_sync         "#[fg=#6C7086] {index} {name} <> "
+                tab_normal_tmuxc         "#[fg=#6C7086] {index} {name} <> "
                 tab_active              "#[fg=#89B4FA,bold,italic] {index} {name} "
                 tab_active_fullscreen   "#[fg=#89B4FA,bold,italic] {index} {name} [] "
-                tab_active_sync         "#[fg=#89B4FA,bold,italic] {index} {name} <> "
+                tab_active_tmuxc         "#[fg=#89B4FA,bold,italic] {index} {name} <> "
 
                 command_git_branch_command     "git rev-parse --abbrev-ref HEAD"
                 command_git_branch_format      "#[fg=blue] {stdout} "

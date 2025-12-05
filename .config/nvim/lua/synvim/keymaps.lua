@@ -150,8 +150,8 @@ end
 -- ALPHA (DASHBOARD) KEYMAPS
 -- ============================================================================
 
-M.alpha_keymaps = function()
-  map("n", "<leader>a", "<cmd>Alpha<CR>", { desc = "Alpha dashboard" })
+M.dashboard_keymaps = function()
+  map("n", "<leader>a", "<cmd>Dashboard<CR>", { desc = "Dashboard" })
 end
 
 -- ============================================================================
@@ -177,7 +177,7 @@ end
 
 M.formatting_keymaps = function()
   -- Format entire file with LSP (if available, otherwise fallback to indent)
-  map("n", "<leader>f", function()
+  map("n", "<leader>fl", function()
     -- Try LSP format first
     local clients = vim.lsp.get_clients({ bufnr = 0 })
     if #clients > 0 then
@@ -189,12 +189,12 @@ M.formatting_keymaps = function()
   end, { desc = "Format file (LSP)" })
 
   -- Format selection in visual mode
-  map("v", "<leader>f", function()
+  map("v", "<leader>fl", function()
     vim.lsp.buf.format({ async = true })
   end, { desc = "Format selection" })
 
   -- Fix indentation manually (preserves content, only fixes indent)
-  map("n", "<leader>i", function()
+  map("n", "<leader>fi", function()
     -- Save cursor position
     local save_cursor = vim.api.nvim_win_get_cursor(0)
     -- Store the view to restore scroll position
@@ -217,7 +217,7 @@ M.formatting_keymaps = function()
   end, { desc = "Fix indentation" })
 
   -- Alternative: Format with external formatter (if you have prettier, black, etc.)
-  map("n", "<leader>F", function()
+  map("n", "<leader>fe", function()
     -- This will use conform.nvim if you install it, or fallback to LSP
     local ok, conform = pcall(require, "conform")
     if ok then
@@ -259,13 +259,29 @@ end
 -- NOICE KEYMAPS
 -- ============================================================================
 
-M.noice_keymaps = function()
-  -- <leader>nd = Noice Dismiss
-  map("n", "<leader>nd", function()
-    require("noice").dismiss()
-  end, { desc = "Noice Dismiss" })
+M.notify_keymaps = function()
+  -- Notifications Dismiss
+  map("n", "<leader>nd", "<cmd>Noice dismiss<CR>",
+  { desc = "Dismiss Notifications"})
+
+  --  Search Notificatuon history
+  map("n", "<leader>ns", "<cmd>Telescope notify<CR>",
+    { desc = "Notificatuons Search"})
 end
 
+ -- ============================================================================
+-- SETTINGS KEYMAPS
+-- ============================================================================
+M.settings_keymaps = function()
+  -- Opens Dashboard.
+ map("n", "<leader>td", "<cmd>Dashboard<CR>", { desc = "Open Dashboard"})
+  -- Opens Lazy.nvim
+ map("n", "<leader>tlv", "<cmd>Lazy<CR>", { desc = "Open Lazy.nvim"})
+  -- LSP styff.
+ map("n", "<leader>tlss", "<cmd>LspRestart<CR>", { desc = "Start LSP"})
+ map("n", "<leader>tlsp", "<cmd>LspStop<CR>", { desc = "Stop LSP"})
+ map("n", "<leader>tlsi", "<cmd>LspInfo<CR>", { desc = "LSP Debug"})
+end
 -- ============================================================================
 -- Setup function - Call keymaps that don't depend on plugins
 -- Plugin-dependent keymaps are called from their plugin configs
@@ -275,12 +291,12 @@ M.setup = function()
   -- Load keymaps that have NO plugin dependencies immediately
   M.navigation_keymaps()
   M.editing_keymaps()
-  M.alpha_keymaps()
   M.bufferline_keymaps()
   M.formatting_keymaps()
   M.theme_keymaps()
   M.file_explorer_keymaps()
-  M.noice_keymaps()
+  M.notify_keymaps()
+  M.settings_keymaps()
   -- Plugin-dependent keymaps are called from their plugin configs
   -- See telescope.lua and harpoon.lua for when these are called
 end

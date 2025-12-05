@@ -28,7 +28,7 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 #  Utility Plugins
 # ───────────────────────────────────────────────────────────────
 # Pretty time display for command duration
-# zinit light sindresorhus/pretty-time-zsh
+zinit light sindresorhus/pretty-time-zsh
 
 # Smart command line expansion (Do What I Mean)
 zinit light oknowton/zsh-dwim
@@ -37,14 +37,20 @@ zinit light oknowton/zsh-dwim
 zinit light duggum/zeza
 
 # Use bat for man pages and other previews (requires bat)
-zinit light knu/zsh-bat
+# zinit light knu/zsh-bat
 
 # Gentle reminders to use aliases you have defined
-zinit light MichaelAquilina/zsh-you-should-use
-
+# zinit light MichaelAquilina/zsh-you-should-use
 
 # # ───────────────────────────────────────────────────────────────
-# #  Oh My Zsh Plugins (Loaded as Snippets)
+# # Zinit Annexes
+# # ───────────────────────────────────────────────────────────────
+# Run packages or scripts without needing to add anything to $PATH
+zinit light zdharma-continuum/zinit-annex-bin-gem-node
+# zinit light zdharma-continuum/zinit-annex-as-needed
+
+# # ───────────────────────────────────────────────────────────────
+# #  Oh My Zsh Snippets
 # # ───────────────────────────────────────────────────────────────
 # zinit snippet OMZP::*
 # Colorized man pages

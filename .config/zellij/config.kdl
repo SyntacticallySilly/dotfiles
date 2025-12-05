@@ -122,8 +122,8 @@ keybinds {
         bind "," { SwitchToMode "RenameTab"; TabNameInput 0; }
 
         // Panes: split, close, move focus.
-        bind "-" { NewPane "Down"; SwitchToMode "Normal"; }   // horizontal split
-        bind "|" { NewPane "Right"; SwitchToMode "Normal"; }  // vertical split
+        bind ":" { NewPane "Down"; SwitchToMode "Normal"; }   // horizontal split
+        bind "{" { NewPane "Right"; SwitchToMode "Normal"; }  // vertical split
         bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
         bind "f" { ToggleFloatingPanes; SwitchToMode "Normal"; }
         bind "q" { CloseFocus; SwitchToMode "Normal"; }

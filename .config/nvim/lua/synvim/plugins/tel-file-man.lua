@@ -1,5 +1,6 @@
 -- SynVim Telescope File Browser
 -- Feature-rich file manager with Enter to open
+-- Opens automatically when nvim is started with a directory
 
 return {
   "nvim-telescope/telescope-file-browser.nvim",
@@ -83,5 +84,23 @@ return {
     })
 
     telescope.load_extension("file_browser")
+
+    -- Auto-open file browser when nvim is started with a directory
+    vim.api.nvim_create_autocmd("VimEnter", {
+      callback = function()
+        local arg = vim.fn.argv(0)
+        if arg and vim.fn.isdirectory(arg) == 1 then
+          -- Delete the directory buffer that netrw would create
+          vim.cmd("bdelete")
+          
+          -- Open telescope file browser in the directory
+          vim.schedule(function()
+            require("telescope").extensions.file_browser.file_browser({
+              cwd = arg,
+            })
+          end)
+        end
+      end,
+    })
   end,
 }

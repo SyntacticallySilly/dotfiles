@@ -41,6 +41,7 @@ return {
       { "<leader>q", group = "Quit" },
       { "<leader>gt", group = "Git Toggle" },
       { "<leader>v", group = "Vim Practice" },
+      { "<leader>n", group = "Notifications"}
     })
   end,
 }

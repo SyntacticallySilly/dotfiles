@@ -19,8 +19,8 @@ return {
 
   opts = {
     hide_cursor = false,
-    stop_eof = false,
-    respect_scrolloff = false,
+    stop_eof = true,
+    respect_scrolloff = true,
     cursor_scrolls_alone = true,
     easing = "sine",
     performance_mode = false,

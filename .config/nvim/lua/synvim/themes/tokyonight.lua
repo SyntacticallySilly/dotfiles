@@ -4,7 +4,7 @@
 return {
   "folke/tokyonight.nvim",
   lazy = true,
-  
+
   opts = {
     style = "night",  -- night, storm, moon, or day
     transparent = true,
@@ -19,10 +19,10 @@ return {
     },
     sidebars = { "qf", "help", "NvimTree", "terminal" },
     hide_inactive_statusline = false,
-    dim_inactive = false,
-    lualine_bold = false,
+    dim_inactive = true,
+    lualine_bold = true,
   },
-  
+
   config = function(_, opts)
     require("tokyonight").setup(opts)
   end,

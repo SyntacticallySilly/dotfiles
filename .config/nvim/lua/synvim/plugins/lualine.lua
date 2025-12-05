@@ -88,10 +88,11 @@ return {
     lualine.setup({
       options = {
         theme = get_theme(),
+        globalstatus = true,
         component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
         disabled_filetypes = {
-          statusline = { "dashboard", "startify" },
+          statusline = { "startify" },
           tabline = {},
         },
       },
@@ -140,7 +141,7 @@ return {
         -- Middle: truncated file path
         lualine_c = {
           {
-            truncated_path,
+            "truncated_path",
             color = "lualine_c_normal",
             separator = { right = '' },
             padding = { left = 1, right = 1 },
@@ -169,7 +170,7 @@ return {
           {
             "filetype",
             colored = true,
-            icon_only = true,
+            icon_only = false,
             icon = { align = "left" },
             padding = { left = 1, right = 1 },
           },

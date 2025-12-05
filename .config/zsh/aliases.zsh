@@ -9,6 +9,8 @@
 # nnn: File manager with extended options, hidden files, detail view
 alias n='nnn -EHd'
 
+# Yazi : File manager.
+alias y='yazi'
 # eza: Modern ls replacement with icons
 alias ls='eza -aa --no-quotes --icons=always --git-repos-no-status'
 alias lsf='eza -a -f --icons=always --no-quotes'          # Files only
