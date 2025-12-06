@@ -107,6 +107,7 @@ return {
         winblend = 0,
         winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
         scrollbar = true,
+        auto_show = true,
 
         draw = {
           treesitter = { "lsp" },
