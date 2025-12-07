@@ -28,7 +28,7 @@ vim.opt.cursorline = true           -- Highlight current line
 vim.opt.termguicolors = true        -- True color support
 vim.opt.scrolloff = 5               -- Keep 8 lines visible when scrolling
 vim.opt.sidescrolloff = 5           -- Keep 8 columns visible when scrolling
-vim.opt.updatetime = 100            -- Faster update time (better performance)
+vim.opt.updatetime = 5              -- Faster update time (better performance)
 vim.opt.timeoutlen = 250            -- Timeout for key sequences
 vim.opt.completeopt = "menuone,noselect"  -- Better completion menu
 vim.opt.undolevels = 10000          -- More undo history (default is 1000)
@@ -36,15 +36,44 @@ vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"  -- Undo directory
 vim.opt.timeout = true
 vim.opt.ttimeoutlen = 10
 vim.opt.ttyfast = true    -- Assume fast terminal connection
+-- Reduce memory usage
+vim.opt.maxmempattern = 2000
+-- vim.opt.shadafile = "NONE" -- Disable shada during editing, save on exit
 
+-- -- Faster completion
+vim.opt.pumheight = 15 -- Limit completion menu height
 
 -- Restore cursor position when reopening files
+-- vim.api.nvim_create_autocmd("BufReadPost", {
+--   callback = function()
+--     local mark = vim.api.nvim_buf_get_mark(0, '"')
+--     local lcount = vim.api.nvim_buf_line_count(0)
+--     if mark[1] > 0 and mark[1] <= lcount then
+--       pcall(vim.api.nvim_win_set_cursor, 0, mark)
+--     end
+--   end,
+-- })
+
+-- Add this to your init.lua or a separate config file
+
+-- Simple approach using vim's built-in last position mark
 vim.api.nvim_create_autocmd("BufReadPost", {
+  group = vim.api.nvim_create_augroup("RestoreCursorPosition", { clear = true }),
+  pattern = "*",
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
-    local lcount = vim.api.nvim_buf_line_count(0)
-    if mark[1] > 0 and mark[1] <= lcount then
-      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+    local line_count = vim.api.nvim_buf_line_count(0)
+
+    -- Check if the mark is valid and within file bounds
+    if mark[1] > 0 and mark[1] <= line_count then
+      -- Exclude certain filetypes where cursor restoration doesn't make sense
+      local filetype = vim.bo.filetype
+      local exclude_ft = { "gitcommit", "gitrebase", "xxd", "commit" }
+
+      if not vim.tbl_contains(exclude_ft, filetype) then
+        -- Restore cursor position and center the screen
+        vim.cmd('normal! g`"zz')
+      end
     end
   end,
 })

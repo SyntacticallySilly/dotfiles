@@ -189,6 +189,21 @@ return {
         end
         return {}
       end,
+      -- Added cmdline-specific completion settings
+      completion = {
+        list = { 
+          selection = { preselect = false }  -- Prevents :w from auto-selecting :wall
+        },
+        menu = {
+          auto_show = function(ctx)
+            return vim.fn.getcmdtype() == ":"  -- Auto-show only for : commands
+          end,
+        },
+      },
+      -- Optional: cmdline-specific keymap preset
+      keymap = {
+        preset = "cmdline",
+      },
     },
   },
 

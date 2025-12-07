@@ -30,10 +30,10 @@ return {
         pad_comment_parts = true,
       },
       mappings = {
-        comment = "gc",
-        comment_line = "gcc",
-        comment_visual = "gc",
-        textobject = "gc",
+        comment = "cc",
+        comment_line = "ccl",
+        comment_visual = "cc",
+        textobject = "cc",
       },
     })
 
@@ -71,15 +71,15 @@ return {
     -- Mini.animate - Replaces illuminate, undo-glow, beacon.nvim
     require("mini.animate").setup({
       -- Cursor path animation (replaces beacon.nvim)
-      cursor = {
-        enable = true,
-        timing = require("mini.animate").gen_timing.linear({ duration = 500, unit = "total" }),
-        path = require("mini.animate").gen_path.line({
-          predicate = function()
-            return true
-          end,
-        }),
-      },
+      -- cursor = {
+      --   enable = true,
+      --   timing = require("mini.animate").gen_timing.linear({ duration = 500, unit = "total" }),
+      --   path = require("mini.animate").gen_path.line({
+      --     predicate = function()
+      --       return true
+      --     end,
+      --   }),
+      -- },
 
       -- Scroll animation
       scroll = {

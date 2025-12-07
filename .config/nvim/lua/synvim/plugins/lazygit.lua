@@ -14,9 +14,10 @@ return {
     "nvim-lua/plenary.nvim",
   },
   keys = {
-    { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
-    { "<leader>gc", "<cmd>LazyGitCurrentFile<cr>", desc = "LazyGit Current File" },
-    { "<leader>gf", "<cmd>LazyGitFilter<cr>", desc = "LazyGit Filter" },
+    { "<leader>tg", "<cmd>LazyGit<cr>", desc = "LazyGit"}
+  --   { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+  --   { "<leader>gc", "<cmd>LazyGitCurrentFile<cr>", desc = "LazyGit Current File" },
+  --   { "<leader>gf", "<cmd>LazyGitFilter<cr>", desc = "LazyGit Filter" },
   },
 
   config = function()
@@ -29,12 +30,11 @@ return {
 
     -- Custom LazyGit config for Termux (if lazygit installed)
     local lazygit_config = vim.fn.expand("~/.config/lazygit/config.yml")
-    
+
     -- Auto-create lazygit config if it doesn't exist
     if vim.fn.filereadable(lazygit_config) == 0 then
       local config_dir = vim.fn.expand("~/.config/lazygit")
-      vim.fn.mkdir(config_dir, "p")
-      
+
       local config_content = [[
 gui:
   theme:
@@ -60,14 +60,14 @@ git:
   paging:
     colorArg: always
     pager: delta --dark --paging=never
-  
+
   merging:
     manualCommit: false
     args: ''
 
 os:
   editPreset: 'nvim'
-  
+
 refresher:
   refreshInterval: 10
   fetchInterval: 60
@@ -77,7 +77,7 @@ update:
 
 notARepository: 'quit'
 ]]
-      
+
       local file = io.open(lazygit_config, "w")
       if file then
         file:write(config_content)

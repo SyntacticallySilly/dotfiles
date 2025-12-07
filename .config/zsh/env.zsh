@@ -15,6 +15,7 @@ export VISUAL=nvim
 # ───────────────────────────────────────────────────────────────
 # Add user-local binaries to PATH (highest priority)
 export PATH="${HOME}/.local/bin:${PATH}"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # ───────────────────────────────────────────────────────────────
 #  FZF Configuration

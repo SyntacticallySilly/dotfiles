@@ -22,13 +22,13 @@
 source ~/dotfiles/.config/zsh/env.zsh
 source ~/dotfiles/.config/zsh/history.zsh
 source ~/dotfiles/.config/zsh/zinit-bootstrap.zsh
+source ~/dotfiles/.config/zsh/external-tools.zsh
 source ~/dotfiles/.config/zsh/plugins.zsh
 source ~/dotfiles/.config/zsh/completions.zsh
 source ~/dotfiles/.config/zsh/binds.zsh
 source ~/dotfiles/.config/zsh/vi-mode.zsh
 source ~/dotfiles/.config/zsh/aliases.zsh
 source ~/dotfiles/.config/zsh/functions.zsh
-source ~/dotfiles/.config/zsh/external-tools.zsh
 source ~/dotfiles/.config/zsh/startup.zsh
 
 # ───────────────────────────────────────────────────────────────

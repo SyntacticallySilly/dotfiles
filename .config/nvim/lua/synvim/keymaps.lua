@@ -281,6 +281,7 @@ M.settings_keymaps = function()
  map("n", "<leader>tlss", "<cmd>LspRestart<CR>", { desc = "Start LSP"})
  map("n", "<leader>tlsp", "<cmd>LspStop<CR>", { desc = "Stop LSP"})
  map("n", "<leader>tlsi", "<cmd>LspInfo<CR>", { desc = "LSP Debug"})
+ map("n", "U", "<cmd>redo<CR>", { desc = "Redo"})
 end
 -- ============================================================================
 -- Setup function - Call keymaps that don't depend on plugins
