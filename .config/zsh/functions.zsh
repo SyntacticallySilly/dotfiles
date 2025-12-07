@@ -30,13 +30,16 @@ extract() {
   fi
 }
 
-# In ~/.zshrc (Termux)
-y() {
-  local tmp="$(mktemp -t 'yazi-cwd.XXXXXX')" cwd
-    yazi "$@" --cwd-file="$tmp"
-      if cwd="$(cat -- "$tmp" 2>/dev/null)" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-          cd -- "$cwd"
-            fi
-              rm -f -- "$tmp"
-              }
+nvs() {
+  local file=$(fzf --preview="bat --color=always --style=numbers {}")
+  [[ -n "$file" ]] && nvim "$file"
+}
 
+function zs() {
+  local selected=$(zoxide query -l | fzf \
+    --prompt="cd to : " \
+    --preview="eza -1 -aa --reverse --color=always --no-quotes --icons=always --git-repos-no-status {}" \
+    --with-nth=-2,-1 \
+    --delimiter=/)
+  [[ -n "$selected" ]] && cd "$selected"
+}
