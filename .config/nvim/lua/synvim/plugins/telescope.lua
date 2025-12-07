@@ -18,9 +18,6 @@ return {
   keys = {
     { "<leader>sf", "<cmd>Telescope find_files<cr>", desc = "Files" },
     { "<leader>sv", "<cmd>Telescope git_files<cr>", desc = "Git Files" },
-    -- { "<leader>sg", function()
-    --   require('telescope.builtin').live_grep()
-    -- end, desc = "Live Grep" },
     { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
     { "<leader>sb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
     { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help" },
@@ -94,7 +91,7 @@ return {
 
         vimgrep_arguments = {
           "rg",
-          "--color=always",
+          "--color=never",
           "--no-heading",
           "--with-filename",
           "--line-number",
@@ -108,9 +105,6 @@ return {
         find_files = {
           hidden = true,
           find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
-        },
-        live_grep = {
-          theme = "ivy",
         },
         keymaps = {
           theme = "ivy",
