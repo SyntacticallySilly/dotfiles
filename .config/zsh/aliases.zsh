@@ -76,3 +76,6 @@ alias themectl='zsh ~/dotfiles/scripts/theme-cycler.sh'
 
 # Shizuku remote shell
 alias rish='zsh ~/scripts/rish'
+
+
+alias help='glow ~/dotfiles/syndot.md'

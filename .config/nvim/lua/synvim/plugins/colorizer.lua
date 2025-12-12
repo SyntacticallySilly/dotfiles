@@ -95,12 +95,12 @@ return {
         parsers = { "css" },
       },
 
-      -- VIRTUALTEXT MODE (this is what you wanted!)
+      -- Mode of color indication.
       mode = "virtualtext",
 
       -- Virtualtext configuration
       virtualtext = "󱓻 ",           -- Character to display
-      virtualtext_inline = "after", -- Display after the color code
+      virtualtext_inline = "before", -- Display after the color code
       virtualtext_mode = "foreground", -- Color the virtualtext character
 
       -- Always update (useful for completion menus)

@@ -110,10 +110,10 @@
     },
     "break",
     {
-      "type": "datetime",
-      "key": "Date",
-      "keyColor": "blue",
-      "format": "{dd/MM/YYYY}"
+        "type": "datetime",
+        "key": "Date",
+        "keyColor": "blue",
+        "format": "{day-in-month}/{month}/{year}"
     },
     // {
     //   "type": "command",

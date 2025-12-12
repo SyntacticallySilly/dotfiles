@@ -53,20 +53,20 @@ return {
     })
 
     -- Mini.indentscope - Replaces indent-blankline
-    require("mini.indentscope").setup({
-      symbol = "│",
-      options = { try_as_border = true },
-      draw = {
-        delay = 50,
-        animation = require("mini.indentscope").gen_animation.none(),
-      },
-      mappings = {
-        object_scope = "ii",
-        object_scope_with_border = "ai",
-        goto_top = "[i",
-        goto_bottom = "]i",
-      },
-    })
+    -- require("mini.indentscope").setup({
+    --   symbol = "│",
+    --   options = { try_as_border = true },
+    --   draw = {
+    --     delay = 50,
+    --     animation = require("mini.indentscope").gen_animation.none(),
+    --   },
+    --   mappings = {
+    --     object_scope = "ii",
+    --     object_scope_with_border = "ai",
+    --     goto_top = "[i",
+    --     goto_bottom = "]i",
+    --   },
+    -- })
 
     -- Mini.animate - Replaces illuminate, undo-glow, beacon.nvim
     require("mini.animate").setup({
@@ -146,23 +146,23 @@ return {
     })
 
     -- Disable indentscope for certain filetypes
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = {
-        "help",
-        "alpha",
-        "dashboard",
-        "neo-tree",
-        "Trouble",
-        "lazy",
-        "mason",
-        "notify",
-        "toggleterm",
-        "lazyterm",
-      },
-      callback = function()
-        vim.b.miniindentscope_disable = true
-      end,
-    })
+    -- vim.api.nvim_create_autocmd("FileType", {
+    --   pattern = {
+    --     "help",
+    --     "alpha",
+    --     "dashboard",
+    --     "neo-tree",
+    --     "Trouble",
+    --     "lazy",
+    --     "mason",
+    --     "notify",
+    --     "toggleterm",
+    --     "lazyterm",
+    --   },
+    --   callback = function()
+    --     vim.b.miniindentscope_disable = true
+    --   end,
+    -- })
 
     -- Disable cursorword for certain filetypes
     vim.api.nvim_create_autocmd("FileType", {
