@@ -10,13 +10,13 @@ return {
     "nvim-tree/nvim-web-devicons",
   },
   event = { "BufReadPost", "BufNewFile" },
-  
+
   opts = {
     theme = "auto", -- Matches your colorscheme automatically
     show_dirname = true,
     show_basename = true,
     show_modified = false,
-    
+
     -- Symbols
     kinds = {
       File = "󰈙 ",
@@ -51,15 +51,15 @@ return {
     create_autocmd = true, -- Auto-update on CursorHold
     attach_navic = true, -- Automatically attach to LSP
     show_navic = true,
-    
+
     -- Layout
     lead_custom_section = function()
       return " "
     end,
-    
+
     -- Context display settings
     context_follow_icon_color = false,
-    include_buftypes = { "" },
+    include_buftypes = { "", "acwrite" },
     exclude_filetypes = {
       "netrw",
       "toggleterm",
@@ -72,10 +72,10 @@ return {
       "Trouble",
     },
   },
-  
+
   config = function(_, opts)
     require("barbecue").setup(opts)
-    
+
     -- Toggle barbecue keymap
     vim.keymap.set("n", "<leader>ub", function()
       require("barbecue.ui").toggle()

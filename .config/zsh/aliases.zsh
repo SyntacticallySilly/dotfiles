@@ -64,6 +64,14 @@ alias terstr="sshd"          # Start SSH server
 alias killter="pkill sshd"   # Stop SSH server
 
 # ───────────────────────────────────────────────────────────────
+#  Convenience
+# ───────────────────────────────────────────────────────────────
+alias lg="lazygit"
+alias configzsh="z ~/dotfiles/.config/zsh && nvim"
+alias confignvim="z ~/dotfiles/.config/nvim && nvim"
+alias cd="z"
+
+# ───────────────────────────────────────────────────────────────
 #  Custom Scripts
 # ───────────────────────────────────────────────────────────────
 # File organizer script
@@ -76,6 +84,5 @@ alias themectl='zsh ~/dotfiles/scripts/theme-cycler.sh'
 
 # Shizuku remote shell
 alias rish='zsh ~/scripts/rish'
-
 
 alias help='glow ~/dotfiles/syndot.md'

@@ -24,12 +24,11 @@ return {
       "             ░░██████                                                  ",
       "              ░░░░░░                                                   ",
       "                                                                        ",
-              -- "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-              --             "Perfect Neovim for Termux",
-              -- "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      -- "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      --             "Perfect Neovim for Termux",
+      -- "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
     }
-
-    -- Obsidian vault picker
+        -- Obsidian vault picker
     local function open_obsidian_vault()
       local ok_obsidian, obsidian = pcall(require, "obsidian")
       if not ok_obsidian then
@@ -41,7 +40,7 @@ return {
       local workspaces = client.opts.workspaces
 
       if #workspaces == 1 then
-        vim.cmd("Telescope file_browser path=" .. workspaces[1].path)
+        require("oil").open_float(workspaces[1].path)
       else
         local pickers = require("telescope.pickers")
         local finders = require("telescope.finders")
@@ -49,28 +48,30 @@ return {
         local action_state = require("telescope.actions.state")
         local conf = require("telescope.config").values
 
-        pickers.new({}, {
-          prompt_title = "Select Obsidian Vault",
-          finder = finders.new_table({
-            results = workspaces,
-            entry_maker = function(entry)
-              return {
-                value = entry,
-                display = entry.name,
-                ordinal = entry.name,
-              }
+        pickers
+          .new({}, {
+            prompt_title = "Select Obsidian Vault",
+            finder = finders.new_table({
+              results = workspaces,
+              entry_maker = function(entry)
+                return {
+                  value = entry,
+                  display = entry.name,
+                  ordinal = entry.name,
+                }
+              end,
+            }),
+            sorter = conf.generic_sorter({}),
+            attach_mappings = function(prompt_bufnr)
+              actions.select_default:replace(function()
+                local selection = action_state.get_selected_entry()
+                actions.close(prompt_bufnr)
+                require("oil").open_float(selection.value.path)
+              end)
+              return true
             end,
-          }),
-          sorter = conf.generic_sorter({}),
-          attach_mappings = function(prompt_bufnr)
-            actions.select_default:replace(function()
-              local selection = action_state.get_selected_entry()
-              actions.close(prompt_bufnr)
-              vim.cmd("Telescope file_browser path=" .. selection.value.path)
-            end)
-            return true
-          end,
-        }):find()
+          })
+          :find()
       end
     end
 
@@ -117,7 +118,9 @@ return {
             key = "e",
             key_hl = "DashboardKey",
             key_format = " [%s]",
-            action = "Telescope file_browser",
+            action = function()
+              require("oil").open_float()
+            end,
           },
           {
             icon = " ",
@@ -245,9 +248,9 @@ return {
 
         -- Harmonized Catppuccin Mocha colors
         vim.api.nvim_set_hl(0, "DashboardHeader", { fg = "#89b4fa" }) -- Blue
-        vim.api.nvim_set_hl(0, "DashboardIcon", { fg = "#f5c2e7" }) -- Pink
-        vim.api.nvim_set_hl(0, "DashboardDesc", { fg = "#cdd6f4" }) -- Text
-        vim.api.nvim_set_hl(0, "DashboardKey", { fg = "#a6e3a1" }) -- Green
+        vim.api.nvim_set_hl(0, "DashboardIcon", { fg = "#f5c2e7" })   -- Pink
+        vim.api.nvim_set_hl(0, "DashboardDesc", { fg = "#cdd6f4" })   -- Text
+        vim.api.nvim_set_hl(0, "DashboardKey", { fg = "#a6e3a1" })    -- Green
         vim.api.nvim_set_hl(0, "DashboardFooter", { fg = "#89dceb" }) -- Sky
       end,
     })

@@ -6,7 +6,8 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Basic settings
-vim.opt.autoread = true
+-- vim.opt.autoread = true
+vim.opt.fillchars:append('eob: ')
 vim.lsp.set_log_level("off")
 vim.opt.number = true               -- Line numbers
 vim.opt.relativenumber = true      -- Relative line numbers

@@ -12,11 +12,15 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 # Show description headers for completion groups
 zstyle ':completion:*:descriptions' format '[%d]'
 
+# Enable menu-select widget for Tab
+zstyle ':autocomplete:tab:*' widget-style menu-select
+
 # Colorize completion list using LS_COLORS
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"'ma=38;5;220'
+zstyle ':completion:*:*:*:*:*' list-colors "${(s.:.)LS_COLORS}" 'ma=01;38;5;51'
 
 # Disable default menu for fzf-tab integration
-zstyle ':completion:*' menu yes
+zstyle ':completion:*' menu true
 
 zstyle ':completion:*:default' select-prompt '%F{black}%K{12}line %l %p%f%k'
 # ───────────────────────────────────────────────────────────────
