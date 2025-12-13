@@ -18,7 +18,7 @@ return {
     trailing_exponent = 0.1, -- How fast trail fades (lower = longer visible trail)
 
     -- Distance settings
-    distance_stop_animating = 0.5, -- Stop animating when close to target
+    distance_stop_animating = 0.9, -- Stop animating when close to target
     hide_target_hack = false, -- Hide target cursor (keeps visible for better UX)
 
     -- Legacy smear settings

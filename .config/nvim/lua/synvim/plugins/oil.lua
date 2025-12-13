@@ -14,30 +14,35 @@ return {
       function()
         -- Smart open: sidebar if buffer exists, floating if not
         local oil = require("oil")
-        
+
         -- Check if there's an actual buffer open
         local has_real_buffer = false
         local special_filetypes = {
           "oil", "alpha", "dashboard", "neo-tree", "Trouble",
           "lazy", "mason", "notify", "toggleterm", "TelescopePrompt", "",
         }
-        
+
         for _, win in ipairs(vim.api.nvim_list_wins()) do
           local buf = vim.api.nvim_win_get_buf(win)
           local ft = vim.bo[buf].filetype
           local bt = vim.bo[buf].buftype
-          
+
           if bt == "" and not vim.tbl_contains(special_filetypes, ft) then
             has_real_buffer = true
             break
           end
         end
-        
+
         if has_real_buffer then
-          -- Open in slimmer sidebar (35 columns)
+          -- Open in slimmer sidebar (35 columns) on the RIGHT
           vim.cmd("vsplit")
-          vim.cmd("wincmd H")
+          vim.cmd("wincmd L")  -- Move to far right instead of left
           vim.api.nvim_win_set_width(0, 35)
+
+          -- Add rounded border to the sidebar
+          vim.wo.winhl = "Normal:Normal,FloatBorder:FloatBorder"
+          vim.wo.fillchars = "vert:┊,horiz:─,horizup:┴,horizdown:┬,vertleft:┤,vertright:├,verthoriz:┼"
+
           oil.open()
         else
           -- Open in floating window
@@ -59,19 +64,17 @@ return {
         -- Toggle detailed info (permissions, size, mtime)
         local oil = require("oil")
         local config = require("oil.config")
-        
+
         if vim.g.oil_detailed_view then
-          -- Switch to simple view (icon only)
-          config.columns = { "icon" }
+          -- Switch to simple view (no icon)
+          config.columns = { "icons" }
           vim.g.oil_detailed_view = false
-          vim.notify("Oil: Simple view", vim.log.levels.INFO)
         else
           -- Switch to detailed view
-          config.columns = { "icon", "permissions", "size", "mtime" }
+          config.columns = { "permissions", "size", "mtime" }
           vim.g.oil_detailed_view = true
-          vim.notify("Oil: Detailed view", vim.log.levels.INFO)
         end
-        
+
         -- Refresh to apply changes
         oil.discard_all_changes()
       end,
@@ -80,10 +83,8 @@ return {
   },
 
   opts = {
-    -- Columns to display (simple by default)
-    columns = {
-      "icon",
-    },
+    -- Columns to display (no icon column - removed emojis)
+    columns = { "icon" },
 
     -- Buffer options
     buf_options = {
@@ -132,23 +133,21 @@ return {
       ["g\\"] = "actions.toggle_trash",
       ["q"] = "actions.close",
       ["<Esc>"] = "actions.close",
-      
-      -- Toggle detailed view with 'gd'
+
+      -- Toggle detailed view with 'gd' (no notifications)
       ["gd"] = {
         callback = function()
           local oil = require("oil")
           local config = require("oil.config")
-          
+
           if vim.g.oil_detailed_view then
             config.columns = { "icon" }
             vim.g.oil_detailed_view = false
-            vim.notify("Oil: Simple view", vim.log.levels.INFO)
           else
-            config.columns = { "icon", "permissions", "size", "mtime" }
+            config.columns = { "permissions", "size", "mtime" }
             vim.g.oil_detailed_view = true
-            vim.notify("Oil: Detailed view", vim.log.levels.INFO)
           end
-          
+
           oil.discard_all_changes()
         end,
         desc = "Toggle details",
@@ -216,7 +215,7 @@ return {
 
   config = function(_, opts)
     require("oil").setup(opts)
-    
+
     -- Initialize detailed view state
     vim.g.oil_detailed_view = false
 
@@ -229,20 +228,20 @@ return {
         git_status.setup({
           show_ignored = false,
           symbols = {
-            [StatusType.Added] = "",
-            [StatusType.Copied] = "󰆏",
-            [StatusType.Deleted] = "",
-            [StatusType.Ignored] = "",
-            [StatusType.Modified] = "",
-            [StatusType.Renamed] = "",
-            [StatusType.TypeChanged] = "󰉺",
-            [StatusType.Unmodified] = " ",
-            [StatusType.Unmerged] = "",
-            [StatusType.Untracked] = "",
-            [StatusType.External] = "",
+            [StatusType.Added] = " ",
+            [StatusType.Copied] = " ",
+            [StatusType.Deleted] = " ",
+            [StatusType.Ignored] = " ",
+            [StatusType.Modified] = " ",
+            [StatusType.Renamed] = " ",
+            [StatusType.TypeChanged] = " ",
+            [StatusType.Unmodified] = " ",
+            [StatusType.Unmerged] = " ",
+            [StatusType.Untracked] = "󰴠 ",
+            [StatusType.External] = " ",
           },
         })
-        
+
         -- Git status highlights
         vim.api.nvim_set_hl(0, "OilGitStatusAdded", { fg = "#a6e3a1", bold = true })
         vim.api.nvim_set_hl(0, "OilGitStatusModified", { fg = "#f9e2af", bold = true })
@@ -261,28 +260,14 @@ return {
         if barbecue_ok then
           barbecue.toggle(true)
         end
-        
-        -- Custom refresh keymap
+
+        -- Custom refresh keymap (no notification spam)
         vim.keymap.set("n", "<C-r>", function()
           require("oil.actions").refresh.callback()
-          vim.notify("Oil refreshed", vim.log.levels.INFO)
         end, { buffer = true, desc = "Refresh Oil" })
-        
-        -- Help text for toggle details
-        vim.notify("Press 'gd' to toggle detailed view", vim.log.levels.INFO, { timeout = 2000 })
       end,
     })
 
-    -- Notification on enter
-    vim.api.nvim_create_autocmd("User", {
-      pattern = "OilEnter",
-      callback = vim.schedule_wrap(function(args)
-        local oil = require("oil")
-        local dir = oil.get_current_dir()
-        if dir then
-          vim.notify("📂 " .. vim.fn.fnamemodify(dir, ":~"), vim.log.levels.INFO, { timeout = 1500 })
-        end
-      end),
-    })
+    -- Removed OilEnter notification to prevent spam
   end,
 }
