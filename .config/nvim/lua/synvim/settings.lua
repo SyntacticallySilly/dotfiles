@@ -89,5 +89,19 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
+-- This must run BEFORE any clipboard operations
+-- vim.g.clipboard = {
+--   name = 'termux-clipboard',
+--   copy = {
+--     ['+'] = 'termux-clipboard-set',
+--     ['*'] = 'termux-clipboard-set',
+--   },
+--   paste = {
+--     ['+'] = 'termux-clipboard-get',
+--     ['*'] = 'termux-clipboard-get',
+--   },
+--   cache_enabled = 0,
+-- }
+
 -- Load keymaps (after all settings are configured)
 require("synvim.keymaps").setup()

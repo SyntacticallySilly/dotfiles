@@ -142,8 +142,13 @@ M.editing_keymaps = function()
   map("v", "<", "<gv", { desc = "Unindent" })
   map("v", ">", ">gv", { desc = "Indent" })
 
+  -- Easier end/start of the line.
+  map("n", "H", "^", { desc = "Start of the line" })
+  map("n", "L", "$", { desc = "End of the line"})
+
   -- Better escape
   map("i", "jk", "<Esc>", { desc = "Exit insert mode" })
+  map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Unhighlight"})
 end
 
 -- ============================================================================

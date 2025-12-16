@@ -17,7 +17,11 @@ zstyle ':autocomplete:tab:*' widget-style menu-select
 
 # Colorize completion list using LS_COLORS
 # zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"'ma=38;5;220'
-zstyle ':completion:*:*:*:*:*' list-colors "${(s.:.)LS_COLORS}" 'ma=01;38;5;51'
+zstyle ':completion:*:*:*:*:*' list-colors "${(s.:.)LS_COLORS}" 'ma=04;36;5;51'
+
+zstyle ':completion:*:descriptions' format '%F{yellow}%B-- %d --%b%f'
+zstyle ':completion:*:warnings' format '%F{red}No matches%f'
+zstyle ':completion:*:messages' format '%F{cyan}%d%f'
 
 # Disable default menu for fzf-tab integration
 zstyle ':completion:*' menu true

@@ -52,8 +52,8 @@ alias refr='source ~/.zshrc && termux-reload-settings && cd ~'
 
 # Termux-specific utilities
 alias open='termux-open'             # Open any file in a external android app.
-alias pkg='nala'                     #}
-alias apt='nala'                     #}-- Replace legacy apt and pkg for a better frontend.
+# alias pkg='nala'                     #}
+# alias apt='nala'                     #}-- Replace legacy apt and pkg for a better frontend.
 alias acp="termux-clipboard-set <"   # Copy file to clipboard
 alias aps="termux-clipboard-get >"   # Paste clipboard to file
 alias sysup="nala update -y && nala upgrade -y && zinit update && zsh ~/dotfiles/update.sh && source ~/.zshrc && termux-reload-settings"
@@ -70,6 +70,12 @@ alias lg="lazygit"
 alias configzsh="z ~/dotfiles/.config/zsh && nvim"
 alias confignvim="z ~/dotfiles/.config/nvim && nvim"
 alias cd="z"
+alias grep="rg"
+alias cat='bat --style=plain'
+alias less='bat --paging=always'
+# alias ps='procs'
+alias du="dust"
+alias df="duf"
 
 # ───────────────────────────────────────────────────────────────
 #  Custom Scripts

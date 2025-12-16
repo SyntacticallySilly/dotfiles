@@ -28,7 +28,7 @@ return {
       --             "Perfect Neovim for Termux",
       -- "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
     }
-        -- Obsidian vault picker
+    -- Obsidian vault picker
     local function open_obsidian_vault()
       local ok_obsidian, obsidian = pcall(require, "obsidian")
       if not ok_obsidian then
@@ -171,7 +171,9 @@ return {
             key = "c",
             key_hl = "DashboardKey",
             key_format = " [%s]",
-            action = "Telescope file_browser path=" .. vim.fn.stdpath("config"),
+            action = function()
+              require("oil").open(vim.fn.stdpath("config"))
+            end
           },
           {
             icon = "󰒲 ",

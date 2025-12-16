@@ -4,7 +4,7 @@ final_space = true
 [secondary_prompt]
   template = '  > '
   foreground = 'default'
-  background = 'black'
+  background = 'transparent'
 
 [transient_prompt]
   template = '{{ if gt .Code 0 }} {{ else }}󰘳 {{ end }}{{ .Segments.Path.Path }}  '
@@ -19,15 +19,15 @@ final_space = true
   [[blocks.segments]]
     type = 'text'
     style = 'powerline'
-    foreground = 'default'
-    background = 'black'
+    foreground = 'cyan'
+    background = 'transparent'
     template = ' {{ if eq .Env.POSH_VI_MODE "NORMAL" }}  NORM {{ else }} 󰏪 INS {{ end }} '
 
   [[blocks.segments]]
     type = 'executiontime'
     style = 'powerline'
-    foreground = 'default'
-    background = 'black'
+    foreground = 'lightYellow'
+    background = 'transparent'
     template = ' 󰔟 {{ .FormattedMs }}'
 
     [blocks.segments.properties]
@@ -41,8 +41,8 @@ final_space = true
   [[blocks.segments]]
     type = 'path'
     style = 'powerline'
-    foreground = 'default'
-    background = 'default'
+    foreground = 'blue'
+    background = 'transparent'
     template = ' {{ .Path }} '
 
     [blocks.segments.properties]
@@ -70,8 +70,8 @@ final_space = true
   [[blocks.segments]]
     type = 'git'
     style = 'powerline'
-    foreground = 'default'
-    background = 'black'
+    foreground = 'green'
+    background = 'transparent'
     template = '  {{ .HEAD }}{{ if .Working.Changed }} {{ end }}{{ if .Staging.Changed }} {{ end }}{{ if .StashCount }} {{ .StashCount }}{{ end }}{{ if gt .Behind 0 }} ⇣{{ .Behind }}{{ end }}{{ if gt .Ahead 0 }} ⇡{{ .Ahead }}{{ end }} '
 
     [blocks.segments.properties]
@@ -84,8 +84,8 @@ final_space = true
   [[blocks.segments]]
     type = 'python'
     style = 'powerline'
-    foreground = 'default'
-    background = 'black'
+    foreground = 'lightGreen'
+    background = 'transparent'
     template = '  {{ .Venv }} '
 
     [blocks.segments.properties]
@@ -100,7 +100,7 @@ final_space = true
     type = 'status'
     style = 'powerline'
     foreground = 'default'
-    background = 'black'
+    background = 'transparent'
     template = '{{ if gt .Code 0 }}  {{ .Code }}{{ end }}'
 
     [blocks.segments.properties]
@@ -110,8 +110,8 @@ final_space = true
   [[blocks.segments]]
     type = 'text'
     style = 'powerline'
-    foreground = 'default'
-    background = 'black'
+    foreground = 'magenta'
+    background = 'transparent'
     template = ' '
 
     [blocks.segments.properties]
