@@ -29,7 +29,9 @@ return {
     end, desc = "Search Word" },
     { "<leader>sd", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
     { "<leader>st", "<cmd>Telescope colorscheme<cr>", desc = "Themes" },
-    { "<leader>sz", "<cmd>Telescope zoxide list<cr>", desc = "Zoxide"}
+    { "<leader>sz", "<cmd>Telescope zoxide list<cr>", desc = "Zoxide"},
+    { "<leader>sn", "<cmd>Telescope notify<cr>", desc = "Notifications"}
+
   },
 
   config = function()

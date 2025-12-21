@@ -52,22 +52,6 @@ return {
       search_method = "cover_or_next",
     })
 
-    -- Mini.indentscope - Replaces indent-blankline
-    -- require("mini.indentscope").setup({
-    --   symbol = "│",
-    --   options = { try_as_border = true },
-    --   draw = {
-    --     delay = 50,
-    --     animation = require("mini.indentscope").gen_animation.none(),
-    --   },
-    --   mappings = {
-    --     object_scope = "ii",
-    --     object_scope_with_border = "ai",
-    --     goto_top = "[i",
-    --     goto_bottom = "]i",
-    --   },
-    -- })
-
     -- Mini.animate - Replaces illuminate, undo-glow, beacon.nvim
     require("mini.animate").setup({
       -- Cursor path animation (replaces beacon.nvim)
@@ -84,7 +68,7 @@ return {
       -- Scroll animation
       scroll = {
         enable = true,
-        timing = require("mini.animate").gen_timing.linear({ duration = 350, unit = "total" }),
+        timing = require("mini.animate").gen_timing.linear({ duration = 50, unit = "total" }),
         subscroll = require("mini.animate").gen_subscroll.equal({
           predicate = function(total_scroll)
             return total_scroll > 1
@@ -118,52 +102,6 @@ return {
       delay = 100, -- Delay before highlighting (ms)
     })
 
-    -- Mini.trailspace - Highlight and remove trailing whitespace
-    -- require("mini.trailspace").setup({
-    --   only_in_normal_buffers = true,
-    -- })
-
-    -- Mini.move - Move lines and selections with Alt+hjkl
-    require("mini.move").setup({
-      mappings = {
-        -- Move visual selection in Visual mode
-        left = "<M-h>",
-        right = "<M-l>",
-        down = "<M-j>",
-        up = "<M-k>",
-
-        -- Move current line in Normal mode
-        line_left = "<M-h>",
-        line_right = "<M-l>",
-        line_down = "<M-j>",
-        line_up = "<M-k>",
-      },
-
-      -- Options which control moving behavior
-      options = {
-        reindent_linewise = true, -- Reindent when moving lines
-      },
-    })
-
-    -- Disable indentscope for certain filetypes
-    -- vim.api.nvim_create_autocmd("FileType", {
-    --   pattern = {
-    --     "help",
-    --     "alpha",
-    --     "dashboard",
-    --     "neo-tree",
-    --     "Trouble",
-    --     "lazy",
-    --     "mason",
-    --     "notify",
-    --     "toggleterm",
-    --     "lazyterm",
-    --   },
-    --   callback = function()
-    --     vim.b.miniindentscope_disable = true
-    --   end,
-    -- })
-
     -- Disable cursorword for certain filetypes
     vim.api.nvim_create_autocmd("FileType", {
       pattern = {
@@ -183,12 +121,5 @@ return {
         vim.b.minicursorword_disable = false
       end,
     })
-
-    -- Keymap to trim trailing whitespace
-    -- vim.keymap.set("n", "<leader>cw", function()
-    --   require("mini.trailspace").trim()
-    --   require("mini.trailspace").trim_last_lines()
-    --   vim.notify("Trailing whitespace removed", vim.log.levels.INFO)
-    -- end, { desc = "Clean Whitespace" })
   end,
 }

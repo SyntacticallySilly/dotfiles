@@ -11,91 +11,6 @@ local function map(mode, lhs, rhs, opts)
 end
 
 -- ============================================================================
--- TELESCOPE KEYMAPS - Search Actions (<leader>s + letter)
--- These are wrapped in a function that loads AFTER Telescope is ready
--- ============================================================================
-
-M.telescope_keymaps = function()
-  local builtin = require("telescope.builtin")
-
-  -- <leader>sf = Search Files
-  map("n", "<leader>sf", builtin.find_files, { desc = "Search Files" })
-
-  -- <leader>sg = Search Grep (live grep)
-  map("n", "<leader>sg", builtin.live_grep, { desc = "Search Grep" })
-
-  -- <leader>sb = Search Buffers
-  map("n", "<leader>sb", builtin.buffers, { desc = "Search Buffers" })
-
-  -- <leader>sh = Search Help tags
-  map("n", "<leader>sh", builtin.help_tags, { desc = "Search Help" })
-
-  -- <leader>sr = Search Recent files
-  map("n", "<leader>sr", builtin.oldfiles, { desc = "Search Recent" })
-
-  -- <leader>ss = Search in current buffer
-  map("n", "<leader>ss", function()
-    builtin.current_buffer_fuzzy_find()
-  end, { desc = "Search buffer content" })
-
-  -- <leader>sw = Search word under cursor
-  map("n", "<leader>sw", builtin.grep_string, { desc = "Search Word" })
-
-  -- <leader>sk = Search Keymaps
-  map("n", "<leader>sk", builtin.keymaps, { desc = "Search Keymaps" })
-
-  -- <leader>sc = Search in config files
-  map("n", "<leader>sc", function()
-    builtin.find_files({ cwd = vim.fn.stdpath("config") })
-  end, { desc = "Search Config" })
-
-  -- <leader>sd = Search diagnostics
-  map("n", "<leader>sd", builtin.diagnostics, { desc = "Search Diagnostics" })
-
-  -- <leader>sq = Search quickfix history
-  map("n", "<leader>sq", builtin.quickfixhistory, { desc = "Search Quickfix" })
-end
-
--- ============================================================================
--- HARPOON KEYMAPS - Navigation shortcuts (<leader>h + number/action)
--- These are wrapped in a function that loads AFTER Harpoon is ready
--- ============================================================================
-
-M.harpoon_keymaps = function()
-  local harpoon = require("harpoon")
-
-  -- <leader>ha = Add current file to harpoon
-  map("n", "<leader>ha", function()
-    harpoon:list():add()
-  end, { desc = "Harpoon Add" })
-
-  -- <leader>he = Toggle harpoon menu
-  map("n", "<leader>he", function()
-    harpoon.ui:toggle_quick_menu(harpoon:list())
-  end, { desc = "Harpoon Edit" })
-
-  -- <leader>h1 = Jump to harpoon mark 1
-  map("n", "<leader>h1", function()
-    harpoon:list():select(1)
-  end, { desc = "Harpoon 1" })
-
-  -- <leader>h2 = Jump to harpoon mark 2
-  map("n", "<leader>h2", function()
-    harpoon:list():select(2)
-  end, { desc = "Harpoon 2" })
-
-  -- <leader>h3 = Jump to harpoon mark 3
-  map("n", "<leader>h3", function()
-    harpoon:list():select(3)
-  end, { desc = "Harpoon 3" })
-
-  -- <leader>h4 = Jump to harpoon mark 4
-  map("n", "<leader>h4", function()
-    harpoon:list():select(4)
-  end, { desc = "Harpoon 4" })
-end
-
--- ============================================================================
 -- WINDOW & NAVIGATION KEYMAPS - General navigation (no plugin dependencies)
 -- ============================================================================
 
@@ -135,8 +50,8 @@ M.editing_keymaps = function()
   map("n", "<A-k>", "<cmd>m .-2<CR>==", { desc = "Move line up" })
   map("i", "<A-j>", "<Esc><cmd>m .+1<CR>==gi", { desc = "Move line down" })
   map("i", "<A-k>", "<Esc><cmd>m .-2<CR>==gi", { desc = "Move line up" })
-  map("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
-  map("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
+  map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+  map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
   -- Indent/unindent in visual mode
   map("v", "<", "<gv", { desc = "Unindent" })
@@ -146,17 +61,14 @@ M.editing_keymaps = function()
   map("n", "H", "^", { desc = "Start of the line" })
   map("n", "L", "$", { desc = "End of the line"})
 
+  -- Quickly navigate quickfix files.
+  map("n", "[q", ":cprev<CR>", { desc = "Previous Quickfix Item" })
+  map("n", "]q", ":cnext<CR>", { desc = "Next Quickfix Item" })
+
+  map("n", "<leader>etf", ":s/\\(true\\|false\\)/\\={'true':'false','false':'true'}[submatch(1)]/<CR>", { desc = "Toggle true/false" })
   -- Better escape
   map("i", "jk", "<Esc>", { desc = "Exit insert mode" })
   map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Unhighlight"})
-end
-
--- ============================================================================
--- ALPHA (DASHBOARD) KEYMAPS
--- ============================================================================
-
-M.dashboard_keymaps = function()
-  map("n", "<leader>a", "<cmd>Dashboard<CR>", { desc = "Dashboard" })
 end
 
 -- ============================================================================
@@ -243,24 +155,6 @@ M.theme_keymaps = function()
 end
 
 -- ============================================================================
--- FILE EXPLORER KEYMAPS - Telescope File Browser
--- ============================================================================
-
-M.file_explorer_keymaps = function()
-  -- Open file browser in current file's directory
-  map("n", "<leader>e", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>",
-    { desc = "File Explorer (current dir)" })
-
-  -- Open file browser in cwd
-  map("n", "<leader>E", "<cmd>Telescope file_browser<CR>",
-    { desc = "File Explorer (cwd)" })
-
-  -- Toggle between last file and file browser
-  map("n", "<C-n>", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>",
-    { desc = "Toggle File Explorer" })
-end
-
--- ============================================================================
 -- NOICE KEYMAPS
 -- ============================================================================
 
@@ -268,10 +162,6 @@ M.notify_keymaps = function()
   -- Notifications Dismiss
   map("n", "<leader>nd", "<cmd>Noice dismiss<CR>",
   { desc = "Dismiss Notifications"})
-
-  --  Search Notificatuon history
-  map("n", "<leader>ns", "<cmd>Telescope notify<CR>",
-    { desc = "Notificatuons Search"})
 end
 
  -- ============================================================================
@@ -300,7 +190,6 @@ M.setup = function()
   M.bufferline_keymaps()
   M.formatting_keymaps()
   M.theme_keymaps()
-  M.file_explorer_keymaps()
   M.notify_keymaps()
   M.settings_keymaps()
   -- Plugin-dependent keymaps are called from their plugin configs

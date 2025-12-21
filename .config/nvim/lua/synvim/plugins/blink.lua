@@ -8,7 +8,6 @@ return {
     "rafamadriz/friendly-snippets",
     "onsails/lspkind.nvim",
     -- "mikavilpas/blink-ripgrep.nvim",
-    "brenoprata10/nvim-highlight-colors", -- Added dependency
   },
   version = "v0.*",
 
@@ -103,10 +102,10 @@ return {
         enabled = true,
         min_width = 15,
         max_height = 10,
-        border = "none",
+        border = "rounded",
         winblend = 0,
         winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
-        scrollbar = true,
+        scrollbar = false,
         auto_show = true,
 
         draw = {
@@ -147,8 +146,8 @@ return {
       },
 
       documentation = {
-        auto_show = false,
-        auto_show_delay_ms = 200,
+        auto_show = true,
+        auto_show_delay_ms = 500,
         window = {
           border = "rounded",
           winblend = 0,
@@ -191,7 +190,7 @@ return {
       end,
       -- Added cmdline-specific completion settings
       completion = {
-        list = { 
+        list = {
           selection = { preselect = false }  -- Prevents :w from auto-selecting :wall
         },
         menu = {
