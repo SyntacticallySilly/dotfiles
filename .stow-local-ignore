@@ -1,0 +1,15 @@
+# Git repository files
+.git
+.gitignore
+.gitconfig
+
+# Setup scripts
+^/install.sh
+^/update.sh
+
+# Documentation
+^/README.md
+^/LICENSE
+^/synvim.md
+^/general-man.md
+^/syndot.md

@@ -1,0 +1,121 @@
+# schema: "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json"
+version = 3
+final_space = true
+
+[secondary_prompt]
+  template = '  > '
+  foreground = 'default'
+  background = 'transparent'
+
+[transient_prompt]
+  template = '{{ if gt .Code 0 }} {{ else }}󰘳 {{ end }}{{ .Segments.Path.Path }}  '
+  foreground = 'default'
+  background = 'transparent'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'right'
+
+  # --- vi-mode indicator ---
+  [[blocks.segments]]
+    type = 'text'
+    style = 'powerline'
+    foreground = 'cyan'
+    background = 'transparent'
+    template = ' {{ if eq .Env.POSH_VI_MODE "NORMAL" }}  NORM {{ else }} 󰏪 INS {{ end }} '
+
+  [[blocks.segments]]
+    type = 'executiontime'
+    style = 'powerline'
+    foreground = 'lightYellow'
+    background = 'transparent'
+    template = ' 󰔟 {{ .FormattedMs }}'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      min = 500
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+
+  [[blocks.segments]]
+    type = 'path'
+    style = 'powerline'
+    foreground = 'blue'
+    background = 'transparent'
+    template = ' {{ .Path }} '
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      folder_icon = '  '
+      folder_separator_icon = '/'
+      hide_root_location = false
+      home_icon = ' '
+      max_depth = 3
+      style = 'agnoster_short'
+
+      [blocks.segments.properties.mapped_locations]
+        '~' = ' '
+        '~/dotfiles' = ' '
+        '~/storage/shared/Download/' = ' '
+        '~/storage/shared/indev/' = '󰘦 '
+        '~/dev' = ' '
+        '~/storage/shared/Documents/personal' = '󰠮b'
+        '/storage/emulated/0/Documents/personal' = '󰠮b'
+        '/data/data/com.termux/files/usr' = ' '
+        '/data/data/com.termux/files/usr/bin' = ' '
+        '/data/data/com.termux/files' = ' '
+        '/data/data/com.termux' = ' '
+
+  [[blocks.segments]]
+    type = 'git'
+    style = 'powerline'
+    foreground = 'green'
+    background = 'transparent'
+    template = '  {{ .HEAD }}{{ if .Working.Changed }} {{ end }}{{ if .Staging.Changed }} {{ end }}{{ if .StashCount }} {{ .StashCount }}{{ end }}{{ if gt .Behind 0 }} ⇣{{ .Behind }}{{ end }}{{ if gt .Ahead 0 }} ⇡{{ .Ahead }}{{ end }} '
+
+    [blocks.segments.properties]
+      branch_max_length = 28
+      cache_duration = 'none'
+      display_status_detail = true
+      fetch_status = true
+      fetch_upstream_icon = true
+
+  [[blocks.segments]]
+    type = 'python'
+    style = 'powerline'
+    foreground = 'lightGreen'
+    background = 'transparent'
+    template = '  {{ .Venv }} '
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    type = 'status'
+    style = 'powerline'
+    foreground = 'default'
+    background = 'transparent'
+    template = '{{ if gt .Code 0 }}  {{ .Code }}{{ end }}'
+
+    [blocks.segments.properties]
+      always_enabled = false
+      cache_duration = 'none'
+
+  [[blocks.segments]]
+    type = 'text'
+    style = 'powerline'
+    foreground = 'magenta'
+    background = 'transparent'
+    template = ' '
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+

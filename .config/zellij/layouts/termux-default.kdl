@@ -1,0 +1,66 @@
+// ~/.config/zellij/layouts/termux-default.kdl
+// Top tab bar + bottom zjstatus status bar, Termux-friendly proportions.
+
+layout {
+    default_tab_template {
+        // Top tab bar: Neovim-like tabs.
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+
+        // Main content area goes here.
+        children
+
+        // Bottom status bar: zjstatus plugin.
+        pane size=2 borderless=true {
+            plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
+                format_left   "{mode} #[fg=#89B4FA,bold]{session} #[fg=#a6e3a1]Tab-{tabs}"
+                format_center ""
+                format_right  "#[fg=#f9e2af]{command_git_branch} #[fg=#94e2d5]{datetime}"
+                format_space  ""
+
+                border_enabled  "false"
+                border_char     "─"
+                border_format   "#[fg=#6C7086]{char}"
+                border_position "top"
+
+                hide_frame_for_single_pane "true"
+
+                mode_normal        "#[bg=#89B4FA,fg=#1E1E2E,bold] NORMAL "
+                mode_locked        "#[bg=#F38BA8,fg=#1E1E2E,bold] LOCKED "
+                mode_resize        "#[bg=#FAB387,fg=#1E1E2E,bold] RESIZE "
+                mode_pane          "#[bg=#A6E3A1,fg=#1E1E2E,bold] PANE "
+                mode_tab           "#[bg=#F5C2E7,fg=#1E1E2E,bold] TAB "
+                mode_scroll        "#[bg=#CBA6F7,fg=#1E1E2E,bold] SCROLL "
+                mode_enter_search  "#[bg=#94E2D5,fg=#1E1E2E,bold] SEARCH "
+                mode_search        "#[bg=#94E2D5,fg=#1E1E2E,bold] SEARCH "
+                mode_rename_tab    "#[bg=#F9E2AF,fg=#1E1E2E,bold] RENAME "
+                mode_rename_pane   "#[bg=#F9E2AF,fg=#1E1E2E,bold] RENAME "
+                mode_session       "#[bg=#74C7EC,fg=#1E1E2E,bold] SESSION "
+                mode_move          "#[bg=#F2CDCD,fg=#1E1E2E,bold] MOVE "
+                mode_prompt        "#[bg=#F38BA8,fg=#1E1E2E,bold] PROMPT "
+                mode_tmux          "#[bg=#CBA6F7,fg=#1E1E2E,bold] TMUX "
+
+                tab_normal              "#[fg=#6C7086] {index} {name} "
+                tab_normal_fullscreen   "#[fg=#6C7086] {index} {name} [] "
+                tab_normal_tmuxc         "#[fg=#6C7086] {index} {name} <> "
+                tab_active              "#[fg=#89B4FA,bold,italic] {index} {name} "
+                tab_active_fullscreen   "#[fg=#89B4FA,bold,italic] {index} {name} [] "
+                tab_active_tmuxc         "#[fg=#89B4FA,bold,italic] {index} {name} <> "
+
+                command_git_branch_command     "git rev-parse --abbrev-ref HEAD"
+                command_git_branch_format      "#[fg=blue] {stdout} "
+                command_git_branch_interval    "10"
+                command_git_branch_rendermode  "static"
+
+                datetime        "#[fg=#94E2D5,bold] {format} "
+                datetime_format "%H:%M"
+                datetime_timezone "Asia/Kolkata"
+            }
+        }
+    }
+
+    tab name="main" focus=true {
+        pane
+    }
+}

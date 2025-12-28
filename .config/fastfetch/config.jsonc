@@ -1,0 +1,131 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "type": "chafa",
+    "source": "~/dotfiles/.config/fastfetch/mommy.png",
+    "width": 30,
+    "height": 21,
+    "padding": {
+      "top": 1
+    }
+  },
+  "display": {
+    "separator": " -> ",
+    "color": {
+      "keys": "magenta",
+      "title": "cyan"
+    }
+  },
+  "modules": [
+    {
+      "type": "title",
+      "format": "{user-name-colored}@{host-name-colored}"
+    },
+    "break",
+    {
+      "type": "os",
+      "key": "OS",
+      "keyColor": "blue"
+    },
+    // {
+    //   "type": "kernel",
+    //   "key": "Kernel",
+    //   "keyColor": "blue"
+    // },
+    {
+      "type": "shell",
+      "key": "Shell",
+      "keyColor": "blue"
+    },
+    {
+      "type": "terminal",
+      "key": "Terminal",
+      "keyColor": "blue"
+    },
+    "break",
+    {
+      "type": "cpu",
+      "key": "CPU",
+      "keyColor": "green",
+      "format": "{name}"
+    },
+    {
+      "type": "memory",
+      "key": "Memory",
+      "keyColor": "green",
+      "format": "{total} ({percentage})"
+    },
+    {
+      "type": "disk",
+      "key": "Disk",
+      "keyColor": "green"
+    },
+    {
+      "type": "battery",
+      "key": "Battery",
+      "keyColor": "green"
+    },
+    "break",
+    // {
+    //   "type": "localip",
+    //   "key": "Local IP",
+    //   "keyColor": "yellow",
+    //   "compact": true
+    // },
+    {
+      "type": "command",
+      "key": "Weather",
+      "keyColor": "cyan",
+      "text": "curl -s 'wttr.in/Vondh?format=%l:+%c+%t+%w+%h' 2>/dev/null || echo 'N/A'"
+    },
+    {
+      "type": "command",
+      "key": "SSH Status",
+      "keyColor": "red",
+      "text": "pgrep sshd >/dev/null 2>&1 && echo '✓ Running (Port: '$(netstat -tuln 2>/dev/null | grep :8022 | wc -l)')' || echo '✗ Not Running'"
+    },
+    {
+      "type": "command",
+      "key": "Uptime",
+      "keyColor": "magenta",
+      "text": "uptime -p | sed 's/up //'"
+    },
+    {
+      "type": "command",
+      "key": "Load Avg",
+      "keyColor": "magenta",
+      "text": "uptime | awk -F'load average:' '{print $2}' | xargs"
+    },
+    "break",
+    {
+      "type": "packages",
+      "key": "Packages",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "command",
+      "key": "Git Status",
+      "keyColor": "yellow",
+      "text": "cd ~/dotfiles 2>/dev/null && git status -sb 2>/dev/null | head -1 || echo 'N/A'"
+    },
+    "break",
+    {
+        "type": "datetime",
+        "key": "Date",
+        "keyColor": "blue",
+        "format": "{day-in-month}/{month}/{year}"
+    },
+    // {
+    //   "type": "command",
+    //   "key": "Neofetch Ver",
+    //   "keyColor": "cyan",
+    //   "text": "neofetch --version 2>/dev/null | head -1 || echo 'Not installed'"
+    // },
+    "break",
+    {
+      "type": "colors",
+      "paddingLeft": 2,
+      "symbol": "circle"
+    }
+  ]
+}

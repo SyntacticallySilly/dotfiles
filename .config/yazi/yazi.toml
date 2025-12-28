@@ -1,0 +1,29 @@
+# Yazi Configuration: https://yazi-rs.github.io/docs/configuration
+
+[mgr]
+show_hidden = true
+sort_by = "mtime"
+sort_reverse = true
+linemode = "size"
+
+[plugin]
+startup = [ "full-border.yazi", "zoxide.yazi", "archive.yazi", "smart-open.yazi" ]
+
+[preview]
+max_width = 60
+
+[opener]
+edit = [
+    { run = 'nvim "$@"', block = true },
+]
+open = [
+    { run = 'termux-open "$@"', desc = "Open with default application" },
+]
+# reveal = [
+#     { run = 'echo "$@"', desc = "Reveal in file manager" },
+# ]
+
+[tasks]
+micro_workers = 5
+macro_workers = 15
+bizarre_retry = 250
