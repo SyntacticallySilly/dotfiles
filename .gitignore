@@ -1,6 +1,6 @@
 # GitHub CLI credentials
 .config/gh/hosts.yml
-
+.config/tod.cfg
 # Or exclude all auth-related files
 **/*hosts.yml
 **/*credentials*

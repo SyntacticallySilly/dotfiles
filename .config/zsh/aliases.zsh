@@ -93,3 +93,23 @@ alias themectl='zsh ~/dotfiles/scripts/theme-cycler.sh'
 alias rish='zsh ~/scripts/rish'
 
 alias help='glow ~/dotfiles/syndot.md'
+
+alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+
+alias -s json=jless
+alias -s md=bat
+alias -s go='$EDITOR'
+alias -s rs='$EDITOR'
+alias -s txt=bat
+alias -s log=bat
+alias -s py='$EDITOR'
+alias -s js='$EDITOR'
+alias -s ts='$EDITOR'
+alias -s html=termux-open
+
+# Pipe to jq
+# alias -g J='| jq'
+#
+# Copy output to clipboard (macOS)
+alias -g C='| termux-clipboard-set'

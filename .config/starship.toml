@@ -1,0 +1,170 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Main prompt format (left side)
+format = """
+$username\
+$directory\
+$git_branch\
+$git_status\
+$fill\
+$c\
+$elixir\
+$elm\
+$golang\
+$haskell\
+$java\
+$julia\
+$nodejs\
+$nim\
+$rust\
+$scala\
+$conda\
+$python\
+$time
+$character\
+"""
+
+# Right side prompt with vi mode indicator
+right_format = """$cmd_duration"""
+
+[character]
+success_symbol = "[󱞪](bold green)"
+error_symbol = "[󱞪](bold red)"
+# Vi mode symbols - these will appear on the left with your prompt character
+vicmd_symbol = "[󱞪](bold yellow)"  # Normal mode indicator
+format = "$symbol "
+
+[directory]
+format = "[](fg:black)[ $path ](bold bg:black fg:blue)[](fg:black) "
+style = "bold blue"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+Documents = "󰈙"
+Downloads = " "
+Music = " "
+Pictures = " "
+
+[fill]
+symbol = "-"
+
+[git_branch]
+format = "[](fg:black)[ $symbol $branch ](bold bg:black fg:cyan)[](fg:black) "
+style = "bold cyan"
+symbol = ""
+
+[git_status]
+disabled = false
+style = "bg:black bold magenta"
+format = '[](fg:black)([$all_status$ahead_behind]($style))[](fg:black) '
+up_to_date = '[ ✓ ](bold green)'
+untracked = '[󰂑\($count\)](bold yellow)'
+stashed = '[\$](bold magenta)'
+modified = '[!\($count\)](bold yellow)'
+renamed = '[»\($count\)](bold magenta)'
+deleted = '[✘\($count\)](bold red)'
+staged = '[++\($count\)](bold yellow)'
+ahead = '[⇡\(${count}\)](bold cyan)'
+diverged = '⇕[\[](bold magenta)[⇡\(${ahead_count}\)](bold cyan)[⇣\(${behind_count}\)](bold magenta)[\]](bold magenta)'
+behind = '[⇣\(${count}\)](bold magenta)'
+
+[time]
+disabled = false
+format = "[](fg:black)[ $time 󰴈 ](bold bg:black fg:magenta)[](fg:black)"
+style = "bold magenta"
+time_format = "%I:%M%P"
+use_12hr = true
+
+[username]
+disabled = false
+format = "[](fg:black)[ 󰧱 $user ](bold bg:black fg:magenta)[](fg:black) "
+show_always = true
+style_root = "bold red"
+style_user = "bold magenta"
+
+[cmd_duration]
+min_time = 500
+format = "[ $duration](bold yellow)"
+disabled = false
+
+# Languages
+
+[c]
+style = "bold blue"
+format = " [](fg:black)[ $symbol$version ](bold bg:black fg:blue)[](fg:black)"
+disabled = false
+symbol = " "
+
+[elixir]
+style = "bold blue"
+format = " [](fg:black)[ $symbol$version ](bold bg:black fg:blue)[](fg:black)"
+disabled = false
+symbol = " "
+
+[elm]
+style = "bold blue"
+format = " [](fg:black)[ $symbol$version ](bold bg:black fg:blue)[](fg:black)"
+disabled = false
+symbol = " "
+
+[golang]
+style = "bold blue"
+format = " [](fg:black)[ $symbol$version ](bold bg:black fg:blue)[](fg:black)"
+disabled = false
+symbol = " "
+
+[haskell]
+style = "bold blue"
+format = " [](fg:black)[ $symbol$version ](bold bg:black fg:blue)[](fg:black)"
+disabled = false
+symbol = " "
+
+[java]
+style = "bold blue"
+format = " [](fg:black)[ $symbol$version ](bold bg:black fg:blue)[](fg:black)"
+disabled = false
+symbol = " "
+
+[julia]
+style = "bold blue"
+format = " [](fg:black)[ $symbol$version ](bold bg:black fg:blue)[](fg:black)"
+disabled = false
+symbol = " "
+
+[nodejs]
+style = "bold blue"
+format = " [](fg:black)[ $symbol$version ](bold bg:black fg:blue)[](fg:black)"
+disabled = false
+symbol = "󰎙 "
+
+[nim]
+style = "bold blue"
+format = " [](fg:black)[ $symbol$version ](bold bg:black fg:blue)[](fg:black)"
+disabled = false
+symbol = "󰆥 "
+
+[rust]
+style = "bold blue"
+format = " [](fg:black)[ $symbol$version ](bold bg:black fg:blue)[](fg:black)"
+disabled = false
+symbol = " "
+
+[scala]
+style = "bold blue"
+format = " [](fg:black)[ $symbol$version ](bold bg:black fg:blue)[](fg:black)"
+disabled = false
+symbol = " "
+
+[python]
+style = "bold blue"
+format = " [](fg:black)[ $symbol$version ](bold bg:black fg:blue)[](fg:black)"
+disabled = false
+symbol = ' '
+
+[conda]
+style = "bold blue"
+format = " [](fg:black)[ $symbol$environment ](bold bg:black fg:blue)[](fg:black)"
+disabled = false
+symbol = '🅒 '
+

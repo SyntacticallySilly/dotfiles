@@ -248,19 +248,6 @@ return {
       vim.b.miniindentscope_disable = true
       vim.b.minicursorword_disable = true
       vim.opt_local.colorcolumn = ""
-
-      -- Harmonized Catppuccin Mocha colors
-      -- vim.api.nvim_set_hl(0, "DashboardHeader", { fg = "#" }) -- Blue
-      -- vim.api.nvim_set_hl(0, "DashboardIcon", { fg = "#f5c2e7" })   -- Pink
-      -- vim.api.nvim_set_hl(0, "DashboardDesc", { fg = "#cdd6f4" })   -- Text
-      -- vim.api.nvim_set_hl(0, "DashboardKey", { fg = "#a6e3a1" })    -- Green
-      -- vim.api.nvim_set_hl(0, "DashboardFooter", { fg = "#89dceb" }) -- Sky
-
-      -- vim.api.nvim_set_hl(0, "DashboardHeader", { link = "Title" })          -- Often Blue/Bold
-      -- vim.api.nvim_set_hl(0, "DashboardIcon", { link = "String" })           -- Often Green/Yellow
-      -- vim.api.nvim_set_hl(0, "DashboardDesc", { link = "Identifier" })       -- Often Purple/Blue
-      -- vim.api.nvim_set_hl(0, "DashboardKey", { link = "Number" })            -- Often Orange/Pink
-      -- vim.api.nvim_set_hl(0, "DashboardFooter", { link = "Comment" })        -- Often Grey/Italic
     end,
   })
 end,

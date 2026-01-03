@@ -10,7 +10,7 @@
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 # Show description headers for completion groups
-zstyle ':completion:*:descriptions' format '[%d]'
+# zstyle ':completion:*:descriptions' format '[%d]'
 
 # Enable menu-select widget for Tab
 zstyle ':autocomplete:tab:*' widget-style menu-select
@@ -19,9 +19,10 @@ zstyle ':autocomplete:tab:*' widget-style menu-select
 # zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"'ma=38;5;220'
 zstyle ':completion:*:*:*:*:*' list-colors "${(s.:.)LS_COLORS}" 'ma=04;36;5;51'
 
+zstyle ':completion:*:*:*:*:corrections' format '%F{yellow}!- %d (errors: %e) -!%f'
 zstyle ':completion:*:descriptions' format '%F{yellow}%B-- %d --%b%f'
-zstyle ':completion:*:warnings' format '%F{red}No matches%f'
 zstyle ':completion:*:messages' format '%F{cyan}%d%f'
+zstyle ':completion:*:warnings' format '%F{red}No matches found%f'
 
 # Disable default menu for fzf-tab integration
 zstyle ':completion:*' menu true
@@ -57,8 +58,14 @@ zstyle ':autocomplete:history-incremental-search-backward:*' list-lines 5
 # # # Override for history menu only
 zstyle ':autocomplete:history-search-backward:*' list-lines 500
 
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+
 # ───────────────────────────────────────────────────────────────
 #  Custom Completions
 # ───────────────────────────────────────────────────────────────
-# Completions for nala package manager
-compdef nala=apt
+# Starship
+source ~/dotfiles/.config/zsh/comp/starship.zsh
+source ~/dotfiles/.config/zsh/comp/nala.zsh
+source ~/dotfiles/.config/zsh/comp/tod.zsh

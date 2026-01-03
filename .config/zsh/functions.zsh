@@ -175,3 +175,9 @@ fimg() {
 
   [[ -n "$selected" ]] && termux-open "$selected"
 }
+
+function copy-buffer-to-clipboard() {
+  echo -n "$BUFFER" | termux-clipboard-set
+  zle -M "Copied to clipboard"
+}
+zle -N copy-buffer-to-clipboard

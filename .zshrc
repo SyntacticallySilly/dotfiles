@@ -30,6 +30,7 @@ source ~/dotfiles/.config/zsh/binds.zsh
 source ~/dotfiles/.config/zsh/vi-mode.zsh
 source ~/dotfiles/.config/zsh/aliases.zsh
 source ~/dotfiles/.config/zsh/startup.zsh
+source ~/dotfiles/.config/zsh/styles.zsh
 
 # ───────────────────────────────────────────────────────────────
 #  End of Configuration

@@ -30,7 +30,7 @@ vim.opt.cursorline = true           -- Highlight current line
 vim.opt.termguicolors = true        -- True color support
 vim.opt.scrolloff = 5               -- Keep 8 lines visible when scrolling
 vim.opt.sidescrolloff = 5           -- Keep 8 columns visible when scrolling
-vim.opt.updatetime = 5              -- Faster update time (better performance)
+vim.opt.updatetime = 200            -- Faster update time (better performance)
 vim.opt.timeoutlen = 250            -- Timeout for key sequences
 vim.opt.completeopt = "menuone,noselect"  -- Better completion menu
 vim.opt.undolevels = 10000          -- More undo history (default is 1000)
@@ -99,6 +99,9 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt_local.spell = true
       end,
 })
+
+vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#bdbdff"})
+vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { bg = "#bdbdff" })
 
 -- Load keymaps (after all settings are configured)
 require("synvim.keymaps").setup()

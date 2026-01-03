@@ -7,16 +7,16 @@ return {
     "nvim-tree/nvim-web-devicons",
   },
   event = "VeryLazy",
-  
+
   config = function()
     local devicons_colors = require("tiny-devicons-auto-colors")
-    
+
     -- More aggressive contrast settings
     devicons_colors.setup({
       colors = nil,
       factors = {
-        lightness = 2.2,  -- Increased from 1.75 for better visibility
-        chroma = 1.5,     -- Increased for more vivid colors
+        -- lightness = 2.2,  -- Increased from 1.75 for better visibility
+        -- chroma = 1.5,     -- Increased for more vivid colors
         hue = 1.25,
       },
       cache = {

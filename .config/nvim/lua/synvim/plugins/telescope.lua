@@ -41,8 +41,7 @@ return {
     telescope.setup({
       defaults = {
         prompt_prefix = "  ",
-        selection_caret = " ",
-        entry_prefix = "",
+        selection_caret = "|> ",
 
         sorting_strategy = "descending",
         layout_strategy = "horizontal",
@@ -58,7 +57,7 @@ return {
           },
           width = 0.87,
           height = 0.80,
-          preview_cutoff = 120,
+          preview_cutoff = 9,
         },
 
         -- Transparent background

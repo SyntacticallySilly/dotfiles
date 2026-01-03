@@ -11,15 +11,15 @@ return {
       -- cursor: animates cursor and window
       -- window: only animates when cursor moves out of view
       mode = "cursor",
-      
+
       -- Delay between each movement (ms)
-      delay = 4,
-      
+      delay = 1,
+
       -- Max length of the scrolling animation
       max_delta = {
-        line = 100, -- Max lines
+        line = 500, -- Max lines
         column = false, -- No horizontal scroll limit
-        time = 500, -- Max 500ms per scroll
+        time = 300, -- Max 500ms per scroll
       },
     },
 

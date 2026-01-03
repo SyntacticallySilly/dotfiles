@@ -31,7 +31,7 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 zinit light sindresorhus/pretty-time-zsh
 
 # Smart command line expansion (Do What I Mean)
-zinit light oknowton/zsh-dwim
+# zinit light oknowton/zsh-dwim
 
 # Enhanced eza integration
 zinit light duggum/zeza

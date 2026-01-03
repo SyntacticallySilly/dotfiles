@@ -8,11 +8,11 @@ return {
     "saghen/blink.cmp",
     "b0o/schemastore.nvim", -- Added missing dependency
   },
-  
+
   config = function()
     -- Get capabilities from blink.cmp
     local capabilities = require('blink.cmp').get_lsp_capabilities()
-    
+
     -- Python LSP
     vim.lsp.config.pyright = {
       cmd = { "pyright-langserver", "--stdio" },
@@ -30,7 +30,7 @@ return {
         },
       },
     }
-    
+
     -- Rust LSP
     vim.lsp.config.rust_analyzer = {
       cmd = { "rust-analyzer" },
@@ -66,7 +66,7 @@ return {
         },
       },
     }
-    
+
     -- Lua LSP
     vim.lsp.config.lua_ls = {
       cmd = { "lua-language-server" },
@@ -144,7 +144,7 @@ return {
       root_markers = { ".git" },
       capabilities = capabilities,
     }
-    
+
     -- Enable LSP servers for their respective filetypes
     vim.api.nvim_create_autocmd("FileType", {
       pattern = { "python" },
@@ -152,73 +152,73 @@ return {
         vim.lsp.enable("pyright")
       end,
     })
-    
+
     vim.api.nvim_create_autocmd("FileType", {
       pattern = { "rust" },
       callback = function()
         vim.lsp.enable("rust_analyzer")
       end,
     })
-    
+
     vim.api.nvim_create_autocmd("FileType", {
       pattern = { "lua" },
       callback = function()
         vim.lsp.enable("lua_ls")
       end,
     })
-    
+
     vim.api.nvim_create_autocmd("FileType", {
       pattern = { "json", "jsonc" },
       callback = function()
         vim.lsp.enable("jsonls")
       end,
     })
-    
+
     vim.api.nvim_create_autocmd("FileType", {
       pattern = { "yaml", "yml" },
       callback = function()
         vim.lsp.enable("yamlls")
       end,
     })
-    
+
     vim.api.nvim_create_autocmd("FileType", {
       pattern = { "toml" },
       callback = function()
         vim.lsp.enable("taplo")
       end,
     })
-    
+
     -- LSP keymaps (set on attach)
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(args)
         local opts = { buffer = args.buf }
-        
+
         -- Navigation
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
         vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
         vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
         vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
         vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
-        
+
         -- Documentation
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
         vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-        
+
         -- Code actions
         vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
         vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-        
+
         -- Diagnostics
         vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
         vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
         vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
       end,
     })
-    
+
     -- Diagnostic configuration
     vim.diagnostic.config({
       virtual_text = {
-        prefix = "●",
+        prefix = " ",
         spacing = 4,
       },
       signs = true,
@@ -228,19 +228,19 @@ return {
       float = {
         border = "rounded",
         source = "always",
-        header = "",
+        header = "Diagnostics :",
         prefix = "",
       },
     })
-    
+
     -- Diagnostic signs
     local signs = {
-      { name = "DiagnosticSignError", text = "" },
-      { name = "DiagnosticSignWarn", text = "" },
-      { name = "DiagnosticSignHint", text = "" },
-      { name = "DiagnosticSignInfo", text = "" },
+      { name = "DiagnosticSignError", text = "" },
+      { name = "DiagnosticSignWarn", text = "" },
+      { name = "DiagnosticSignHint", text = "" },
+      { name = "DiagnosticSignInfo", text = "" },
     }
-    
+
     for _, sign in ipairs(signs) do
       vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
     end

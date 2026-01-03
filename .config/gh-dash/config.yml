@@ -67,7 +67,7 @@ theme:
             showSeparator: true
             compact: false
 pager:
-    diff: ""
-confirmQuit: false
+    diff: "delta"
+confirmQuit: true
 showAuthorIcons: true
 smartFilteringAtLaunch: true

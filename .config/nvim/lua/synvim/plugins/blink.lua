@@ -14,7 +14,7 @@ return {
   opts = {
     keymap = {
       preset = "enter",
-      ["<CR>"] = { "accept", "fallback" },
+      ["/"] = { "accept", "fallback" },
       ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
       ["<C-e>"] = { "hide", "fallback" },
       ["<C-p>"] = { "select_prev", "fallback" },
@@ -56,7 +56,7 @@ return {
             get_cwd = function(context)
               return vim.fn.expand(("#%d:p:h"):format(context.bufnr))
             end,
-            show_hidden_files_by_default = false,
+            show_hidden_files_by_default = true,
           },
         },
         snippets = {
@@ -102,10 +102,10 @@ return {
         enabled = true,
         min_width = 15,
         max_height = 10,
-        border = "rounded",
+        border = "shadow",
         winblend = 0,
-        winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
-        scrollbar = false,
+        winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,Search:None",
+        scrollbar = true,
         auto_show = true,
 
         draw = {
@@ -147,9 +147,9 @@ return {
 
       documentation = {
         auto_show = true,
-        auto_show_delay_ms = 500,
+        auto_show_delay_ms = 300,
         window = {
-          border = "rounded",
+          border = "shadow",
           winblend = 0,
           winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
         },
@@ -170,7 +170,7 @@ return {
     signature = {
       enabled = true,
       window = {
-        border = "rounded",
+        border = "shadow",
         winblend = 0,
         winhighlight = "Normal:BlinkCmpSignatureHelp,FloatBorder:BlinkCmpSignatureHelpBorder",
       },
