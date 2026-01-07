@@ -26,25 +26,27 @@ vim.opt.backup = false              -- No backup files
 vim.opt.swapfile = false            -- No swap files
 vim.opt.splitbelow = true           -- Split below
 vim.opt.splitright = true           -- Split right
-vim.opt.cursorline = true           -- Highlight current line
+vim.opt.cursorline = false           -- Highlight current line
 vim.opt.termguicolors = true        -- True color support
 vim.opt.scrolloff = 5               -- Keep 8 lines visible when scrolling
 vim.opt.sidescrolloff = 5           -- Keep 8 columns visible when scrolling
 vim.opt.updatetime = 200            -- Faster update time (better performance)
 vim.opt.timeoutlen = 250            -- Timeout for key sequences
-vim.opt.completeopt = "menuone,noselect"  -- Better completion menu
+-- vim.opt.completeopt = "menuone,noselect"  -- Better completion menu
 vim.opt.undolevels = 10000          -- More undo history (default is 1000)
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"  -- Undo directory
 vim.opt.timeout = true
 vim.opt.ttimeoutlen = 10
 vim.opt.spell = false
-vim.opt.ttyfast = true    -- Assume fast terminal connection
+-- vim.opt.ttyfast = true    -- Assume fast terminal connection
 -- Reduce memory usage
 vim.opt.maxmempattern = 2000
 -- vim.opt.shadafile = "NONE" -- Disable shada during editing, save on exit
+vim.opt.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 -- -- Faster completion
-vim.opt.pumheight = 15 -- Limit completion menu height
+vim.opt.pumheight = 8  -- Limit completion menu height
 
 -- Restore cursor position when reopening files
 -- vim.api.nvim_create_autocmd("BufReadPost", {
@@ -92,12 +94,47 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "markdown",
-    callback = function()
-        vim.opt_local.wrap = true
-        vim.opt_local.linebreak = true
-        vim.opt_local.spell = true
-      end,
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true
+    vim.opt_local.spell = true
+  end,
+})
+
+vim.api.nvim_create_autocmd("VimResized", {
+  callback = function()
+    local current_tab = vim.fn.tabpagenr()
+    vim.cmd("tabdo wincmd =")
+    vim.cmd("tabnext " .. current_tab)
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  callback = function(event)
+    if event.match:match("^%w%w+:[\\/][\\/]") then return end
+    local file = vim.loop.fs_realpath(event.match) or event.match
+    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  command = [[%s/s+$//e]],
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "gitcommit", "text" },
+  callback = function()
+    vim.opt_local.spell = true
+    vim.opt_local.wrap = true
+  end,
+})
+
+vim.api.nvim_create_autocmd("CursorHold", {
+  callback = function()
+    vim.diagnostic.open_float(nil, { focusable = false, border = "rounded" })
+  end,
 })
 
 vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#bdbdff"})

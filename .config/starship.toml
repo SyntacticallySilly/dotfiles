@@ -34,6 +34,9 @@ error_symbol = "[󱞪](bold red)"
 vicmd_symbol = "[󱞪](bold yellow)"  # Normal mode indicator
 format = "$symbol "
 
+[profiles]
+transient = """$time $character"""
+
 [directory]
 format = "[](fg:black)[ $path ](bold bg:black fg:blue)[](fg:black) "
 style = "bold blue"
@@ -52,25 +55,25 @@ symbol = "-"
 [git_branch]
 format = "[](fg:black)[ $symbol $branch ](bold bg:black fg:cyan)[](fg:black) "
 style = "bold cyan"
-symbol = ""
+symbol = ""
 
 [git_status]
 disabled = false
 style = "bg:black bold magenta"
 format = '[](fg:black)([$all_status$ahead_behind]($style))[](fg:black) '
 up_to_date = '[ ✓ ](bold green)'
-untracked = '[󰂑\($count\)](bold yellow)'
-stashed = '[\$](bold magenta)'
-modified = '[!\($count\)](bold yellow)'
-renamed = '[»\($count\)](bold magenta)'
-deleted = '[✘\($count\)](bold red)'
-staged = '[++\($count\)](bold yellow)'
-ahead = '[⇡\(${count}\)](bold cyan)'
-diverged = '⇕[\[](bold magenta)[⇡\(${ahead_count}\)](bold cyan)[⇣\(${behind_count}\)](bold magenta)[\]](bold magenta)'
-behind = '[⇣\(${count}\)](bold magenta)'
+untracked = '[? \($count\)](bold yellow)'
+stashed = '[ ](bold magenta)'
+modified = '[ \($count\)](bold yellow)'
+renamed = '[ \($count\)](bold magenta)'
+deleted = '[ \($count\)](bold red)'
+staged = '[ \($count\)](bold yellow)'
+ahead = '[ \(${count}\)](bold cyan)'
+diverged = ' [\[](bold magenta)[\(${ahead_count}\)](bold cyan)[\(${behind_count}\)](bold magenta)[\]](bold magenta)'
+behind = '[ \(${count}\)](bold magenta)'
 
 [time]
-disabled = false
+disabled = true
 format = "[](fg:black)[ $time 󰴈 ](bold bg:black fg:magenta)[](fg:black)"
 style = "bold magenta"
 time_format = "%I:%M%P"
@@ -84,7 +87,7 @@ style_root = "bold red"
 style_user = "bold magenta"
 
 [cmd_duration]
-min_time = 500
+min_time = 300
 format = "[ $duration](bold yellow)"
 disabled = false
 

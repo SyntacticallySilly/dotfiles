@@ -1,5 +1,4 @@
 -- SynVim Lualine Plugin
-
 -- Minimal statusline with time
 
 return {
@@ -17,18 +16,23 @@ return {
     local function truncated_path()
       local path = vim.fn.expand("%:p")
       local home = vim.fn.expand("~")
+
       if path:find(home) then
         path = path:gsub(vim.pesc(home), "~")
       end
+
       local parts = {}
       for part in path:gmatch("[^/]+") do
         table.insert(parts, part)
       end
-      local depth = math.min(1, #parts)
+
+      local depth = math.min(3, #parts)
       local truncated = table.concat(parts, "/", #parts - depth + 1)
+
       if path:sub(1, 1) == "/" and truncated:sub(1, 1) ~= "/" then
         truncated = "/" .. truncated
       end
+
       return truncated
     end
 
@@ -38,7 +42,6 @@ return {
       i = " ",
       v = "󰩭 ",
       V = "󱊅 ",
-      [vim.api.nvim_replace_termcodes("<C-v>", true, true, true)] = "󰙨 ",  -- Visual Block mode (CTRL-V)
       c = "󰘳 ",
       t = " ",
     }
@@ -46,6 +49,7 @@ return {
     -- Function to get theme name dynamically
     local function get_theme()
       local colorscheme = vim.g.colors_name
+
       local theme_map = {
         ["catppuccin-mocha"] = "catppuccin",
         ["catppuccin-frappe"] = "catppuccin",
@@ -72,33 +76,13 @@ return {
         ["monokai-pro"] = "auto",
         ["darkvoid"] = "auto",
       }
+
       return theme_map[colorscheme] or "auto"
     end
 
     -- Time component (12-hour format)
     local function current_time()
-      return os.date(" %I:%M") -- 12-hour format with AM/PM
-    end
-
-    -- Edited file indicator
-    local function file_modified()
-      if vim.bo.modified then
-        return "󰏫 "
-      end
-      return ""
-    end
-
-    -- LSP indicator
-    local function lsp_info()
-      local clients = vim.lsp.get_active_clients({ bufnr = 0 })
-      if #clients == 0 then
-        return ""
-      end
-      local names = {}
-      for _, client in ipairs(clients) do
-        table.insert(names, client.name)
-      end
-      return "lsp " .. table.concat(names, ", ")
+      return os.date(" %I:%M")  -- 12-hour format with AM/PM
     end
 
     lualine.setup({
@@ -112,6 +96,7 @@ return {
           tabline = {},
         },
       },
+
       sections = {
         -- Left: mode icon
         lualine_a = {
@@ -125,6 +110,7 @@ return {
             color = "lualine_a_normal",
           },
         },
+
         -- Middle-left: git branch and diff
         lualine_b = {
           {
@@ -132,6 +118,7 @@ return {
             icon = "󰘬",
             color = "lualine_b_normal",
             separator = { right = '' },
+
           },
           {
             "diff",
@@ -150,29 +137,19 @@ return {
             end,
           },
         },
-        -- Middle: truncated file path with modified indicator
+
+        -- Middle: truncated file path
         lualine_c = {
           {
-            file_modified,
-            color = { fg = "#f38ba8" },  -- Pink/red color for modified indicator
-            padding = { left = 1, right = 0 },
+            "truncated_path",
+            color = "lualine_c_normal",
+            separator = { right = '' },
+            padding = { left = 1, right = 1 },
           },
-          -- {
-          --   truncated_path,
-          --   color = "lualine_c_normal",
-          --   separator = { right = '' },
-          --   padding = { left = 0, right = 1 },
-          -- },
         },
-        -- Right side: LSP, buffer count, time, filetype
+
+        -- Right side: buffer count, time, filetype
         lualine_x = {
-          {
-            lsp_info,
-            color = "lualine_x_normal",
-            cond = function()
-              return #vim.lsp.get_active_clients({ bufnr = 0 }) > 0
-            end,
-          },
           {
             function()
               local total = #vim.fn.getbufinfo({buflisted = 1})
@@ -181,12 +158,14 @@ return {
             color = "lualine_x_normal",
           },
         },
+
         lualine_y = {
           {
             current_time,
             color = "lualine_y_normal",
           },
         },
+
         lualine_z = {
           {
             "filetype",
@@ -197,6 +176,7 @@ return {
           },
         },
       },
+
       inactive_sections = {
         lualine_a = {},
         lualine_b = {},

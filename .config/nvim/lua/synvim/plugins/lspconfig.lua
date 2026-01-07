@@ -168,6 +168,13 @@ return {
     })
 
     vim.api.nvim_create_autocmd("FileType", {
+      pattern = { "go" },
+      callback = function()
+        vim.lsp.enable("gopls")
+      end,
+    })
+
+    vim.api.nvim_create_autocmd("FileType", {
       pattern = { "json", "jsonc" },
       callback = function()
         vim.lsp.enable("jsonls")

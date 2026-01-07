@@ -25,30 +25,28 @@ return {
           col = "50%",  -- Center horizontally
         },
       },
-      format = {
-        --   cmdline = {
-        --     kind = "command",
-        --     pattern = "^:",
-        --     icon = "  ",
-        --     lang = "regex",
-        --     view = "cmdline_popup"
-        --   },
-        -- Keep search floating too (not at bottom)
-        search_down = {
-          kind = "search",
-          pattern = "^/",
-          icon = " " ,
-          lang = "regex",
-          view = "cmdline_popup",  -- Make search floating
-        },
-        search_up = {
-          kind = "search",
-          pattern = "^%?",
-          icon = "󰈞 ",
-          lang = "regex",
-          view = "cmdline_popup",  -- Make search floating
-        },
-      },
+      -- format = {
+      --   --   cmdline = {
+      --   --     kind = "command",
+      --   --     pattern = "^:",
+      --   --     icon = "  ",
+      --   --     lang = "regex",
+      --   --     view = "cmdline_popup"
+      --   --   },
+      --   -- Keep search floating too (not at bottom)
+      --   search_down = {
+      --     kind = "search",
+      --     pattern = "^/",
+      --     icon = " " ,
+      --     lang = "regex",
+      --   },
+      --   search_up = {
+      --     kind = "search",
+      --     pattern = "^%?",
+      --     icon = "󰈞 ",
+      --     lang = "regex",
+      --   },
+      -- },
     },
 
     -- Messages UI
@@ -68,7 +66,7 @@ return {
     -- LSP progress
     lsp = {
       progress = {
-        enabled = false,
+        enabled = true,
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
@@ -80,12 +78,12 @@ return {
       enabled = true,
     },
     signature = {
-      enabled = false,
+      enabled = true,
     },
   },
 
   presets = {
-    bottom_search = false,  -- IMPORTANT: Don't use bottom search
+    bottom_search = true,  -- IMPORTANT: Don't use bottom search
     command_palette = true,  -- Don't combine cmdline and popupmenu
     long_message_to_split = true,
   },

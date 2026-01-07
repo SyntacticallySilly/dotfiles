@@ -8,7 +8,10 @@
 # ───────────────────────────────────────────────────────────────
 # zsh-autocomplete MUST load first - manages compinit internally
 zinit light marlonrichert/zsh-autocomplete
+
 #
+# zinit light olets/zsh-transient-prompt
+
 # # Autosuggestions - suggests commands based on history
 zinit light zsh-users/zsh-autosuggestions
 #

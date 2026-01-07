@@ -16,6 +16,7 @@ eval "$(zoxide init zsh)"
 # eval "$(oh-my-posh init zsh --config ~/.config/omp/zen.toml)"
 
 eval "$(starship init zsh)"
+
 # ───────────────────────────────────────────────────────────────
 #  Zsh-Notify Configuration
 # ───────────────────────────────────────────────────────────────

@@ -62,6 +62,8 @@ zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %
 zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
+  zstyle ':transient-prompt:' format '%(?.%F{green}.%F{red})❯%f '
+
 # ───────────────────────────────────────────────────────────────
 #  Custom Completions
 # ───────────────────────────────────────────────────────────────

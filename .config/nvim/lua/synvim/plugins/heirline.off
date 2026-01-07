@@ -1,0 +1,435 @@
+-- ~/.config/nvim/lua/plugins/heirline.lua
+return {
+    "rebelot/heirline.nvim",
+    dependencies = {
+        "nvim-tree/nvim-web-devicons", -- For filetype icons
+        "lewis6991/gitsigns.nvim",      -- For git integration
+    },
+    config = function()
+        local conditions = require("heirline.conditions")
+        local utils = require("heirline.utils")
+
+        -- Define colors
+        local function setup_colors()
+            return {
+                bright_bg = utils.get_highlight("Folded").bg,
+                bright_fg = utils.get_highlight("Folded").fg,
+                red = utils.get_highlight("DiagnosticError").fg,
+                dark_red = utils.get_highlight("DiffDelete").bg,
+                green = utils.get_highlight("String").fg,
+                blue = utils.get_highlight("Function").fg,
+                gray = utils.get_highlight("NonText").fg,
+                orange = utils.get_highlight("Constant").fg,
+                purple = utils.get_highlight("Statement").fg,
+                cyan = utils.get_highlight("Special").fg,
+                diag_warn = utils.get_highlight("DiagnosticWarn").fg,
+                diag_error = utils.get_highlight("DiagnosticError").fg,
+                diag_hint = utils.get_highlight("DiagnosticHint").fg,
+                diag_info = utils.get_highlight("DiagnosticInfo").fg,
+                git_del = utils.get_highlight("diffDeleted").fg,
+                git_add = utils.get_highlight("diffAdded").fg,
+                git_change = utils.get_highlight("diffChanged").fg,
+            }
+        end
+
+        -- Circular separator components
+        local Separators = {
+            left_circle = "",
+            right_circle = "",
+        }
+
+        -- Spacer component
+        local Space = { provider = " " }
+
+        -- Align component to separate left and right sections
+        local Align = { provider = "%=" }
+
+        -- ============================
+        -- LEFT SECTION COMPONENTS
+        -- ============================
+
+        -- Mode indicator with icons
+        local ViMode = {
+            init = function(self)
+                self.mode = vim.fn.mode(1)
+            end,
+            static = {
+                mode_names = {
+                    n = "NORMAL",
+                    no = "O-PENDING",
+                    nov = "O-PENDING",
+                    noV = "O-PENDING",
+                    ["no\u0012"] = "O-PENDING",
+                    niI = "NORMAL",
+                    niR = "NORMAL",
+                    niV = "NORMAL",
+                    nt = "NORMAL",
+                    v = "VISUAL",
+                    vs = "VISUAL",
+                    V = "V-LINE",
+                    Vs = "V-LINE",
+                    ["\u0012"] = "V-BLOCK",
+                    ["\u0012s"] = "V-BLOCK",
+                    s = "SELECT",
+                    S = "S-LINE",
+                    ["\u00019"] = "S-BLOCK",
+                    i = "INSERT",
+                    ic = "INSERT",
+                    ix = "INSERT",
+                    R = "REPLACE",
+                    Rc = "REPLACE",
+                    Rx = "REPLACE",
+                    Rv = "V-REPLACE",
+                    Rvc = "V-REPLACE",
+                    Rvx = "V-REPLACE",
+                    c = "COMMAND",
+                    cv = "EX",
+                    r = "...",
+                    rm = "MORE",
+                    ["r?"] = "CONFIRM",
+                    ["!"] = "SHELL",
+                    t = "TERMINAL",
+                },
+                mode_colors = {
+                    n = "blue",
+                    i = "green",
+                    v = "cyan",
+                    V = "cyan",
+                    ["\u0012"] = "cyan",
+                    c = "orange",
+                    s = "purple",
+                    S = "purple",
+                    ["\u00019"] = "purple",
+                    R = "red",
+                    r = "red",
+                    ["!"] = "red",
+                    t = "red",
+                },
+                mode_icons = {
+                    n = "󰋜 ",
+                    i = " ",
+                    v = "󰈈 ",
+                    V = "󰈈 ",
+                    ["\u0012"] = "󰈈 ",
+                    c = " ",
+                    s = " ",
+                    S = " ",
+                    ["\u00019"] = " ",
+                    R = "󰛔 ",
+                    r = "󰛔 ",
+                    ["!"] = " ",
+                    t = " ",
+                }
+            },
+            {
+                provider = function(self)
+                    local mode = self.mode:sub(1, 1)
+                    return self.mode_icons[mode] or " "
+                end,
+                hl = function(self)
+                    local mode = self.mode:sub(1, 1)
+                    return { fg = "bright_bg", bg = self.mode_colors[mode], bold = true }
+                end,
+            },
+            {
+                provider = function(self)
+                    return self.mode_names[self.mode] or self.mode
+                end,
+                hl = function(self)
+                    local mode = self.mode:sub(1, 1)
+                    return { fg = "bright_bg", bg = self.mode_colors[mode], bold = true }
+                end,
+            },
+            Space,
+            {
+                provider = Separators.right_circle,
+                hl = function(self)
+                    local mode = self.mode:sub(1, 1)
+                    return { fg = self.mode_colors[mode], bg = "bright_bg" }
+                end,
+            },
+            update = {
+                "ModeChanged",
+                pattern = "*:*",
+                callback = vim.schedule_wrap(function()
+                    vim.cmd("redrawstatus")
+                end),
+            },
+        }
+
+        -- Modified indicator (pen icon)
+        local FileModified = {
+            condition = function()
+                return vim.bo.modified
+            end,
+            Space,
+            {
+                provider = " ",
+                hl = { fg = "orange", bg = "bright_bg" },
+            },
+        }
+
+        -- Git branch and diff
+        local Git = {
+            condition = conditions.is_git_repo,
+            init = function(self)
+                self.status_dict = vim.b.gitsigns_status_dict
+                self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
+            end,
+            Space,
+            {
+                provider = function(self)
+                    return " " .. self.status_dict.head
+                end,
+                hl = { fg = "purple", bg = "bright_bg", bold = true },
+            },
+            {
+                condition = function(self)
+                    return self.has_changes
+                end,
+                Space,
+                {
+                    provider = function(self)
+                        local count = self.status_dict.added or 0
+                        return count > 0 and (" " .. count)
+                    end,
+                    hl = { fg = "git_add", bg = "bright_bg" },
+                },
+                {
+                    provider = function(self)
+                        local count = self.status_dict.changed or 0
+                        return count > 0 and (" " .. count)
+                    end,
+                    hl = { fg = "git_change", bg = "bright_bg" },
+                },
+                {
+                    provider = function(self)
+                        local count = self.status_dict.removed or 0
+                        return count > 0 and (" " .. count)
+                    end,
+                    hl = { fg = "git_del", bg = "bright_bg" },
+                },
+            },
+        }
+
+        -- ============================
+        -- RIGHT SECTION COMPONENTS
+        -- ============================
+
+        -- Diagnostics with trouble integration
+        local Diagnostics = {
+            condition = conditions.has_diagnostics,
+            static = {
+                error_icon = " ",
+                warn_icon = " ",
+                info_icon = " ",
+                hint_icon = "󰌵 ",
+            },
+            init = function(self)
+                self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+                self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+                self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
+                self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+            end,
+            {
+                provider = Separators.left_circle,
+                hl = { fg = "bright_bg", bg = "bright_bg" },
+            },
+            {
+                provider = function(self)
+                    return self.errors > 0 and (self.error_icon .. self.errors .. " ")
+                end,
+                hl = { fg = "diag_error", bg = "bright_bg" },
+                on_click = {
+                    callback = function()
+                        local ok = pcall(require, "trouble")
+                        if ok then
+                            vim.cmd("Trouble diagnostics toggle filter.severity=vim.diagnostic.severity.ERROR")
+                        else
+                            vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })
+                        end
+                    end,
+                    name = "heirline_diagnostics_error",
+                },
+            },
+            {
+                provider = function(self)
+                    return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ")
+                end,
+                hl = { fg = "diag_warn", bg = "bright_bg" },
+                on_click = {
+                    callback = function()
+                        local ok = pcall(require, "trouble")
+                        if ok then
+                            vim.cmd("Trouble diagnostics toggle filter.severity=vim.diagnostic.severity.WARN")
+                        else
+                            vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.WARN })
+                        end
+                    end,
+                    name = "heirline_diagnostics_warn",
+                },
+            },
+            {
+                provider = function(self)
+                    return self.info > 0 and (self.info_icon .. self.info .. " ")
+                end,
+                hl = { fg = "diag_info", bg = "bright_bg" },
+            },
+            {
+                provider = function(self)
+                    return self.hints > 0 and (self.hint_icon .. self.hints .. " ")
+                end,
+                hl = { fg = "diag_hint", bg = "bright_bg" },
+            },
+            update = { "DiagnosticChanged", "BufEnter" },
+        }
+
+        -- Aerial integration
+        local Aerial = {
+            condition = function()
+                local ok, aerial = pcall(require, "aerial")
+                return ok and aerial.is_open()
+            end,
+            {
+                provider = Separators.left_circle,
+                hl = { fg = "cyan", bg = "bright_bg" },
+            },
+            {
+                provider = " 󰙅 ",
+                hl = { fg = "bright_bg", bg = "cyan", bold = true },
+            },
+            Space,
+            on_click = {
+                callback = function()
+                    require("aerial").toggle()
+                end,
+                name = "heirline_aerial",
+            },
+        }
+
+        -- LSP status indicator
+        local LSPActive = {
+            condition = conditions.lsp_attached,
+            update = { "LspAttach", "LspDetach" },
+            {
+                provider = Separators.left_circle,
+                hl = { fg = "green", bg = "bright_bg" },
+            },
+            {
+                provider = "  ",
+                hl = { fg = "bright_bg", bg = "green", bold = true },
+            },
+            Space,
+        }
+
+        -- Line and column number
+        local Ruler = {
+            {
+                provider = Separators.left_circle,
+                hl = { fg = "blue", bg = "bright_bg" },
+            },
+            {
+                provider = " %l;%c ",
+                hl = { fg = "bright_bg", bg = "blue", bold = true },
+            },
+        }
+
+        -- Time (12-hour format without AM/PM)
+        local Time = {
+            {
+                provider = Separators.left_circle,
+                hl = { fg = "purple", bg = "bright_bg" },
+            },
+            {
+                provider = function()
+                    return " " .. os.date("%I:%M") .. " "
+                end,
+                hl = { fg = "bright_bg", bg = "purple", bold = true },
+            },
+            update = { "BufEnter", "CursorHold" },
+        }
+
+        -- Filetype with icon
+        local FileType = {
+            condition = function()
+                return vim.bo.filetype ~= ""
+            end,
+            init = function(self)
+                self.filename = vim.api.nvim_buf_get_name(0)
+                self.extension = vim.fn.fnamemodify(self.filename, ":e")
+            end,
+            {
+                provider = Separators.left_circle,
+                hl = { fg = "orange", bg = "bright_bg" },
+            },
+            {
+                init = function(self)
+                    local ok, devicons = pcall(require, "nvim-web-devicons")
+                    if ok then
+                        self.icon, self.icon_color = devicons.get_icon_color(
+                            vim.fn.fnamemodify(self.filename, ":t"),
+                            self.extension,
+                            { default = true }
+                        )
+                    else
+                        self.icon = "󰈔"
+                        self.icon_color = "orange"
+                    end
+                end,
+                provider = function(self)
+                    return " " .. (self.icon or "")
+                end,
+                hl = function(self)
+                    return { fg = "bright_bg", bg = "orange" }
+                end,
+            },
+            {
+                provider = function()
+                    return " " .. vim.bo.filetype .. " "
+                end,
+                hl = { fg = "bright_bg", bg = "orange", bold = true },
+            },
+        }
+
+        -- ============================
+        -- STATUSLINE ASSEMBLY
+        -- ============================
+
+        local StatusLine = {
+            hl = { bg = "bright_bg" },
+            -- Left section
+            ViMode,
+            FileModified,
+            Git,
+
+            -- Middle section (align)
+            Align,
+
+            -- Right section
+            Diagnostics,
+            Aerial,
+            LSPActive,
+            Ruler,
+            Time,
+            FileType,
+        }
+
+        -- ============================
+        -- SETUP
+        -- ============================
+
+        require("heirline").setup({
+            statusline = StatusLine,
+            opts = {
+                colors = setup_colors,
+            },
+        })
+
+        -- Auto-reload colors on colorscheme change
+        vim.api.nvim_create_autocmd("ColorScheme", {
+            callback = function()
+                utils.on_colorscheme(setup_colors)
+            end,
+        })
+    end,
+}
