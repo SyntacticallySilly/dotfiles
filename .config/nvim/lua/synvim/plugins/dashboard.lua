@@ -4,6 +4,7 @@
 return {
   "nvimdev/dashboard-nvim",
   event = "VimEnter",
+  -- enabled = false,
   dependencies = { "nvim-tree/nvim-web-devicons" },
 
   config = function()
@@ -151,18 +152,18 @@ return {
         --   key_format = " [%s]",
         --   action = "VimBeGood",
         -- },
-        {
-          icon = " ",
-          icon_hl = "DashboardIcon",
-          desc = "Switch theme",
-          desc_hl = "DashboardDesc",
-          key = "t",
-          key_hl = "DashboardKey",
-          key_format = " [%s]",
-          action = function()
-            require("synvim.theme-switcher").switch_theme()
-          end,
-        },
+        -- {
+        --   icon = " ",
+        --   icon_hl = "DashboardIcon",
+        --   desc = "Switch theme",
+        --   desc_hl = "DashboardDesc",
+        --   key = "t",
+        --   key_hl = "DashboardKey",
+        --   key_format = " [%s]",
+        --   action = function()
+        --     require("synvim.theme-switcher").switch_theme()
+        --   end,
+        -- },
         {
           icon = "󰢻 ",
           desc = "Config",

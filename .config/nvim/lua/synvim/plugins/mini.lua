@@ -37,6 +37,30 @@ return {
       },
     })
 
+    require("mini.files").setup({
+        mappings = {
+          go_in      = "l",
+          go_out     = "h",
+          open_file  = "<CR>",  -- Enter
+          open_split = "-",     -- Horizontal split
+          open_vsplit = "|",    -- Vertical split
+          remove     = "d",
+          delete     = "x",
+          move       = "m",
+          rename     = "r",
+          copy       = "y",
+          clear_dir  = "C",
+          show_help  = "?",
+          close      = "q",     -- Or Esc
+        },
+        windows = {
+          preview = false,       -- Enable live preview (fits your UI aesthetic prefs)
+      },
+      keys = {
+        { "<leader>e", "<cmd>lua MiniFiles.open(cwd)<CR>", mode = "n", desc = "Toggle mini.files" },
+      },
+    })
+
     -- Mini.surround - Replaces surround
     require("mini.surround").setup({
       mappings = {
@@ -53,49 +77,49 @@ return {
     })
 
     -- Mini.animate - Replaces illuminate, undo-glow, beacon.nvim
-    require("mini.animate").setup({
-      -- Cursor path animation (replaces beacon.nvim)
-      -- cursor = {
-      --   enable = true,
-      --   timing = require("mini.animate").gen_timing.linear({ duration = 500, unit = "total" }),
-      --   path = require("mini.animate").gen_path.line({
-      --     predicate = function()
-      --       return true
-      --     end,
-      --   }),
-      -- },
-
-      -- Scroll animation
-      scroll = {
-        enable = false,
-        timing = require("mini.animate").gen_timing.linear({ duration = 50, unit = "total" }),
-        subscroll = require("mini.animate").gen_subscroll.equal({
-          predicate = function(total_scroll)
-            return total_scroll > 1
-          end,
-        }),
-      },
-
-      -- Window resize animation (FIXED)
-      resize = {
-        enable = true,
-        timing = require("mini.animate").gen_timing.linear({ duration = 300, unit = "total" }),
-        subresize = require("mini.animate").gen_subresize.equal({ predicate = function() return true end }),
-      },
-
-      -- Window open/close animation
-      open = {
-        enable = true,
-        timing = require("mini.animate").gen_timing.linear({ duration = 250, unit = "total" }),
-        winconfig = require("mini.animate").gen_winconfig.wipe({ direction = "from_edge" }),
-      },
-
-      close = {
-        enable = true,
-        timing = require("mini.animate").gen_timing.linear({ duration = 350, unit = "total" }),
-        winconfig = require("mini.animate").gen_winconfig.wipe({ direction = "to_edge" }),
-      },
-    })
+    -- require("mini.animate").setup({
+    --   -- Cursor path animation (replaces beacon.nvim)
+    --   -- cursor = {
+    --   --   enable = true,
+    --   --   timing = require("mini.animate").gen_timing.linear({ duration = 500, unit = "total" }),
+    --   --   path = require("mini.animate").gen_path.line({
+    --   --     predicate = function()
+    --   --       return true
+    --   --     end,
+    --   --   }),
+    --   -- },
+    --
+    --   -- Scroll animation
+    --   scroll = {
+    --     enable = false,
+    --     timing = require("mini.animate").gen_timing.linear({ duration = 50, unit = "total" }),
+    --     subscroll = require("mini.animate").gen_subscroll.equal({
+    --       predicate = function(total_scroll)
+    --         return total_scroll > 1
+    --       end,
+    --     }),
+    --   },
+    --
+    --   -- Window resize animation (FIXED)
+    --   resize = {
+    --     enable = true,
+    --     timing = require("mini.animate").gen_timing.linear({ duration = 300, unit = "total" }),
+    --     subresize = require("mini.animate").gen_subresize.equal({ predicate = function() return true end }),
+    --   },
+    --
+    --   -- Window open/close animation
+    --   open = {
+    --     enable = true,
+    --     timing = require("mini.animate").gen_timing.linear({ duration = 250, unit = "total" }),
+    --     winconfig = require("mini.animate").gen_winconfig.wipe({ direction = "from_edge" }),
+    --   },
+    --
+    --   close = {
+    --     enable = true,
+    --     timing = require("mini.animate").gen_timing.linear({ duration = 350, unit = "total" }),
+    --     winconfig = require("mini.animate").gen_winconfig.wipe({ direction = "to_edge" }),
+    --   },
+    -- })
 
     -- Mini.cursorword - Highlight word under cursor
     require("mini.cursorword").setup({

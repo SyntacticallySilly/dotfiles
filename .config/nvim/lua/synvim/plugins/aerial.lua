@@ -29,8 +29,8 @@ return {
       max_width = { 40, 0.3 }, -- 40 cols or 30% of window
       width = nil, -- Auto-size
       min_width = 25,
-      default_direction = "prefer_left", -- or "prefer_left", "right", "left", "float"
-      placement = "window", -- "window" or "edge"
+      default_direction = "right", -- or "prefer_left", "right", "left", "float"
+      placement = "edge", -- "window" or "edge"
       resize_to_content = true,
       preserve_equality = false,
     },
@@ -247,21 +247,6 @@ return {
   config = function(_, opts)
     require("aerial").setup(opts)
 
-    -- Custom highlights (theme adaptive)
-    vim.api.nvim_create_autocmd("ColorScheme", {
-      callback = function()
-        vim.api.nvim_set_hl(0, "AerialLine", { bg = "#313244" })
-        vim.api.nvim_set_hl(0, "AerialLineNC", { bg = "NONE" })
-        vim.api.nvim_set_hl(0, "AerialGuide", { fg = "#45475a" })
-
-        -- Highlight for different symbol types
-        vim.api.nvim_set_hl(0, "AerialClass", { fg = "#f9e2af", bold = true })
-        vim.api.nvim_set_hl(0, "AerialFunction", { fg = "#89b4fa" })
-        vim.api.nvim_set_hl(0, "AerialMethod", { fg = "#89dceb" })
-        vim.api.nvim_set_hl(0, "AerialStruct", { fg = "#cba6f7" })
-        vim.api.nvim_set_hl(0, "AerialEnum", { fg = "#a6e3a1" })
-      end,
-    })
 
     -- Telescope integration
     pcall(require("telescope").load_extension, "aerial")

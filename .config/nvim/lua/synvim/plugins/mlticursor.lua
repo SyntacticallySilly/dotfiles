@@ -2,6 +2,7 @@ return {
   "jake-stewart/multicursor.nvim",
   branch = "1.0",
   event = "VeryLazy",
+  enabled = false,
   config = function()
     local mc = require("multicursor-nvim")
 
@@ -38,8 +39,8 @@ return {
       { desc = "Skip prev match" })
 
     -- Add all matches in document
-    set({"n", "v"}, "<leader>A", mc.matchAllAddCursors,
-      { desc = "Add cursors to all matches" })
+    -- set({"n", "v"}, "<leader>A", mc.matchAllAddCursors,
+    --   { desc = "Add cursors to all matches" })
 
     -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     -- Mouse Support
@@ -61,7 +62,7 @@ return {
     set("v", "M", mc.matchCursors, { desc = "Match selections by regex" })
 
     -- Align cursor columns
-    set("n", "<leader>a", mc.alignCursors, { desc = "Align cursor columns" })
+    -- set("n", "<leader>a", mc.alignCursors, { desc = "Align cursor columns" })
 
     -- Transpose cursor selections
     set("v", "<leader>t", function() mc.transposeCursors(1) end,

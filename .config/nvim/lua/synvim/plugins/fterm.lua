@@ -7,7 +7,7 @@ return {
   keys = {
     { "<C-\\>", desc = "Toggle Terminal" },
     { "<leader>tt", desc = "Terminal"},
-    -- { "<leader>tg", desc = "Lazygit" },
+    { "<leader>tg", desc = "Lazygit" },
     { "<leader>tr", desc = "Resource Monitor" },
   },
 
@@ -52,18 +52,18 @@ return {
     vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit Terminal Mode" })
 
     -- Lazygit integration
-    -- local lazygit = fterm:new({
-    --   ft = "fterm_lazygit",
-    --   cmd = "lazygit",
-    --   dimensions = {
-    --     height = 0.95,
-    --     width = 0.95,
-    --   },
-    -- })
-    --
-    -- vim.keymap.set("n", "<leader>tg", function()
-    --   lazygit:toggle()
-    -- end, { desc = "Lazygit" })
+    local lazygit = fterm:new({
+      ft = "fterm_lazygit",
+      cmd = "lazygit",
+      dimensions = {
+        height = 0.95,
+        width = 0.95,
+      },
+    })
+
+    vim.keymap.set("n", "<leader>tg", function()
+      lazygit:toggle()
+    end, { desc = "Lazygit" })
     -- gotop/btop
     local gotop = fterm:new({
       ft = "fterm_gotop",

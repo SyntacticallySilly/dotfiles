@@ -11,7 +11,7 @@ vim.loader.enable()
 vim.opt.fillchars:append('eob: ')
 vim.lsp.set_log_level("off")
 vim.opt.number = true               -- Line numbers
-vim.opt.relativenumber = true      -- Relative line numbers
+vim.opt.relativenumber = false      -- Relative line numbers
 vim.opt.tabstop = 2                 -- Tab width
 vim.opt.shiftwidth = 2              -- Indentation width
 vim.opt.expandtab = true            -- Use spaces instead of tabs
@@ -26,11 +26,11 @@ vim.opt.backup = false              -- No backup files
 vim.opt.swapfile = false            -- No swap files
 vim.opt.splitbelow = true           -- Split below
 vim.opt.splitright = true           -- Split right
-vim.opt.cursorline = false           -- Highlight current line
+vim.opt.cursorline = true           -- Highlight current line
 vim.opt.termguicolors = true        -- True color support
 vim.opt.scrolloff = 5               -- Keep 8 lines visible when scrolling
 vim.opt.sidescrolloff = 5           -- Keep 8 columns visible when scrolling
-vim.opt.updatetime = 200            -- Faster update time (better performance)
+-- vim.opt.updatetime = 200            -- Faster update time (better performance)
 vim.opt.timeoutlen = 250            -- Timeout for key sequences
 -- vim.opt.completeopt = "menuone,noselect"  -- Better completion menu
 vim.opt.undolevels = 10000          -- More undo history (default is 1000)
@@ -82,6 +82,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end
   end,
 })
+
 
 -- Yank to system clipboard (but NOT delete operations)
 -- This keeps delete operations in default registers

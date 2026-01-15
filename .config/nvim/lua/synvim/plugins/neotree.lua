@@ -5,19 +5,20 @@ return {
   "nvim-neo-tree/neo-tree.nvim",
   branch = "v3.x",
   cmd = "Neotree",
+  enabled = true,
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons",
     "MunifTanjim/nui.nvim",
   },
   keys = {
-    {
-      "<leader>e",
-      function()
-        require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
-      end,
-      desc = "Explorer (Neo-tree)",
-    },
+    -- {
+    --   "<leader>e",
+    --   function()
+    --     require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
+    --   end,
+    --   desc = "Explorer (Neo-tree)",
+    -- },
     {
       "<leader>E",
       function()
@@ -351,40 +352,40 @@ return {
   config = function(_, opts)
     require("neo-tree").setup(opts)
 
-    -- Custom highlights (theme adaptive)
-    local function setup_highlights()
-      vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = "#89b4fa" })
-      vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = "#89b4fa" })
-      vim.api.nvim_set_hl(0, "NeoTreeFileName", { fg = "#cdd6f4" })
-      vim.api.nvim_set_hl(0, "NeoTreeFileIcon", { fg = "#cdd6f4" })
-      vim.api.nvim_set_hl(0, "NeoTreeFileNameOpened", { fg = "#a6e3a1" })
-      vim.api.nvim_set_hl(0, "NeoTreeIndentMarker", { fg = "#45475a" })
-      vim.api.nvim_set_hl(0, "NeoTreeExpander", { fg = "#6c7086" })
-      vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = "#181825" })
-      vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = "#181825" })
-      vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = "#313244" })
-
-      -- Git status colors
-      vim.api.nvim_set_hl(0, "NeoTreeGitAdded", { fg = "#a6e3a1" })
-      vim.api.nvim_set_hl(0, "NeoTreeGitDeleted", { fg = "#f38ba8" })
-      vim.api.nvim_set_hl(0, "NeoTreeGitModified", { fg = "#f9e2af" })
-      vim.api.nvim_set_hl(0, "NeoTreeGitConflict", { fg = "#fab387" })
-      vim.api.nvim_set_hl(0, "NeoTreeGitUntracked", { fg = "#89dceb" })
-      vim.api.nvim_set_hl(0, "NeoTreeGitIgnored", { fg = "#6c7086" })
-      vim.api.nvim_set_hl(0, "NeoTreeGitStaged", { fg = "#cba6f7" })
-
-      vim.api.nvim_set_hl(0, "NeoTreeModified", { fg = "#f9e2af" })
-      vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = "#f5c2e7", bold = true })
-      vim.api.nvim_set_hl(0, "NeoTreeSymbolicLinkTarget", { fg = "#94e2d5" })
-      vim.api.nvim_set_hl(0, "NeoTreeWindowsHidden", { fg = "#6c7086" })
-    end
-
-    setup_highlights()
+    -- -- Custom highlights (theme adaptive)
+    -- local function setup_highlights()
+    --   vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = "#89b4fa" })
+    --   vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = "#89b4fa" })
+    --   vim.api.nvim_set_hl(0, "NeoTreeFileName", { fg = "#cdd6f4" })
+    --   vim.api.nvim_set_hl(0, "NeoTreeFileIcon", { fg = "#cdd6f4" })
+    --   vim.api.nvim_set_hl(0, "NeoTreeFileNameOpened", { fg = "#a6e3a1" })
+    --   vim.api.nvim_set_hl(0, "NeoTreeIndentMarker", { fg = "#45475a" })
+    --   vim.api.nvim_set_hl(0, "NeoTreeExpander", { fg = "#6c7086" })
+    --   vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = "#181825" })
+    --   vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = "#181825" })
+    --   vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = "#313244" })
+    --
+    --   -- Git status colors
+    --   vim.api.nvim_set_hl(0, "NeoTreeGitAdded", { fg = "#a6e3a1" })
+    --   vim.api.nvim_set_hl(0, "NeoTreeGitDeleted", { fg = "#f38ba8" })
+    --   vim.api.nvim_set_hl(0, "NeoTreeGitModified", { fg = "#f9e2af" })
+    --   vim.api.nvim_set_hl(0, "NeoTreeGitConflict", { fg = "#fab387" })
+    --   vim.api.nvim_set_hl(0, "NeoTreeGitUntracked", { fg = "#89dceb" })
+    --   vim.api.nvim_set_hl(0, "NeoTreeGitIgnored", { fg = "#6c7086" })
+    --   vim.api.nvim_set_hl(0, "NeoTreeGitStaged", { fg = "#cba6f7" })
+    --
+    --   vim.api.nvim_set_hl(0, "NeoTreeModified", { fg = "#f9e2af" })
+    --   vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = "#f5c2e7", bold = true })
+    --   vim.api.nvim_set_hl(0, "NeoTreeSymbolicLinkTarget", { fg = "#94e2d5" })
+    --   vim.api.nvim_set_hl(0, "NeoTreeWindowsHidden", { fg = "#6c7086" })
+    -- end
+    --
+    -- setup_highlights()
 
     -- Re-apply on colorscheme change
-    vim.api.nvim_create_autocmd("ColorScheme", {
-      callback = setup_highlights,
-    })
+    -- vim.api.nvim_create_autocmd("ColorScheme", {
+    --   callback = setup_highlights,
+    -- })
 
     -- Breadcrumb integration with winbar
     vim.api.nvim_create_autocmd("FileType", {

@@ -5,12 +5,12 @@ return {
   "folke/trouble.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   cmd = { "Trouble", "TroubleToggle" },
-  
+
   opts = {
     position = "bottom",
     height = 10,
     width = 50,
-    icons = true,
+    -- icons = true,
     mode = "workspace_diagnostics",
     fold_open = "",
     fold_closed = "",
@@ -36,13 +36,13 @@ return {
       next = "j",
     },
     indent_lines = true,
-    auto_open = false,
+    auto_open = true,
     auto_close = false,
     auto_preview = true,
-    auto_fold = false,
+    auto_fold = true,
     use_diagnostic_signs = true,
   },
-  
+
   keys = {
     { "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>", desc = "Diagnostics (Trouble)" },
     { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>", desc = "Buffer Diagnostics (Trouble)" },

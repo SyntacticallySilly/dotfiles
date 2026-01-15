@@ -22,7 +22,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   spec = {
     { import = "synvim.plugins" },  -- Regular plugins
-    { import = "synvim.themes" },   -- Theme plugins
+    -- { import = "synvim.themes" },   -- Theme plugins
   },
   -- Performance optimization for Termux
   performance = {

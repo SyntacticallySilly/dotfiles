@@ -62,10 +62,10 @@ return {
     -- Default options for all filetypes
     user_default_options = {
       -- Color name codes
-      names = true,
+      names = false,
       names_opts = {
-        lowercase = true,
-        camelcase = true,
+        lowercase = false,
+        camelcase = false,
         uppercase = false,
         strip_digits = false,
       },

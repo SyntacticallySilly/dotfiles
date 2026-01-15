@@ -24,10 +24,10 @@ return {
     },
 
     daily_notes = {
-      folder = "daily",
---    date_format = "%Y-%m-%d",
-      date_format = "%d-%m-%Y",
-      template = nil,
+      folder = "06 - Daily",
+      date_format = "%Y-%m-%d",
+      -- date_format = "%d-%m-%Y",
+      template = "99 - Meta/dailytemplate.md",
     },
 
     completion = {
@@ -51,10 +51,10 @@ return {
     },
 
     ui = {
-      enable = false,
+      enable = true,
       checkboxes = {
-        [" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
-        ["x"] = { char = "", hl_group = "ObsidianDone" },
+        [" "] = { char = "󰄱 ", hl_group = "ObsidianTodo" },
+        ["x"] = { char = " ", hl_group = "ObsidianDone" },
       },
     },
   },

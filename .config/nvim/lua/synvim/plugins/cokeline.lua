@@ -9,10 +9,10 @@ return {
   },
   event = "BufAdd",
   keys = {
-    { "<S-Tab>", "<Plug>(cokeline-focus-prev)", desc = "Previous Buffer" },
-    { "<Tab>", "<Plug>(cokeline-focus-next)", desc = "Next Buffer" },
-    { "<leader>bp", "<Plug>(cokeline-switch-prev)", desc = "Move Buffer Left" },
-    { "<leader>bn", "<Plug>(cokeline-switch-next)", desc = "Move Buffer Right" },
+    { "<leader>bp", "<Plug>(cokeline-focus-prev)", desc = "Previous Buffer" },
+    { "<leader>bn", "<Plug>(cokeline-focus-next)", desc = "Next Buffer" },
+    -- { "<leader>bp", "<Plug>(cokeline-switch-prev)", desc = "Move Buffer Left" },
+    -- { "<leader>bn", "<Plug>(cokeline-switch-next)", desc = "Move Buffer Right" },
     { "<leader>bc", "<Plug>(cokeline-pick-close)", desc = "Pick Close Buffer" },
     { "<leader>bf", "<Plug>(cokeline-pick-focus)", desc = "Pick Focus Buffer" },
   },
@@ -25,19 +25,6 @@ return {
       normal_bg = get_hex("Normal", "bg"),
       normal_fg = get_hex("Normal", "fg"),
       comment_fg = get_hex("Comment", "fg"),
-      
-      -- Custom colors (theme adaptive)
-      red = "#f38ba8",
-      green = "#a6e3a1",
-      yellow = "#f9e2af",
-      blue = "#89b4fa",
-      purple = "#cba6f7",
-      cyan = "#89dceb",
-      
-      bg_inactive = "#181825",
-      bg_active = "#313244",
-      fg_inactive = "#6c7086",
-      fg_active = "#cdd6f4",
     }
 
     local components = {
@@ -121,7 +108,7 @@ return {
       -- Modified indicator
       modified = {
         text = function(buffer)
-          return buffer.is_modified and " ●" or ""
+          return buffer.is_modified and " +" or ""
         end,
         fg = function(buffer)
           return buffer.is_modified and colors.yellow or nil
@@ -132,19 +119,19 @@ return {
       -- Readonly indicator
       readonly = {
         text = function(buffer)
-          return buffer.is_readonly and " " or ""
-        end,
-        fg = colors.red,
-        truncation = { priority = 2 },
-      },
+        return buffer.is_readonly and "󰡭 " or ""
+      end,
+      fg = colors.red,
+      truncation = { priority = 2 },
+    },
 
-      -- Close button
-      close_button = {
-        text = " 󰅖",
-        fg = function(buffer)
-          return buffer.is_focused and colors.red or colors.fg_inactive
-        end,
-        on_click = function(_, _, _, _, buffer)
+    -- Close button
+    close_button = {
+      text = " x",
+      fg = function(buffer)
+        return buffer.is_focused and colors.red or colors.fg_inactive
+      end,
+      on_click = function(_, _, _, _, buffer)
           buffer:delete()
         end,
         truncation = { priority = 1 },

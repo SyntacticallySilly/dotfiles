@@ -62,15 +62,15 @@ disabled = false
 style = "bg:black bold magenta"
 format = '[](fg:black)([$all_status$ahead_behind]($style))[](fg:black) '
 up_to_date = '[ ✓ ](bold green)'
-untracked = '[? \($count\)](bold yellow)'
-stashed = '[ ](bold magenta)'
-modified = '[ \($count\)](bold yellow)'
-renamed = '[ \($count\)](bold magenta)'
-deleted = '[ \($count\)](bold red)'
-staged = '[ \($count\)](bold yellow)'
-ahead = '[ \(${count}\)](bold cyan)'
-diverged = ' [\[](bold magenta)[\(${ahead_count}\)](bold cyan)[\(${behind_count}\)](bold magenta)[\]](bold magenta)'
-behind = '[ \(${count}\)](bold magenta)'
+untracked = '[ ? \($count\)](bold yellow)'
+stashed = '[  ](bold magenta)'
+modified = '[  \($count\)](bold yellow)'
+renamed = '[  \($count\)](bold magenta)'
+deleted = '[  \($count\)](bold red)'
+staged = '[  \($count\)](bold yellow)'
+ahead = '[  \(${count}\)](bold cyan)'
+diverged = '  [\[](bold magenta)[\(${ahead_count}\)](bold cyan)[\(${behind_count}\)](bold magenta)[\]](bold magenta)'
+behind = '[  \(${count}\)](bold magenta)'
 
 [time]
 disabled = true

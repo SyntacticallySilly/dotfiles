@@ -105,6 +105,38 @@ return {
       },
     }
 
+    -- Go LSP
+    vim.lsp.config.gopls = {
+      cmd = { "gopls" },
+      filetypes = { "go", "gomod", "gowork", "gotmpl" },
+      root_markers = { "go.work", "go.mod", ".git" },
+      capabilities = capabilities,
+      settings = {
+        gopls = {
+          analyses = {
+            unusedparams = true,
+            shadow = true,
+            nilness = true,
+            unusedwrite = true,
+            useany = true,
+          },
+          staticcheck = true,
+          gofumpt = true,
+          usePlaceholders = true,
+          completeUnimported = true,
+          hints = {
+            assignVariableTypes = true,
+            compositeLiteralFields = true,
+            compositeLiteralTypes = true,
+            constantValues = true,
+            functionTypeParameters = true,
+            parameterNames = true,
+            rangeVariableTypes = true,
+          },
+        },
+      },
+    }
+
     -- JSON LSP
     vim.lsp.config.jsonls = {
       cmd = { "vscode-json-language-server", "--stdio" },
@@ -168,7 +200,7 @@ return {
     })
 
     vim.api.nvim_create_autocmd("FileType", {
-      pattern = { "go" },
+      pattern = { "go", "gomod", "gowork", "gotmpl" },
       callback = function()
         vim.lsp.enable("gopls")
       end,
@@ -217,39 +249,39 @@ return {
 
         -- Diagnostics
         vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
-        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-        vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+        vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
+        vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
+
+        -- Diagnostic configuration
+        vim.diagnostic.config({
+          virtual_text = {
+            prefix = " ",
+            spacing = 4,
+          },
+          signs = true,
+          underline = true,
+          update_in_insert = false,
+          severity_sort = true,
+          float = {
+            border = "rounded",
+            -- source = "always",
+            header = "Diagnostics :",
+            prefix = "> ",
+          },
+        })
+
+        -- Diagnostic signs
+        local signs = {
+          { name = "DiagnosticSignError", text = "" },
+          { name = "DiagnosticSignWarn", text = "" },
+          { name = "DiagnosticSignHint", text = "" },
+          { name = "DiagnosticSignInfo", text = "" },
+        }
+
+        for _, sign in ipairs(signs) do
+          vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+        end
       end,
     })
-
-    -- Diagnostic configuration
-    vim.diagnostic.config({
-      virtual_text = {
-        prefix = " ",
-        spacing = 4,
-      },
-      signs = true,
-      underline = true,
-      update_in_insert = false,
-      severity_sort = true,
-      float = {
-        border = "rounded",
-        source = "always",
-        header = "Diagnostics :",
-        prefix = "",
-      },
-    })
-
-    -- Diagnostic signs
-    local signs = {
-      { name = "DiagnosticSignError", text = "" },
-      { name = "DiagnosticSignWarn", text = "" },
-      { name = "DiagnosticSignHint", text = "" },
-      { name = "DiagnosticSignInfo", text = "" },
-    }
-
-    for _, sign in ipairs(signs) do
-      vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-    end
   end,
 }

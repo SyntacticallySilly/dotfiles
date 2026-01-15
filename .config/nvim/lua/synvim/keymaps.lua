@@ -73,7 +73,7 @@ M.editing_keymaps = function()
   map("n", "[q", ":cprev<CR>", { desc = "Previous Quickfix Item" })
   map("n", "]q", ":cnext<CR>", { desc = "Next Quickfix Item" })
 
-  map("n", "<leader>etf", ":s/\\(true\\|false\\)/\\={'true':'false','false':'true'}[submatch(1)]/<CR>", { desc = "Toggle true/false" })
+  -- map("n", "<leader>etf", ":s/\\(true\\|false\\)/\\={'true':'false','false':'true'}[submatch(1)]/<CR>", { desc = "Toggle true/false" })
   -- Better escape
   map("i", "jk", "<Esc>", { desc = "Exit insert mode" })
   map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Unhighlight"})
@@ -85,22 +85,23 @@ end
 
 M.formatting_keymaps = function()
   -- Format entire file with LSP (if available, otherwise fallback to indent)
-  map("n", "<leader>fl", function()
-    -- Try LSP format first
-    local clients = vim.lsp.get_clients({ bufnr = 0 })
-    if #clients > 0 then
-      vim.lsp.buf.format({ async = true })
-    else
-      -- Fallback: use treesitter-based indenting if available
-      vim.notify("No LSP formatter available, use <leader>i for manual indent", vim.log.levels.WARN)
-    end
-  end, { desc = "Format file (LSP)" })
+  -- map("n", "<leader>fl", function()
+  --   -- Try LSP format first
+  --   local clients = vim.lsp.get_clients({ bufnr = 0 })
+  --   if #clients > 0 then
+  --     vim.lsp.buf.format({ async = true })
+  --   else
+  --     -- Fallback: use treesitter-based indenting if available
+  --     vim.notify("No LSP formatter available, use <leader>i for manual indent", vim.log.levels.WARN)
+  --   end
+  -- end, { desc = "Format file (LSP)" })
 
   -- Format selection in visual mode
   map("v", "<leader>fl", function()
     vim.lsp.buf.format({ async = true })
   end, { desc = "Format selection" })
 
+  map("n", "<leader>fl", vim.lsp.buf.format)
   -- Fix indentation manually (preserves content, only fixes indent)
   map("n", "<leader>fi", function()
     -- Save cursor position
@@ -139,11 +140,11 @@ end
 -- THEME SWITCHER KEYMAP
 -- ============================================================================
 
-M.theme_keymaps = function()
-  map("n", "<leader>ss", function()
-    require("synvim.theme-switcher").switch_theme()
-  end, { desc = "Switch theme" })
-end
+-- M.theme_keymaps = function()
+--   map("n", "<leader>ss", function()
+--     require("synvim.theme-switcher").switch_theme()
+--   end, { desc = "Switch theme" })
+-- end
 
 -- ============================================================================
 -- NOICE KEYMAPS
@@ -179,7 +180,7 @@ M.setup = function()
   M.navigation_keymaps()
   M.editing_keymaps()
   M.formatting_keymaps()
-  M.theme_keymaps()
+  -- M.theme_keymaps()
   M.notify_keymaps()
   M.settings_keymaps()
   -- Plugin-dependent keymaps are called from their plugin configs

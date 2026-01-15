@@ -12,40 +12,16 @@ return {
   event = { "BufReadPost", "BufNewFile" },
 
   opts = {
-    theme = "auto", -- Matches your colorscheme automatically
+    -- theme = "rose-pine", -- Matches your colorscheme automatically
+    theme = {
+      normal = { bg = "NONE", bold = true },
+      -- seperator = { fg = "love" },
+      -- modified = { fg = "gold" },
+      -- dirname = { fg = "rose" }
+    },
     show_dirname = true,
     show_basename = true,
-    show_modified = false,
-
-    -- Symbols
-    kinds = {
-      File = "󰈙 ",
-      Module = " ",
-      Namespace = "󰌗 ",
-      Package = " ",
-      Class = "󰌗 ",
-      Method = "󰆧 ",
-      Property = " ",
-      Field = " ",
-      Constructor = " ",
-      Enum = "󰕘",
-      Interface = "󰕘",
-      Function = "󰊕 ",
-      Variable = "󰆧 ",
-      Constant = "󰏿 ",
-      String = "󰀬 ",
-      Number = "󰎠 ",
-      Boolean = "◩ ",
-      Array = "󰅪 ",
-      Object = "󰅩 ",
-      Key = "󰌋 ",
-      Null = "󰟢 ",
-      EnumMember = " ",
-      Struct = "󰌗 ",
-      Event = " ",
-      Operator = "󰆕 ",
-      TypeParameter = "󰊄 ",
-    },
+    show_modified = true,
 
     -- Performance optimizations for mobile
     create_autocmd = true, -- Auto-update on CursorHold
@@ -58,7 +34,7 @@ return {
     end,
 
     -- Context display settings
-    context_follow_icon_color = false,
+    context_follow_icon_color = true,
     include_buftypes = { "", "acwrite" },
     exclude_filetypes = {
       "netrw",

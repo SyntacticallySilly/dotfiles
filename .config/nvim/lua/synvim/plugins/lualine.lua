@@ -1,5 +1,4 @@
 -- SynVim Lualine Plugin
-
 -- Minimal statusline with time
 
 return {
@@ -34,13 +33,13 @@ return {
 
     -- Mode icon map
     local mode_icons = {
-      n = "󰆾 ",
-      i = " ",
-      v = "󰩭 ",
-      V = "󱊅 ",
-      [vim.api.nvim_replace_termcodes("<C-v>", true, true, true)] = "󰙨 ",  -- Visual Block mode (CTRL-V)
-      c = "󰘳 ",
-      t = " ",
+      n = "󰆾 NORMAL",
+      i = " INSERT",
+      v = "󰩭 VISUAL",
+      V = "󱊅 VISUAL-LINE",
+      [vim.api.nvim_replace_termcodes("<C-v>", true, true, true)] = "󰙨 VISUAL BLOCK",  -- Visual Block mode (CTRL-V)
+      c = "󰘳 COMMAND",
+      t = " TERMINAL",
     }
 
     -- Function to get theme name dynamically
@@ -80,27 +79,6 @@ return {
       return os.date(" %I:%M") -- 12-hour format with AM/PM
     end
 
-    -- Edited file indicator
-    local function file_modified()
-      if vim.bo.modified then
-        return "󰏫 "
-      end
-      return ""
-    end
-
-    -- LSP indicator
-    local function lsp_info()
-      local clients = vim.lsp.get_active_clients({ bufnr = 0 })
-      if #clients == 0 then
-        return ""
-      end
-      local names = {}
-      for _, client in ipairs(clients) do
-        table.insert(names, client.name)
-      end
-      return "lsp " .. table.concat(names, ", ")
-    end
-
     lualine.setup({
       options = {
         theme = get_theme(),
@@ -108,7 +86,7 @@ return {
         component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
         disabled_filetypes = {
-          statusline = { "startify" },
+          statusline = { "startify", "TelescopePrompt", "Aerial" },
           tabline = {},
         },
       },
@@ -127,17 +105,19 @@ return {
         },
         -- Middle-left: git branch and diff
         lualine_b = {
+          'filename',
           {
             "branch",
             icon = "󰘬",
             color = "lualine_b_normal",
-            separator = { right = '' },
+            separator = { right = '  ' },
           },
+        },
+        -- Middle: truncated file path with modified indicator
+        lualine_c = {
           {
             "diff",
-            colored = true,
-            separator = { left = '', right = '' },
-            symbols = { added = " ", modified = " ", removed = " " },
+            symbols = { added = "", modified = "", removed = "" },
             source = function()
               local gitsigns = vim.b.gitsigns_status_dict
               if gitsigns then
@@ -149,14 +129,13 @@ return {
               end
             end,
           },
-        },
-        -- Middle: truncated file path with modified indicator
-        lualine_c = {
-          {
-            file_modified,
-            color = { fg = "#f38ba8" },  -- Pink/red color for modified indicator
-            padding = { left = 1, right = 0 },
-          },
+
+          'diagnostics',
+
+          -- {
+          --   file_modified,
+          --   padding = { left = 1, right = 0 },
+          -- },
           -- {
           --   truncated_path,
           --   color = "lualine_c_normal",
@@ -165,32 +144,18 @@ return {
           -- },
         },
         -- Right side: LSP, buffer count, time, filetype
-        lualine_x = {
-          {
-            lsp_info,
-            color = "lualine_x_normal",
-            cond = function()
-              return #vim.lsp.get_active_clients({ bufnr = 0 }) > 0
-            end,
-          },
-          {
-            function()
-              local total = #vim.fn.getbufinfo({buflisted = 1})
-              return " " .. total
-            end,
-            color = "lualine_x_normal",
-          },
-        },
-        lualine_y = {
-          {
-            current_time,
-            color = "lualine_y_normal",
-          },
-        },
+        lualine_x = {'lsp_status'},
+        -- lualine_y = {
+        --   {
+        --     current_time,
+        --     color = "lualine_y_normal",
+        --   },
+        -- },
+        lualine_y = {'location'},
         lualine_z = {
           {
             "filetype",
-            colored = true,
+            colored = false,
             icon_only = false,
             icon = { align = "left" },
             padding = { left = 1, right = 1 },

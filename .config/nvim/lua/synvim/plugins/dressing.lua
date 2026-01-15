@@ -8,9 +8,10 @@ return {
   opts = {
     input = {
       enabled = true,
-      default_prompt = " : ",
+      title_pos = "center",
+      default_prompt = "> ",
       border = "rounded",
-      relative = "editor",
+      relative = "cursor",
       prefer_width = 40,
       win_options = {
         winblend = 0,

@@ -1,6 +1,7 @@
 return {
   "3rd/image.nvim",
   build = false,
+  enabled = false,
   ft = { "markdown", "vimwiki" }, -- lazy load on markdown filetypes
   opts = {
     backend = "sixel", -- or "ueberzug" or "sixel"

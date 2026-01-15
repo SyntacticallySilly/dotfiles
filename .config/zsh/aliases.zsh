@@ -12,10 +12,10 @@ alias n='nnn -EHd'
 # Yazi : File manager.
 alias y='yazi'
 # eza: Modern ls replacement with icons
-alias ls='eza -aa --no-quotes --icons=always --git-repos-no-status'
-alias lsf='eza -a -f --icons=always --no-quotes'          # Files only
-alias lsd='eza -a -DRTl --level 2 --icons=always --no-quotes'  # Dirs (tree, level 2)
-alias lsa='eza -a --icons=always --tree --level=3 --no-quotes'  # All (tree, level 3)
+alias ls='eza -aa --no-quotes --icons=always --git-ignore'
+alias lsf='eza -a -f --icons=always --no-quotes --git-ignore'          # Files only
+alias lsd='eza -a -DRTl --level 2 --icons=always --no-quotes --git-ignore'  # Dirs (tree, level 2)
+alias lsa='eza -a --icons=always --tree --level=3 --no-quotes --git-ignore'  # All (tree, level 3)
 
 # ───────────────────────────────────────────────────────────────
 #  Navigation

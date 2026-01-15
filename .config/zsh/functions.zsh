@@ -176,6 +176,11 @@ fimg() {
   [[ -n "$selected" ]] && termux-open "$selected"
 }
 
+tere() {
+  local result=$(command tere "$@")
+  [ -n "$result" ] && cd -- "$result"
+}
+
 function copy-buffer-to-clipboard() {
   echo -n "$BUFFER" | termux-clipboard-set
   zle -M "Copied to clipboard"
