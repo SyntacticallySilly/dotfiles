@@ -1,6 +1,8 @@
 return {
   "echasnovski/mini.files",
-  version = "*", -- Use latest stable release
+  lazy = false,
+  priority = 999,
+  version = false, -- Use latest stable release
   opts = {
     -- Optional: Customize mappings inside the explorer (default works great)
     mappings = {
@@ -20,10 +22,44 @@ return {
     },
     windows = {
       preview = true,       -- Enable live preview (fits your UI aesthetic prefs)
+      max_number = 5,
+      width_focus = 50,
+      width_nofocus = 10,
     },
+    options = {
+      permanent_delete = true,
+      use_as_default_explorer = true,
+    }
   },
   keys = {
-    { "<leader>e", "<cmd>lua MiniFiles.open(cwd)<CR>", mode = "n", desc = "Toggle mini.files" },
+    {
+      -- Open the directory of the file currently being edited
+      -- If the file doesn't exist because you maybe switched to a new git branch
+      -- open the current working directory
+      "<leader>e",
+      function()
+        local buf_name = vim.api.nvim_buf_get_name(0)
+        local dir_name = vim.fn.fnamemodify(buf_name, ":p:h")
+        if vim.fn.filereadable(buf_name) == 1 then
+          -- Pass the full file path to highlight the file
+          require("mini.files").open(buf_name, true)
+        elseif vim.fn.isdirectory(dir_name) == 1 then
+          -- If the directory exists but the file doesn't, open the directory
+          require("mini.files").open(dir_name, true)
+        else
+          -- If neither exists, fallback to the current working directory
+          require("mini.files").open(vim.uv.cwd(), true)
+        end
+      end,
+      desc = "Open mini.files (Directory of Current File or CWD if not exists)",
+    },
+    {
+      "<leader>E",
+      function()
+        require("mini.files").open(vim.uv.cwd(), true)
+      end,
+      desc = "Open mini.files (cwd)",
+    },
   },
 
   config = function()

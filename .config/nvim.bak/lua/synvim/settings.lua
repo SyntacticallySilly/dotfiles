@@ -5,9 +5,13 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Basic settings
 -- vim.opt.autoread = true
 vim.loader.enable()
+vim.opt.winborder = "rounded"
 vim.opt.fillchars:append('eob: ')
 vim.lsp.set_log_level("off")
 vim.opt.number = true               -- Line numbers
@@ -33,7 +37,7 @@ vim.opt.sidescrolloff = 5           -- Keep 8 columns visible when scrolling
 -- vim.opt.updatetime = 200            -- Faster update time (better performance)
 vim.opt.timeoutlen = 250            -- Timeout for key sequences
 -- vim.opt.completeopt = "menuone,noselect"  -- Better completion menu
-vim.opt.undolevels = 10000          -- More undo history (default is 1000)
+vim.opt.undolevels = 2000            -- More undo history (default is 1000)
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"  -- Undo directory
 vim.opt.timeout = true
 vim.opt.ttimeoutlen = 10
@@ -97,6 +101,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
   callback = function()
+    -- vim.opt_local.conceallevel = 1,
     vim.opt_local.wrap = true
     vim.opt_local.linebreak = true
     vim.opt_local.spell = true

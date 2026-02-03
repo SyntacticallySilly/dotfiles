@@ -6,7 +6,7 @@ return {
   event = "VeryLazy",
 
   opts = {
-    preset = "modern",
+    preset = "helix",
     delay = 300,
     plugins = {
       marks = true,

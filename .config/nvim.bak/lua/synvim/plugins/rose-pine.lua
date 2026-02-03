@@ -9,6 +9,8 @@ return {
     variant = "auto",
     dark_variant = "main",
     styles = {
+      italic = true,
+      bold = true,
       transparency = true,
     },
     groups = {
@@ -69,11 +71,19 @@ return {
       Folded = { fg = "pine", italic = true },
       IncSearch = { fg = "foam", bg = "subtle", bold = true },
       Subsitute = { bg = "NONE", fg = "foam" },
-      LineNr = { fg = "foam" },
+      LineNr = { fg = "subtle" },
       CursorLineNr = { fg = "rose", bold = true },
       Whitespace = { fg = "iris" },
       WinBar = { bg = "NONE" },
       CursorLine = { bg = "NONE" },
+      CurSearch = { fg = "base", bg = "leaf", inherit = false },
+      Search = { fg = "text", bg = "leaf", blend = 20, inherit = false },
+      MiniFilesBorder = { fg = "subtle" },
+      MiniFilesBorderModified = { fg = "foam" },
+      MiniFilesCursorLine = { fg = "love", bold = true, italic = true },
+      MiniFilesTitle = { bg = "base", fg = "text" },
+      MiniFilesTitleFocused = { bg = "base", fg = "gold", bold = true },
+      WhichKeyBorder = { fg = "foam" },
     }
   },
 

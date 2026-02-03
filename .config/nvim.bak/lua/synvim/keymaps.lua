@@ -57,6 +57,8 @@ M.editing_keymaps = function()
   map("v", "<", "<gv", { desc = "Unindent" })
   map("v", ">", ">gv", { desc = "Indent" })
 
+  map("n", "<leader><leader>", ":wq", {desc = "Save and Quit"})
+
   -- Easier end/start of the line.
   map("n", "H", "^", { desc = "Start of the line" })
   map("n", "L", "$", { desc = "End of the line"})

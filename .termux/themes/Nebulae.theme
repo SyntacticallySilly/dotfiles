@@ -1,0 +1,45 @@
+# Nebulae Theme - Cold & Vibrant
+# Background (Deep Space) & Foreground (Ice)
+background=#0d0f18
+foreground=#d6deeb
+cursor=#ff00cc
+
+# 0: Black (Background match)
+color0=#0d0f18
+# 8: Bright Black (Nebula Grey - for comments)
+color8=#4b526d
+
+# 1: Red -> Hot Pink (Errors)
+color1=#ff007c
+# 9: Bright Red -> Neon Pink
+color9=#ff4081
+
+# 2: Green -> Aqua/Cyan (Success)
+color2=#00e5ff
+# 10: Bright Green -> Ice Blue
+color10=#84ffff
+
+# 3: Yellow -> Bright Lavender (Warnings)
+color3=#bd93f9
+# 11: Bright Yellow -> Electric Violet
+color11=#d500f9
+
+# 4: Blue -> Deep Azure
+color4=#2979ff
+# 12: Bright Blue -> Sky Blue
+color12=#448aff
+
+# 5: Magenta -> Deep Purple
+color5=#651fff
+# 13: Bright Magenta -> Ultraviolet
+color13=#aa00ff
+
+# 6: Cyan -> Indigo
+color6=#3d5afe
+# 14: Bright Cyan -> Periwinkle
+color14=#536dfe
+
+# 7: White -> Soft Blue White
+color7=#d6deeb
+# 15: Bright White -> Pure White
+color15=#ffffff
