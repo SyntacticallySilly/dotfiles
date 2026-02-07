@@ -1,10 +1,6 @@
 -- SynVim - Performance-Focused Neovim Config for Termux
 -- Main entry point
-
-
-
-
-
+--
 -- Load core settings first (sets leader key and options)
 require("synvim.settings")
 

@@ -4,7 +4,7 @@ bindkey '\' menu-select
 bindkey '`' forward-word
 # bindkey -M menuselect '\r' .accept-line
 # bindkey '^?' history-search-backward
-bindkey '?' history-incremental-search-backward
+bindkey '!' history-incremental-search-backward
 
 # zsh-autosuggestions
 bindkey ',' autosuggest-accept
@@ -18,6 +18,7 @@ bindkey '^q' exit
 bindkey -M vicmd 'v' edit-command-line
 
 # Undo/
+bindkey -M viins '^u' undo
 bindkey -M vicmd 'u' undo
 bindkey -M vicmd 'U' redo
 

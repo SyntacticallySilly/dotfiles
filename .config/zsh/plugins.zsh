@@ -31,13 +31,13 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 #  Utility Plugins
 # ───────────────────────────────────────────────────────────────
 # Pretty time display for command duration
-zinit light sindresorhus/pretty-time-zsh
+# zinit light sindresorhus/pretty-time-zsh
 
 # Smart command line expansion (Do What I Mean)
 # zinit light oknowton/zsh-dwim
 
-# Enhanced eza integration
-zinit light duggum/zeza
+# # Enhanced eza integration
+# zinit light duggum/zeza
 
 # Use bat for man pages and other previews (requires bat)
 # zinit light knu/zsh-bat

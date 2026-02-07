@@ -20,7 +20,6 @@
 # 9. Welcome screen (visual feedback)
 
 source ~/dotfiles/.config/zsh/env.zsh
-source ~/dotfiles/.config/zsh/history.zsh
 source ~/dotfiles/.config/zsh/zinit-bootstrap.zsh
 source ~/dotfiles/.config/zsh/external-tools.zsh
 source ~/dotfiles/.config/zsh/functions.zsh
@@ -35,3 +34,7 @@ source ~/dotfiles/.config/zsh/styles.zsh
 # ───────────────────────────────────────────────────────────────
 #  End of Configuration
 # ───────────────────────────────────────────────────────────────
+
+fpath+=~/.zfunc; autoload -Uz compinit; compinit
+
+zstyle ':completion:*' menu select

@@ -19,7 +19,7 @@ RPROMPT=''
 export VI_MODE_SET_CURSOR=true
 export VI_MODE_CURSOR_NORMAL=2  # Block cursor in normal mode
 export VI_MODE_CURSOR_VISUAL=6  # Line cursor in visual mode
-export VI_MODE_CURSOR_INSERT=5  # Beam cursor in insert mode
+export VI_MODE_CURSOR_INSERT=3  # Beam cursor in insert mode
 
 # ───────────────────────────────────────────────────────────────
 #  Oh My Posh Integration
@@ -46,7 +46,7 @@ zle -N _omp_zle-keymap-select
 zle -N zle-keymap-select _omp_zle-keymap-select
 
 # Reset to INSERT mode after command execution or Ctrl-C
-function _omp_zle-line-finish() { 
+function _omp_zle-line-finish() {
   export POSH_VI_MODE="INSERT"
 }
 zle -N _omp_zle-line-finish
