@@ -37,7 +37,8 @@ return {
       i = " ",
       v = "󰩭 ",
       V = "󰕞 ",
-      [vim.api.nvim_replace_termcodes("<C-v>", true, true, true)] = "󰙨",  -- Visual Block mode (CTRL-V)
+      R = "󰬴 ",
+      [vim.api.nvim_replace_termcodes("<C-v>", true, true, true)] = "󰙨", -- Visual Block mode (CTRL-V)
       c = "󰘳 ",
       t = " ",
     }
@@ -84,10 +85,10 @@ return {
         theme = get_theme(),
         globalstatus = true,
         -- component_separators = { left = '', right = '' },
-        component_separators = { left = '', right = '/' },
+        component_separators = { left = '/', right = '/' },
         section_separators = { left = '', right = '' },
         disabled_filetypes = {
-          statusline = { "startify", "TelescopePrompt", "Aerial" },
+          statusline = { "startify", "Aerial" },
           tabline = {},
         },
       },
@@ -101,16 +102,27 @@ return {
             end,
             padding = { left = 0.8, right = 0.8 },
             separator = { left = '', right = '' },
-            color = "lualine_a_normal",
           },
         },
         -- Middle-left: git branch and diff
         lualine_b = {
-          truncated_path,
+          {
+            'filename',
+            file_status = true,
+            shorting_target = 70,
+            color = 'FilePath',
+            path = 1,
+            symbols = {
+              modified = '~',
+              readonly = '-',
+              unnamed = '',
+              newfile = '',
+            }
+          },
           {
             "branch",
             icon = "󰘬",
-            color = "lualine_b_normal",
+            color = 'Rose',
             separator = { right = '  ' },
           },
         },
@@ -118,7 +130,7 @@ return {
         lualine_c = {
           {
             "diff",
-            symbols = { added = "+", modified = "~", removed = "-" },
+            symbols = { added = "", modified = "", removed = "" },
             source = function()
               local gitsigns = vim.b.gitsigns_status_dict
               if gitsigns then
@@ -130,34 +142,46 @@ return {
               end
             end,
           },
-
-          'diagnostics',
-
-          -- {
-          --   file_modified,
-          --   padding = { left = 1, right = 0 },
-          -- },
-          -- {
-          --   truncated_path,
-          --   color = "lualine_c_normal",
-          --   separator = { right = '' },
-          --   padding = { left = 0, right = 1 },
-          -- },
+          {
+            'diagnostics',
+            sections = { 'error', 'warn', 'info', 'hint' },
+            colored = false,
+          },
         },
         -- Right side: LSP, buffer count, time, filetype
-        lualine_x = {'lsp_status'},
+        lualine_x = {
+          {
+            'lsp_status',
+            color = 'LspStatus',
+            icon = '󰒏',
+          },
+          {
+            function()
+              return require("arrow.statusline").text_for_statusline_with_icons()
+            end,
+            cond = function()
+              return require("arrow.statusline").is_on_arrow_file()
+            end,
+          },
+        },
         -- lualine_y = {
         --   {
         --     current_time,
         --     color = "lualine_y_normal",
         --   },
         -- },
-        lualine_y = {'location'},
+        lualine_y = {
+          {
+            'location',
+            color = 'Rose',
+          },
+        },
         lualine_z = {
           {
             "filetype",
             colored = false,
             icon_only = false,
+            color = 'Esor',
             icon = { align = "left" },
             padding = { left = 1, right = 1 },
           },

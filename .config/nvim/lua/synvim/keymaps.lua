@@ -78,6 +78,7 @@ M.editing_keymaps = function()
   map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Unhighlight" })
 end
 
+vim.keymap.del("n", "&" )
 -- ============================================================================
 -- FORMATTING KEYMAPS - Fix indentation and format code
 -- ============================================================================

@@ -102,28 +102,27 @@ return {
     })
 
     -- Mini.cursorword - Highlight word under cursor
-    require("mini.cursorword").setup({
-      delay = 100,
-    })
+    -- require("mini.cursorword").setup({
+    --   delay = 100,
+    -- })
 
     -- Disable cursorword for certain filetypes
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = {
-        "help",
-        "alpha",
-        "dashboard",
-        "neo-tree",
-        "Trouble",
-        "lazy",
-        "mason",
-        "notify",
-        "toggleterm",
-        "lazyterm",
-        "TelescopePrompt",
-      },
-      callback = function()
-        vim.b.minicursorword_disable = true
-      end,
-    })
+    -- vim.api.nvim_create_autocmd("FileType", {
+    --   pattern = {
+    --     "help",
+    --     "alpha",
+    --     "dashboard",
+    --     "neo-tree",
+    --     "Trouble",
+    --     "lazy",
+    --     "mason",
+    --     "notify",
+    --     "toggleterm",
+    --     "lazyterm",
+    --     "TelescopePrompt",
+    --   },
+    --   callback = function()
+    --     vim.b.minicursorword_disable = true
+    --   end,
   end,
 }

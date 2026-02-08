@@ -8,7 +8,7 @@ return {
     { "nvim-tree/nvim-web-devicons" },
   },
   keys = {
-    { ";", desc = "Arrow Menu" }, -- Single key binding for everything
+    { "&", desc = "Arrow Menu" }, -- Single key binding for everything
   },
 
   opts = {
@@ -16,7 +16,7 @@ return {
     show_icons = true,
 
     -- Leader key (recommended to be single key)
-    leader_key = ";", -- Press ; to open arrow menu
+    leader_key = "&", -- Press ; to open arrow menu
 
     -- Buffer leader key (for per-buffer marks)
     -- buffer_leader_key = "m", -- Press m to open buffer-local arrow
@@ -48,7 +48,7 @@ return {
     always_show_path = false,
 
     -- Separate save per branch
-    separate_save_and_remove = false,
+    separate_save_and_remove = true,
 
     -- Mappings inside arrow window
     mappings = {
@@ -77,13 +77,8 @@ return {
     per_buffer_config = {
       lines = 4, -- Number of lines to cache for preview
       sort_automatically = true,
-      satellite = { -- Scrollbar for arrow menu
-        enable = false,
-        overlap = true,
-        priority = 1000,
-      },
       zindex = 10, -- Window z-index
-      treesitter_context = nil, -- Use treesitter context
+      treesitter_context =nil, -- Use treesitter context
     },
 
     -- Custom actions
@@ -128,31 +123,6 @@ return {
       end, { desc = string.format("Bookmark %d", i) })
     end
 
-    -- Custom highlights (theme adaptive)
-    local function setup_highlights()
-      vim.api.nvim_set_hl(0, "ArrowFileIndex", { fg = "#89b4fa", bold = true })
-      vim.api.nvim_set_hl(0, "ArrowCurrentFile", { fg = "#a6e3a1", bold = true })
-      vim.api.nvim_set_hl(0, "ArrowAction", { fg = "#f9e2af" })
-      vim.api.nvim_set_hl(0, "ArrowDeleteMode", { fg = "#f38ba8", bold = true })
-    end
-
-    setup_highlights()
-
-    -- Re-apply on colorscheme change
-    vim.api.nvim_create_autocmd("ColorScheme", {
-      callback = setup_highlights,
-    })
-
-    -- Statusline integration (for lualine)
-    -- Add this to your lualine config:
-    -- {
-    --   function()
-    --     return require("arrow.statusline").text_for_statusline()
-    --   end,
-    --   cond = function()
-    --     return require("arrow.statusline").is_on_arrow_file()
-    --   end,
-    -- }
 
     -- Notification on bookmark toggle
     local arrow_persist = require("arrow.persist")

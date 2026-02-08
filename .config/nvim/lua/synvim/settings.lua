@@ -51,6 +51,7 @@ vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"  -- Undo directory
 vim.opt.foldmethod = "expr"                        -- Use expression for folding
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"    -- Use treesitter for folding
 vim.opt.foldlevel = 99                             -- Start with all folds open
+vim.opt.laststatus = 3
 -- vim.opt.timeout = true
 vim.opt.ttimeoutlen = 0
 vim.opt.spell = false

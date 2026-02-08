@@ -1,8 +1,8 @@
 -- lua/plugins/snacks.lua
 return {
   "folke/snacks.nvim",
-  disabled = true,
   -- priority = 1000,
+  enabled = true,
   lazy = false,
   ---@type snacks.Config
   opts = {

@@ -14,7 +14,7 @@ return {
   opts = {
     -- theme = "rose-pine", -- Matches your colorscheme automatically
     theme = {
-      normal = { bg = "NONE", bold = true },
+      normal = { bg = "NONE", bold = true, italic = true},
       -- seperator = { fg = "love" },
       -- modified = { fg = "gold" },
       -- dirname = { fg = "rose" }

@@ -6,7 +6,7 @@ return {
   cmd = "Atone",
   keys = {
     {
-      "<leader>U",
+      "<leader>m",
       "<cmd>Atone toggle<cr>",
       desc = "Toggle Undo Tree",
     },
@@ -77,6 +77,10 @@ return {
         quit_help = { "<C-c>", "q", "<Esc>" },
       },
     },
+    ui = {
+      border = 'rounded',
+      compact = false,
+    }
   },
 
   config = function(_, opts)
@@ -93,43 +97,6 @@ return {
     if vim.fn.isdirectory(undo_dir) == 0 then
       vim.fn.mkdir(undo_dir, "p")
     end
-
-    -- Additional keymaps for convenience
-    vim.keymap.set("n", "<leader>uo", "<cmd>Atone open<cr>", { desc = "Open Undo Tree" })
-    vim.keymap.set("n", "<leader>uc", "<cmd>Atone close<cr>", { desc = "Close Undo Tree" })
-    vim.keymap.set("n", "<leader>uf", "<cmd>Atone focus<cr>", { desc = "Focus Undo Tree" })
-
-    -- Custom highlights (theme adaptive)
-    local function setup_highlights()
-      -- Sequence numbers
-      vim.api.nvim_set_hl(0, "AtoneSeq", { fg = "#89b4fa", bold = true })
-
-      -- Brackets around sequence numbers
-      vim.api.nvim_set_hl(0, "AtoneSeqBracket", { fg = "#6c7086" })
-
-      -- Current node highlight
-      vim.api.nvim_set_hl(0, "AtoneCurrentNode", { fg = "#a6e3a1", bold = true })
-
-      -- Tree graph lines
-      vim.api.nvim_set_hl(0, "AtoneTree", { fg = "#45475a" })
-
-      -- Window background
-      vim.api.nvim_set_hl(0, "AtoneNormal", { bg = "#181825" })
-      vim.api.nvim_set_hl(0, "AtoneNormalNC", { bg = "#181825" })
-
-      -- Diff additions/deletions
-      vim.api.nvim_set_hl(0, "AtoneDiffAdd", { fg = "#a6e3a1" })
-      vim.api.nvim_set_hl(0, "AtoneDiffDelete", { fg = "#f38ba8" })
-      vim.api.nvim_set_hl(0, "AtoneDiffChange", { fg = "#f9e2af" })
-    end
-
-    setup_highlights()
-
-    -- Re-apply highlights on colorscheme change
-    vim.api.nvim_create_autocmd("ColorScheme", {
-      callback = setup_highlights,
-    })
-
     -- Auto-close atone when it's the last window
     vim.api.nvim_create_autocmd("BufEnter", {
       group = vim.api.nvim_create_augroup("AtoneClose", { clear = true }),
@@ -159,37 +126,8 @@ return {
         vim.opt_local.foldcolumn = "0"
         vim.opt_local.cursorline = true
         vim.opt_local.wrap = false
-
-        -- Buffer-local keymap for quick close
-        vim.keymap.set("n", "<leader>u", "<cmd>Atone toggle<cr>", {
-          buffer = true,
-          desc = "Toggle Undo Tree",
-        })
       end,
     })
-
-    -- Notification on toggle
-    local original_toggle = vim.api.nvim_create_user_command
-    vim.api.nvim_create_user_command("AtoneToggle", function()
-      vim.cmd("Atone toggle")
-
-      -- Check if atone window is open
-      local is_open = false
-      for _, win in ipairs(vim.api.nvim_list_wins()) do
-        local buf = vim.api.nvim_win_get_buf(win)
-        if vim.bo[buf].filetype == "atone" then
-          is_open = true
-          break
-        end
-      end
-
-      if is_open then
-        vim.notify("📜 Undo tree opened", vim.log.levels.INFO, { timeout = 1000 })
-      else
-        vim.notify("📜 Undo tree closed", vim.log.levels.INFO, { timeout = 1000 })
-      end
-    end, { desc = "Toggle Atone with notification" })
-
     -- Performance: Clear old undo files periodically (prevents cache bloat)
     vim.api.nvim_create_autocmd("VimLeavePre", {
       callback = function()

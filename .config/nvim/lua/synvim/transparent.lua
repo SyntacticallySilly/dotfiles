@@ -38,7 +38,6 @@ M.setup = function()
     -- "NoicePopupmenuBorder",
     -- "NoiceCmdlinePopup",
     -- "NoiceCmdlinePopupBorder",
-    "LualineB",
     "LualineC",
     "LualineY",
   }
