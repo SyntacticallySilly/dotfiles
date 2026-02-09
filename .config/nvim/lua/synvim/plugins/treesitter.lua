@@ -5,6 +5,7 @@ return {
   "nvim-treesitter/nvim-treesitter",
   version = false,
   build = ":TSUpdate",                              -- Auto-compile parsers when installing/updating
+  lazy = false,
   event = { "BufReadPre", "BufNewFile" },           -- Lazy load when opening files
   cmd = { "TSInstall", "TSUpdate", "TSBufEnable" }, -- Also load on these commands
 

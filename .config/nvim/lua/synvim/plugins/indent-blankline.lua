@@ -12,7 +12,7 @@ return {
   opts = {
     -- Indentation guide characters
     indent = {
-      char = "┊", -- Options: "│", "▏", "┊", "┆", "¦", "╎", "┆"
+      char = "│", -- Options: "│", "▏", "┊", "┆", "¦", "╎", "┆"
       tab_char = "┊",
       smart_indent_cap = true,
       priority = 1,
@@ -20,16 +20,16 @@ return {
 
     -- Whitespace display
     whitespace = {
-      remove_blankline_trail = true,
+      remove_blankline_trail = false,
     },
 
     -- Scope highlighting (current code block)
     scope = {
       enabled = true,
-      char = "╎", -- Thicker line for scope
+      char = "|", -- Thicker line for scope
       show_start = true, -- Underline at scope start
       show_end = true, -- Underline at scope end
-      show_exact_scope = false,
+      show_exact_scope = true,
       injected_languages = true,
       highlight = {
         "RainbowDelimiterRed",
