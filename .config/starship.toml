@@ -35,7 +35,7 @@ vicmd_symbol = "[󱞪](bold yellow)"  # Normal mode indicator
 format = "$symbol "
 
 [profiles]
-transient = """$time $character"""
+transient = """$directory $time $character"""
 
 [directory]
 format = "[](fg:black)[ $path ](bold bg:black fg:blue)[](fg:black) "
