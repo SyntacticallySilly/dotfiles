@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Essential packages to install
-ESSENTIAL_PACKAGES="zellij termux-tools nala tur-repo zoxide yazi eza fd ripgrep fzf zsh neofetch neovim chafa man stow"
+ESSENTIAL_PACKAGES="zellij starship termux-tools nala tur-repo zoxide yazi eza fd ripgrep fzf zsh neofetch neovim chafa man stow"
 
 # Colors
 RED="\u001B[1;31m"
