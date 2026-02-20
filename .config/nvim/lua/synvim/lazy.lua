@@ -22,8 +22,26 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   spec = {
     { import = "synvim.plugins" },  -- Regular plugins
-    { import = "synvim.plugins.rose-pine"}
+    -- { import = "synvim.plugins.rose-pine"}
     -- { import = "synvim.themes" },   -- Theme plugins
+  },
+  install = {
+    missing = true,
+    colorscheme = { "rose-pine" },
+  },
+  ui = {
+    border = "rounded",
+  },
+  diff = { cmd = "diffview.nvim"},
+  headless = {
+    -- show the output from process commands like git
+    process = true,
+    -- show log messages
+    log = true,
+    -- show task start/end
+    task = true,
+    -- use ansi colors
+    colors = true,
   },
   -- Performance optimization for Termux
   performance = {

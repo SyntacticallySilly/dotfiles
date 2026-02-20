@@ -1,5 +1,6 @@
 return {
   "echasnovski/mini.files",
+  -- enabled = false,
   lazy = false,
   priority = 999,
   version = false, -- Use latest stable release
@@ -28,7 +29,7 @@ return {
     },
     options = {
       permanent_delete = true,
-      use_as_default_explorer = false,
+      use_as_default_explorer = true,
     }
   },
   keys = {

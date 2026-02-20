@@ -15,7 +15,7 @@ return {
       os = {},
     })
     -- Mock nvim-web-devicons for compatibility with other plugins
-    MiniIcons.mock_nvim_web_devicons()
+    require("mini.icons").mock_nvim_web_devicons()
 
     -- Mini.ai - Enhanced text objects
     require("mini.ai").setup({

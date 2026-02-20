@@ -8,12 +8,12 @@ return {
 
   opts = {
     cursor = {
-      duration = 300,        -- Faster for Termux performance
-      easing = "ease-in-out",
+      duration = 150,        -- Faster for Termux performance
+      easing = "ease-out",
       enabled = true,
     },
     scroll = {
-      duration = 300,        -- Smooth but not too slow
+      duration = 240,        -- Smooth but not too slow
       easing = "ease-in-out",
       enabled = true,
     },

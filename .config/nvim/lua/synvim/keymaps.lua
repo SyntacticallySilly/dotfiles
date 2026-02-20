@@ -58,15 +58,13 @@ M.editing_keymaps = function()
   map("i", "<A-k>", "<Esc><cmd>m .-2<CR>==gi", { desc = "Move line up" })
   map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
   map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
-
+  map({'n', 'x', 'o'}, '%', '%', { remap = true })
   -- Indent/unindent in visual mode
   map("v", "<", "<gv", { desc = "Unindent" })
   map("v", ">", ">gv", { desc = "Indent" })
 
   map("n", "U", "<cmd>redo<CR>", { desc = "Redo" })
   map("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
-  -- Copy whole file
-  map("n", "<C-c>", "<cmd>%y+<cr>", { desc = "Copy whole file" })
 
   -- Quickly navigate quickfix files.
   map("n", "[q", ":cprev<CR>", { desc = "Previous Quickfix Item" })

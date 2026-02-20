@@ -3,5 +3,8 @@ return {
   lazy = true,
   ft = {
     "help"
-  }
+  },
+  opts = {
+    icon_provider = "mini",
+  },
 };

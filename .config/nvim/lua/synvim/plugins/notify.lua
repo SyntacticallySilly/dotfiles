@@ -1,15 +1,15 @@
 return {
   "rcarriga/nvim-notify",
   event = "VeryLazy",
-  enabled = false,
+  enabled = true,
   opts = {
-    background_colour = "#000000",
+    stages = "fade_in_slide_out",
     timeout = 3000,
-    max_height = function()
-      return math.floor(vim.o.lines * 0.75)
-    end,
+    render = "compact",
+    top_down = true,            -- important: makes them stack from top
+    background_colour = "#000000",
     max_width = function()
-      return math.floor(vim.o.columns * 0.75)
+      return math.floor(vim.o.columns * 0.4)
     end,
   },
   config = function(_, opts)

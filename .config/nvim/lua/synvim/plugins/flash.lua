@@ -8,10 +8,13 @@ return {
   opts = {
     modes = {
       search = {
---[[         enabled = true,  -- Enhanced search ]]
+         enabled = true,  -- Enhanced search
+         multi_window = true,
+         mode = "search",
+         incremental = true,
       },
       char = {
-        enabled = true,  -- Enhanced f/F/t/T
+        enabled = false,  -- Enhanced f/F/t/T
         jump_labels = true,
       },
     },

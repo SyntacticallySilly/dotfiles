@@ -196,6 +196,5 @@ return {
       },
     })
 
-    -- Custom Catppuccin Mocha colors
   end,
 }

@@ -3,22 +3,23 @@
 
 return {
   "fei6409/log-highlight.nvim",
+  ft = "log",
   event = "BufRead *.log",
-  
+
   opts = {
     extension = "log",
-    
+
     filename = {
       "syslog",
       "messages",
       "kern.log",
     },
-    
+
     pattern = {
       "/var/log/.*",
       ".*%.log$",
     },
-    
+
     keyword = {
       error = { "ERROR", "FATAL", "CRITICAL", "FAIL" },
       warning = { "WARN", "WARNING", "CAUTION" },

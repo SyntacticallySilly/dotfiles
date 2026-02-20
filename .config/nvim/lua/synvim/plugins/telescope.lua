@@ -28,8 +28,9 @@ return {
     end, desc = "Search Word" },
     { "<leader>sd", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
     { "<leader>st", "<cmd>Telescope colorscheme<cr>", desc = "Themes" },
-    { "<leader>sn", "<cmd>Telescope notify<cr>", desc = "Notifications"}
-
+    { "<leader>sn", "<cmd>Telescope notify<cr>", desc = "Notifications"},
+    { "<leader>sm", "<cmd>Telescope resume<cr>", desc = "Resume last search"},
+    { "<leader>s%", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Search current buffer"},
   },
 
   config = function()
@@ -66,13 +67,12 @@ return {
           i = {
             ["<C-j>"] = actions.move_selection_next,
             ["<C-k>"] = actions.move_selection_previous,
-            ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
             ["<C-x>"] = actions.delete_buffer,
             ["<Esc>"] = actions.close,
+            ["kj"] = actions.close,
           },
           n = {
             ["q"] = actions.close,
-            ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
             ["x"] = actions.delete_buffer,
           },
         },
@@ -87,17 +87,6 @@ return {
           "%.otf",
           "%.ttf",
         },
-
-        -- vimgrep_arguments = {
-        --   "rg",
-        --   "--color=never",
-        --   "--no-heading",
-        --   "--with-filename",
-        --   "--line-number",
-        --   "--column",
-        --   "--smart-case",
-        --   "--hidden",
-        -- },
       },
 
       pickers = {
@@ -108,6 +97,11 @@ return {
         },
         keymaps = {
           theme = "ivy",
+        },
+        current_buffer_fuzzy_find = {
+          theme = "ivy",
+          prompt_position = 'bottom',
+          preview_cutoff = 1,
         }
       },
     })

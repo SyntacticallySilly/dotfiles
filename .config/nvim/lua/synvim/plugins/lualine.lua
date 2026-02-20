@@ -87,6 +87,8 @@ return {
         -- component_separators = { left = '', right = '' },
         component_separators = { left = '/', right = '/' },
         section_separators = { left = '', right = '' },
+        always_show_tabline = false,
+        -- always_divide_middle = true,
         disabled_filetypes = {
           statusline = { "startify", "Aerial" },
           tabline = {},
@@ -112,6 +114,7 @@ return {
             shorting_target = 70,
             color = 'FilePath',
             path = 1,
+            separator = { right = '' },
             symbols = {
               modified = '~',
               readonly = '-',
@@ -123,7 +126,7 @@ return {
             "branch",
             icon = "󰘬",
             color = 'Rose',
-            separator = { right = '  ' },
+            separator = { right = '' },
           },
         },
         -- Middle: truncated file path with modified indicator
@@ -174,13 +177,15 @@ return {
           {
             'location',
             color = 'Rose',
+            padding = { left = 0, right = 1 },
+            separator = { left = '' },
           },
         },
         lualine_z = {
           {
             "filetype",
             colored = false,
-            icon_only = false,
+            icon_only = true,
             color = 'Esor',
             icon = { align = "left" },
             padding = { left = 1, right = 1 },
@@ -206,6 +211,29 @@ return {
         lualine_y = {},
         lualine_z = {},
       },
+      tabline = {
+        lualine_a = {
+          {
+            'buffers',
+            show_modified_status = true,
+            show_filename_only = true, -- Shows shortened relative path when set to false.
+            use_mode_colors = true,
+            max_length = vim.o.columns * 6 / 1,
+            symbols = {
+              alternate_file = '¿ ',
+              modified = ' ~'
+            },
+          },
+        },
+        lualine_z = {
+          {
+            'tabs',
+            mode = 0,
+            use_mode_colors = true,
+            show_modified_status = false,
+          }
+        }
+      }
     })
 
     -- Auto-reload lualine when colorscheme changes
