@@ -6,7 +6,7 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     "saghen/blink.cmp",
-    "b0o/schemastore.nvim", -- Added missing dependency
+    -- "b0o/schemastore.nvim", -- Added missing dependency
   },
 
   config = function()
@@ -82,7 +82,7 @@ return {
             globals = { "vim" },
           },
           workspace = {
-            checkThirdParty = false,
+            checkThirdParty = true,
             library = {
               vim.env.VIMRUNTIME,
             },
@@ -137,38 +137,6 @@ return {
       },
     }
 
-    -- JSON LSP
-    vim.lsp.config.jsonls = {
-      cmd = { "vscode-json-language-server", "--stdio" },
-      filetypes = { "json", "jsonc" },
-      root_markers = { ".git" },
-      capabilities = capabilities,
-      settings = {
-        json = {
-          schemas = require("schemastore").json.schemas(),
-          validate = { enable = true },
-        },
-      },
-    }
-
-    -- YAML LSP
-    vim.lsp.config.yamlls = {
-      cmd = { "yaml-language-server", "--stdio" },
-      filetypes = { "yaml", "yml" },
-      root_markers = { ".git" },
-      capabilities = capabilities,
-      settings = {
-        yaml = {
-          validate = true,
-          schemaStore = {
-            enable = false, -- Disable builtin store, use SchemaStore.nvim instead
-            url = "",
-          },
-          schemas = require("schemastore").yaml.schemas(),
-        },
-      },
-    }
-
     -- TOML LSP (taplo)
     vim.lsp.config.taplo = {
       cmd = { "taplo", "lsp", "stdio" },
@@ -177,55 +145,7 @@ return {
       capabilities = capabilities,
     }
 
-    -- Enable LSP servers for their respective filetypes
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = { "python" },
-      callback = function()
-        vim.lsp.enable("pyright")
-      end,
-    })
-
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = { "rust" },
-      callback = function()
-        vim.lsp.enable("rust_analyzer")
-      end,
-    })
-
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = { "lua" },
-      callback = function()
-        vim.lsp.enable("lua_ls")
-      end,
-    })
-
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = { "go", "gomod", "gowork", "gotmpl" },
-      callback = function()
-        vim.lsp.enable("gopls")
-      end,
-    })
-
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = { "json", "jsonc" },
-      callback = function()
-        vim.lsp.enable("jsonls")
-      end,
-    })
-
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = { "yaml", "yml" },
-      callback = function()
-        vim.lsp.enable("yamlls")
-      end,
-    })
-
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = { "toml" },
-      callback = function()
-        vim.lsp.enable("taplo")
-      end,
-    })
+    vim.lsp.enable({'clangd', 'lua_ls', 'taplo', 'gopls', 'pyright', 'rust_analyzer' })
 
     -- LSP keymaps (set on attach)
     vim.api.nvim_create_autocmd("LspAttach", {
@@ -248,7 +168,7 @@ return {
         vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
         -- Diagnostics
-        vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
+        -- vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
         vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
         vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
 

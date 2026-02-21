@@ -6,7 +6,7 @@ return {
   event = "VeryLazy",
 
   opts = {
-    preset = "helix",
+    preset = "modern",
     delay = 300,
     notify = true,
 
@@ -15,7 +15,7 @@ return {
       registers = true,
       spelling = {
         enabled = true,
-        suggestions = 10,
+        suggestions = 20,
       },
     },
     presets = {
@@ -45,13 +45,14 @@ return {
       { "<leader>g", group = "Git" },
       { "<leader>b", group = "Buffer/Bookmark" },
       { "<leader>w", group = "Window" },
-      { "<leader>f", group = "Format" },
+      { "<leader>f", group = "File" },
+      { "<leader>ff", group = "File Format" },
       { "<leader>x", group = "Diagnostics" },
-      { "<leader>c", group = "Code/Color" },
+      { "<leader>c", group = "Code" },
       { "<leader>o", group = "Obsidian" },
-      { "<leader>q", group = "Quit" },
-      { "<leader>t", group = "Terminal" },
-      { "<leader>n", group = "Notifications"}
+      { "<leader>t", group = "Toggle" },
+      { "<leader>n", group = "Notifications"},
+      { "<Space><Space>", group = "Utilites"},
     })
   end,
 }

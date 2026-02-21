@@ -1,15 +1,13 @@
--- SynVim Blink.cmp Plugin
--- Performant completion with cmdline popup menu & color highlighting
-
 return {
   "saghen/blink.cmp",
   lazy = false,
   dependencies = {
     "moyiz/blink-emoji.nvim",
+    'L3MON4D3/LuaSnip', version = 'v2.*',
     "rafamadriz/friendly-snippets",
     "onsails/lspkind.nvim",
   },
-  version = "v0.*",
+  version = "1.*",
 
   opts = {
     keymap = {
@@ -24,46 +22,115 @@ return {
       ["<Down>"] = { "select_next", "fallback" },
       ["<C-b>"] = { "scroll_documentation_up", "fallback" },
       ["<C-f>"] = { "scroll_documentation_down", "fallback" },
-      ["<Tab>"] = { "snippet_forward", "fallback" },
-      ["<S-Tab>"] = { "snippet_backward", "fallback" },
+      ["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
+      ["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
     },
-
-    appearance = {
-      use_nvim_cmp_as_default = true,
-      nerd_font_variant = "mono",
+    snippets = { preset = 'luasnip' },
+    cmdline = {
+      enabled = true,
+      keymap = { preset = 'cmdline' },
+      completion = { menu = { auto_show = true } },
+      sources = { 'cmdline', 'buffer' },
     },
+    completion = {
+      keyword = { range = 'full' },
+      trigger = {
+        show_on_backspace_in_keyword = true,
+      },
+      accept = {
+        -- Write completions to the `.` register
+        dot_repeat = true,
+        -- Create an undo point when accepting a completion item
+        create_undo_point = true,
+      },
 
+      list = { selection = { preselect = true, auto_insert = true } },
+      menu = {
+        winblend = 28,
+        scrollbar = false,
+        auto_show = true,
+
+        draw = {
+          gap = 1,
+          snippet_indicator = "&",
+          treesitter = { 'lsp', 'buffer' },
+          columns = {
+            { "kind_icon" },
+            { "label",             gap = 1 },
+            { "label_description", "kind", gap = 1, "source_name" }
+          },
+        },
+      },
+      ghost_text = {
+        enabled = true,
+        -- Show the ghost text when an item has been selected
+        show_with_selection = true,
+        -- Show the ghost text when no item has been selected, defaulting to the first item
+        show_without_selection = false,
+        -- Show the ghost text when the menu is open
+        show_with_menu = true,
+        -- Show the ghost text when the menu is closed
+        show_without_menu = true,
+      },
+      documentation = {
+        auto_show = false,
+        -- Delay before showing the documentation window
+        auto_show_delay_ms = 500,
+        -- Delay before updating the documentation window when selecting a new item,
+        -- while an existing item is still visible
+        update_delay_ms = 50,
+        -- Whether to use treesitter highlighting, disable if you run into performance issues
+        treesitter_highlighting = true,
+        -- Draws the item in the documentation window, by default using an internal treesitter based implementation
+        draw = function(opts) opts.default_implementation() end,
+        window = {
+          min_width = 10,
+          max_width = 80,
+          max_height = 20,
+          border = 'rounded', -- Defaults to `vim.o.winborder` on nvim 0.11+ or 'padded' when not defined/<=0.10
+          winblend = 10,
+          -- Note that the gutter will be disabled when border ~= 'none'
+          scrollbar = true,
+          -- Which directions to show the documentation window,
+          -- for each of the possible menu window directions,
+          -- falling back to the next direction when there's not enough space
+        }
+      },
+    },
     sources = {
-      default = { "lsp", "path", "snippets", "emoji", "buffer" },
-
+      default = { 'lsp', 'path', 'snippets', 'emoji', 'buffer' },
       providers = {
         lsp = {
           name = "LSP",
-          module = "blink.cmp.sources.lsp",
-          fallbacks = { "buffer" },
+          module = 'blink.cmp.sources.lsp',
+          fallbacks = { 'buffer' },
         },
         path = {
-          name = "Path",
-          module = "blink.cmp.sources.path",
-          score_offset = 3,
+          module = 'blink.cmp.sources.path',
           opts = {
             trailing_slash = true,
             label_trailing_slash = true,
-            get_cwd = function(context)
-              return vim.fn.expand(("#%d:p:h"):format(context.bufnr))
-            end,
+            get_cwd = function(context) return vim.fn.expand(('#%d:p:h'):format(context.bufnr)) end,
             show_hidden_files_by_default = true,
+            -- Treat `/path` as starting from the current working directory (cwd) instead of the root of your filesystem
+            ignore_root_slash = false,
+            -- Maximum number of files/directories to return. This limits memory use and responsiveness for very large folders.
+            max_entries = 10000,
           },
         },
         snippets = {
-          name = "Snippets",
-          module = "blink.cmp.sources.snippets",
+          module = 'blink.cmp.sources.snippets',
+          opts = {
+            -- Whether to use show_condition for filtering snippets
+            use_show_condition = true,
+            -- Whether to show autosnippets in the completion list
+            show_autosnippets = true,
+            -- Whether to prefer docTrig placeholders over trig when expanding regTrig snippets
+            prefer_doc_trig = false,
+            -- Whether to put the snippet description in the label description
+            use_label_description = false,
+          }
         },
-        buffer = {
-          name = "Buffer",
-          module = "blink.cmp.sources.buffer",
-        },
-
         emoji = {
           module = "blink-emoji",
           name = "Emoji",
@@ -77,138 +144,97 @@ return {
           },
           should_show_items = function()
             return vim.tbl_contains(
-            -- Enable emoji completion only for git commits and markdown.
-            -- By default, enabled for all file-types.
+              -- Enable emoji completion only for git commits and markdown.
+              -- By default, enabled for all file-types.
               { "gitcommit", "markdown" },
               vim.o.filetype
             )
           end,
-        },
-        cmdline = {
-          name = "Cmdline",
-          module = "blink.cmp.sources.cmdline",
-        },
-      },
+        }
+      }
     },
+    fuzzy = {
+      -- Controls which implementation to use for the fuzzy matcher.
+      --
+      -- 'prefer_rust_with_warning' (Recommended) If available, use the Rust implementation, automatically downloading prebuilt binaries on supported systems. Fallback to the Lua implementation when not available, emitting a warning message.
+      -- 'prefer_rust' If available, use the Rust implementation, automatically downloading prebuilt binaries on supported systems. Fallback to the Lua implementation when not available.
+      -- 'rust' Always use the Rust implementation, automatically downloading prebuilt binaries on supported systems. Error if not available.
+      -- 'lua' Always use the Lua implementation, doesn't download any prebuilt binaries
+      --
+      -- See the prebuilt_binaries section for controlling the download behavior
+      implementation = 'prefer_rust_with_warning',
 
-    completion = {
-      accept = {
-        auto_brackets = { enabled = true },
-      },
+      -- Allows for a number of typos relative to the length of the query
+      -- Set this to 0 to match the behavior of fzf
+      -- Note, this does not apply when using the Lua implementation.
+      max_typos = function(keyword) return math.floor(#keyword / 4) end,
 
-      menu = {
+      -- Frecency tracks the most recently/frequently used items and boosts the score of the item
+      -- Note, this does not apply when using the Lua implementation.
+      frecency = {
+        -- Whether to enable the frecency feature
         enabled = true,
-        min_width = 15,
-        max_height = 10,
-        border = "rounded",
-        winblend = 0,
-        winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,Search:None",
-        scrollbar = false,
-        auto_show = true,
+        -- Location of the frecency database
+        path = vim.fn.stdpath('state') .. '/blink/cmp/frecency.dat',
+        -- UNSAFE!! When enabled, disables the lock and fsync when writing to the frecency database.
+        -- This should only be used on unsupported platforms (e.g. alpine, termux)
+        unsafe_no_lock = false,
+      },
 
-        draw = {
-          treesitter = { "lsp" },
-          columns = {
-            { "kind_icon" },
-            { "label",      "label_description", gap = 1 },
-            { "kind" },
-            { "source_name" },
+      -- Proximity bonus boosts the score of items matching nearby words
+      -- Note, this does not apply when using the Lua implementation.
+      use_proximity = true,
+
+      -- Controls which sorts to use and in which order, falling back to the next sort if the first one returns nil
+      -- You may pass a function instead of a string to customize the sorting
+      --
+      -- Optionally, set the table of sorts via a function instead: sorts = function() return { 'exact', 'score', 'sort_text' } end
+      sorts = {
+        -- (optionally) always prioritize exact matches
+        -- 'exact',
+
+        -- pass a function for custom behavior
+        -- function(item_a, item_b)
+          --   return item_a.score > item_b.score
+          -- end,
+
+          'score',
+          'sort_text',
+        },
+
+        prebuilt_binaries = {
+          -- Whether or not to automatically download a prebuilt binary from github. If this is set to `false`,
+          -- you will need to manually build the fuzzy binary dependencies by running `cargo build --release`
+          -- Disabled by default when `fuzzy.implementation = 'lua'`
+          download = true,
+
+          -- Ignores mismatched version between the built binary and the current git sha, when building locally
+          ignore_version_mismatch = false,
+
+          -- When downloading a prebuilt binary, force the downloader to resolve this version. If this is unset
+          -- then the downloader will attempt to infer the version from the checked out git tag (if any).
+          --
+          -- Beware that if the fuzzy matcher changes while tracking main then this may result in blink breaking.
+          force_version = nil,
+
+          -- When downloading a prebuilt binary, force the downloader to use this system triple. If this is unset
+          -- then the downloader will attempt to infer the system triple from `jit.os` and `jit.arch`.
+          -- Check the latest release for all available system triples
+          --
+          -- Beware that if the fuzzy matcher changes while tracking main then this may result in blink breaking.
+          force_system_triple = nil,
+
+          -- Extra arguments that will be passed to curl like { 'curl', ..extra_curl_args, ..built_in_args }
+          extra_curl_args = {},
+
+          proxy = {
+            -- When downloading a prebuilt binary, use the HTTPS_PROXY environment variable
+            from_env = true,
+
+            -- When downloading a prebuilt binary, use this proxy URL. This will ignore the HTTPS_PROXY environment variable
+            url = nil,
           },
-          components = {
-            kind_icon = {
-              -- text = function(ctx)
-              --   -- Check if nvim-highlight-colors is available
-              --   local has_hl, hl_colors = pcall(require, "nvim-highlight-colors")
-              --   if has_hl and ctx.item.documentation then
-              --     -- Try to extract color from documentation
-              --     local color_item = hl_colors.format(ctx.item.documentation, { kind = ctx.kind })
-              --     if color_item and color_item.abbr and color_item.abbr ~= "" then
-              --       return color_item.abbr .. ctx.icon_gap
-              --     end
-              --   end
-              --   return ctx.kind_icon .. ctx.icon_gap
-              -- end,
-              -- highlight = function(ctx)
-              --   -- Check if nvim-highlight-colors is available
-              --   local has_hl, hl_colors = pcall(require, "nvim-highlight-colors")
-              --   if has_hl and ctx.item.documentation then
-              --     -- Try to extract color from documentation
-              --     local color_item = hl_colors.format(ctx.item.documentation, { kind = ctx.kind })
-              --     if color_item and color_item.abbr_hl_group then
-              --       return color_item.abbr_hl_group
-              --     end
-              --   end
-              --   return "BlinkCmpKind" .. ctx.kind
-              -- end,
-            },
-          },
         },
-      },
-
-      documentation = {
-        auto_show = true,
-        auto_show_delay_ms = 200,
-        window = {
-          border = "rounded",
-          winblend = 0,
-          winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
-        },
-      },
-
-      list = {
-        selection = {
-          preselect = true,
-          auto_insert = true,
-        },
-      },
-      ghost_text = {
-        enabled = false,
-        show_with_menu = false,
-      },
-    },
-
-    signature = {
-      enabled = true,
-      window = {
-        border = "rounded",
-        winblend = 0,
-        winhighlight = "Normal:BlinkCmpSignatureHelp,FloatBorder:BlinkCmpSignatureHelpBorder",
-      },
-    },
-
-    cmdline = {
-      enabled = true,
-      sources = function()
-        local type = vim.fn.getcmdtype()
-        if type == "/" or type == "?" then
-          return { "buffer" }
-        end
-        if type == ":" then
-          return { "cmdline", "path" }
-        end
-        return {}
-      end,
-      -- Added cmdline-specific completion settings
-      completion = {
-        list = {
-          selection = { preselect = false }   -- Prevents :w from auto-selecting :wall
-        },
-        menu = {
-          auto_show = function(ctx)
-            return vim.fn.getcmdtype() == ":"   -- Auto-show only for : commands
-          end,
-        },
-      },
-      -- Optional: cmdline-specific keymap preset
-      keymap = {
-        preset = "cmdline",
-      },
-    },
+      }
   },
-
-  opts_extend = { "sources.default" },
-
-  config = function(_, opts)
-    require("blink.cmp").setup(opts)
-  end,
 }

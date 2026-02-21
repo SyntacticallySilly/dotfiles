@@ -50,21 +50,20 @@ vim.opt.spell = false
 -- vim.opt.ttyfast = true    -- Assume fast terminal connection
 -- Reduce memory usage
 -- vim.opt.maxmempattern = 2000
-vim.opt.shadafile = "NONE" -- Disable shada during editing, save on exit
+-- vim.opt.shadafile = "NONE" -- Disable shada during editing, save on exit
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '-', nbsp = '␣' }
 
 -- -- Faster completion
 vim.opt.pumheight = 8 -- Limit completion menu height
 
--- highlight yank
 vim.api.nvim_create_autocmd("TextYankPost", {
-	group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
-	pattern = "*",
-	desc = "highlight selection on yank",
-	callback = function()
-		vim.highlight.on_yank({ timeout = 200, visual = true })
-	end,
+  group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
+  pattern = "*",
+  desc = "highlight selection on yank",
+  callback = function()
+    vim.highlight.on_yank({ higroup = "HLYank", timeout = 200, visual = true })
+  end,
 })
 
 -- restore cursor to file position in previous editing session
@@ -80,44 +79,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 			end)
 		end
 	end,
-})
-
-local function floating_help(topic)
-  local width = math.floor(vim.o.columns * 0.8)
-  local height = math.floor(vim.o.lines * 0.8)
-  
-  -- Create a scratch buffer for the help text
-  local buf = vim.api.nvim_create_buf(false, true)
-  
-  -- Open the floating window
-  vim.api.nvim_open_win(buf, true, {
-    relative = "editor",
-    width = width,
-    height = height,
-    col = math.floor((vim.o.columns - width) / 2),
-    row = math.floor((vim.o.lines - height) / 2),
-    style = "minimal",
-    border = "rounded",
-  })
-  
-  -- Load the help topic into this buffer
-  vim.cmd("help " .. topic)
-end
-
--- Create a custom command :H that opens in a float
-vim.api.nvim_create_user_command("H", function(opts)
-  floating_help(opts.args)
-end, { nargs = 1, complete = "help" })
-
-
--- Yank to system clipboard (but NOT delete operations)
--- This keeps delete operations in default registers
-vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function()
-    if vim.v.event.operator == "y" then
-      vim.fn.setreg("+", vim.fn.getreg('"'))
-    end
-  end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {

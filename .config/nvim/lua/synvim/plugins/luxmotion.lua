@@ -3,7 +3,7 @@
 
 return {
   "LuxVim/nvim-luxmotion",
-  -- enabled = false,
+  enabled = false,
   event = "VeryLazy",
 
   opts = {

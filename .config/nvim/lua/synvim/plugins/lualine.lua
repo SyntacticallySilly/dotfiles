@@ -7,7 +7,7 @@ return {
     "nvim-tree/nvim-web-devicons",
     "lewis6991/gitsigns.nvim",
   },
-  event = "VeryLazy",
+  lazy = false,
   -- enabled = false,
   config = function()
     local lualine = require("lualine")
@@ -87,12 +87,7 @@ return {
         -- component_separators = { left = '', right = '' },
         component_separators = { left = '/', right = '/' },
         section_separators = { left = '', right = '' },
-        always_show_tabline = false,
-        -- always_divide_middle = true,
-        disabled_filetypes = {
-          statusline = { "startify", "Aerial" },
-          tabline = {},
-        },
+        always_show_tabline = true,
       },
       sections = {
         -- Left: mode icon
@@ -218,7 +213,7 @@ return {
             show_modified_status = true,
             show_filename_only = true, -- Shows shortened relative path when set to false.
             use_mode_colors = true,
-            max_length = vim.o.columns * 6 / 1,
+            max_length = vim.o.columns * 4,
             symbols = {
               alternate_file = '¿ ',
               modified = ' ~'

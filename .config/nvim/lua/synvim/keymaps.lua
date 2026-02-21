@@ -22,6 +22,10 @@ M.navigation_keymaps = function()
   map("n", "<leader>wo", "<cmd>only<CR>", { desc = "Close other windows" })
   map("n", "<leader>w=", "<C-w>=", { desc = "Equal window sizes" })
 
+  -- Better yank/paste
+  map({"n", "v", "x"}, "<Space><Space>y", '"+y', { desc = "Copy to system clipboard"})
+  map({"n", "v", "x"}, "<Space><Space>p", '"+p', { desc = "Paste from system clipboard"})
+
   -- Window navigation (Ctrl + hjkl)
   map("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
   map("n", "<C-j>", "<C-w>j", { desc = "Move to down window" })
@@ -95,13 +99,13 @@ M.formatting_keymaps = function()
   -- end, { desc = "Format file (LSP)" })
 
   -- Format selection in visual mode
-  map("v", "<leader>fl", function()
+  map("v", "<leader>ffl", function()
     vim.lsp.buf.format({ async = true })
   end, { desc = "Format selection" })
 
-  map("n", "<leader>fl", vim.lsp.buf.format)
+  map("n", "<leader>ffl", vim.lsp.buf.format)
   -- Fix indentation manually (preserves content, only fixes indent)
-  map("n", "<leader>fi", function()
+  map("n", "<leader>ffi", function()
     -- Save cursor position
     local save_cursor = vim.api.nvim_win_get_cursor(0)
     -- Store the view to restore scroll position
