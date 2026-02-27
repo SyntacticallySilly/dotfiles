@@ -13,7 +13,7 @@ vim.opt.autoread = true
 vim.opt.autoindent = true
 vim.opt.softtabstop = 2
 vim.opt.showmatch = true
-vim.opt.inccommand = "split"
+vim.opt.inccommand = "nosplit"
 vim.opt.winborder = "rounded"
 -- vim.lsp.set_log_level("off")
 vim.opt.number = true                               -- Line numbers
@@ -46,12 +46,12 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()"     -- Use treesitter for foldin
 vim.opt.foldlevel = 99                              -- Start with all folds open
 vim.opt.laststatus = 3
 vim.opt.mousemoveevent = true
+vim.opt.statuscolumn = "%s%=%l%r%=%#StatColSep#│"
 vim.opt.spell = false
 -- vim.opt.ttyfast = true    -- Assume fast terminal connection
 -- Reduce memory usage
 vim.opt.list = true
--- vim.opt.listchars = { eob = ' ' }
-
+vim.opt.fillchars = { eob = ' ' }
 -- -- Faster completion
 vim.opt.pumheight = 8 -- Limit completion menu height
 vim.opt.pumblend = 60

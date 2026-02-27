@@ -145,13 +145,11 @@ return {
       capabilities = capabilities,
     }
 
-    vim.lsp.enable({'clangd', 'lua_ls', 'taplo', 'gopls', 'pyright', 'rust_analyzer' })
+    vim.lsp.enable({ 'clangd', 'lua_ls', 'taplo', 'gopls', 'pyright', 'rust_analyzer' })
 
     -- LSP keymaps (set on attach)
     vim.api.nvim_create_autocmd("LspAttach", {
-      callback = function(args)
-        local opts = { buffer = args.buf }
-
+      callback = function()
         -- Navigation
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
         vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
@@ -165,40 +163,56 @@ return {
 
         -- Code actions
         vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Perform code action" })
-        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Perform rename" })
+        vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Perform rename" })
 
         -- Diagnostics
         -- vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
-        vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = "Next Diagnostic"})
-        vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "Previous Diagnostic"})
+        vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end,
+          { desc = "Next Diagnostic" })
+        vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end,
+          { desc = "Previous Diagnostic" })
 
         -- Diagnostic configuration
         vim.diagnostic.config({
           virtual_text = {
-            prefix = " ",
             spacing = 4,
+            severity = vim.diagnostic.severity,
+            prefix = function(d)
+              return ({ " ", " ", "󰌶 ", "  " })[d.severity]
+            end,
           },
-          signs = true,
-          underline = true,
+          signs = {
+            text = {
+              [vim.diagnostic.severity.ERROR] = " ",
+              [vim.diagnostic.severity.WARN]  = " ",
+              [vim.diagnostic.severity.HINT]  = "󰌶 ",
+              [vim.diagnostic.severity.INFO]  = " ",
+            },
+            texthl = {
+              [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+              [vim.diagnostic.severity.WARN]  = "DiagnosticSignWarn",
+              [vim.diagnostic.severity.INFO]  = "DiagnosticSignInfo",
+              [vim.diagnostic.severity.HINT]  = "DiagnosticSignHint",
+            },
+            numhl = {
+              [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+              [vim.diagnostic.severity.WARN]  = "DiagnosticSignWarn",
+              [vim.diagnostic.severity.INFO]  = "DiagnosticSignInfo",
+              [vim.diagnostic.severity.HINT]  = "DiagnosticSignHint",
+            },
+            linehl = {
+              [vim.diagnostic.severity.ERROR] = "DiagnosticLineError",
+            }
+          },
+          underline = false,
           update_in_insert = false,
           severity_sort = true,
           float = {
             border = "rounded",
-            source = "always",
+            source = false,
+            header = { "Diagnostics :", "Bold" }
           },
         })
-
-        -- Diagnostic signs
-        local signs = {
-          { name = "DiagnosticSignError", text = "" },
-          { name = "DiagnosticSignWarn", text = "" },
-          { name = "DiagnosticSignHint", text = "" },
-          { name = "DiagnosticSignInfo", text = "" },
-        }
-
-        for _, sign in ipairs(signs) do
-          vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-        end
       end,
     })
   end,

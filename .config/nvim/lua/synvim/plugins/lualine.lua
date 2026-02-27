@@ -6,12 +6,12 @@ return {
   dependencies = {
     "nvim-tree/nvim-web-devicons",
     "lewis6991/gitsigns.nvim",
+    "otavioschwanck/arrow.nvim",
   },
   lazy = false,
   -- enabled = false,
   config = function()
     local lualine = require("lualine")
-
     -- Mode icon map
     local mode_icons = {
       n = "󰆾 ",
@@ -24,47 +24,15 @@ return {
       t = " ",
     }
 
-    -- Function to get theme name dynamically
-    local function get_theme()
-      local colorscheme = vim.g.colors_name
-      local theme_map = {
-        ["catppuccin-mocha"] = "catppuccin",
-        ["catppuccin-frappe"] = "catppuccin",
-        ["catppuccin-latte"] = "catppuccin",
-        ["tokyonight-night"] = "tokyonight",
-        ["tokyonight-storm"] = "tokyonight",
-        ["tokyonight-moon"] = "tokyonight",
-        ["gruvbox"] = "gruvbox",
-        ["nord"] = "nord",
-        ["rose-pine"] = "rose-pine",
-        ["rose-pine-main"] = "rose-pine",
-        ["rose-pine-moon"] = "rose-pine",
-        ["rose-pine-dawn"] = "rose-pine",
-        ["kanagawa"] = "auto",
-        ["kanagawa-wave"] = "auto",
-        ["kanagawa-dragon"] = "auto",
-        ["dracula"] = "dracula",
-        ["everforest"] = "everforest",
-        ["bamboo"] = "auto",
-        ["nightfox"] = "nightfox",
-        ["nordfox"] = "nightfox",
-        ["duskfox"] = "nightfox",
-        ["carbonfox"] = "nightfox",
-        ["monokai-pro"] = "auto",
-        ["darkvoid"] = "auto",
-      }
-      return theme_map[colorscheme] or "auto"
-    end
-
     lualine.setup({
       options = {
-        theme = get_theme(),
+        theme = 'rose-pine',
         globalstatus = true,
-        -- component_separators = { left = '', right = '' },
-        component_separators = { left = '/', right = '/' },
+        component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
         always_show_tabline = true,
       },
+      extensions = { 'quickfix', 'lazy' },
       sections = {
         -- Left: mode icon
         lualine_a = {
@@ -99,6 +67,12 @@ return {
             color = 'Rose',
             separator = { right = '' },
           },
+          {
+            'lazy'
+          },
+          {
+            'quickfix'
+          },
         },
         -- Middle: truncated file path with modified indicator
         lualine_c = {
@@ -129,14 +103,6 @@ return {
             color = 'LspStatus',
             icon = '󰒏',
           },
-          {
-            function()
-              return require("arrow.statusline").text_for_statusline_with_icons()
-            end,
-            cond = function()
-              return require("arrow.statusline").is_on_arrow_file()
-            end,
-          },
         },
         -- lualine_y = {
         --   {
@@ -151,6 +117,12 @@ return {
             padding = { left = 0, right = 1 },
             separator = { left = '' },
           },
+          {
+            'searchcount'
+          },
+          {
+            'selectioncount',
+          }
         },
         lualine_z = {
           {
@@ -192,6 +164,17 @@ return {
               modified = ' ~'
             },
           },
+          {
+            function()
+              return require("arrow.statusline").text_for_statusline_with_icons()
+            end,
+            cond = function()
+              return require("arrow.statusline").is_on_arrow_file()
+            end,
+          },
+        },
+        lualine_b = {
+          'aerial'
         },
         lualine_z = {
           {
@@ -199,21 +182,9 @@ return {
             mode = 0,
             use_mode_colors = true,
             show_modified_status = false,
-          }
-        }
-      }
-    })
-
-    -- Auto-reload lualine when colorscheme changes
-    vim.api.nvim_create_autocmd("ColorScheme", {
-      pattern = "*",
-      callback = function()
-        require("lualine").setup({
-          options = {
-            theme = get_theme(),
           },
-        })
-      end,
+        }
+      },
     })
   end,
 }

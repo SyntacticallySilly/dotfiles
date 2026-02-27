@@ -52,7 +52,7 @@ return {
       style = 'language',
       width = 'block',
       position = 'right',
-      border = 'thick',
+      border = 'hide',
       left_pad = 0.2,
       left_mqrgin = 0.5,
       right_pad = 0.2,

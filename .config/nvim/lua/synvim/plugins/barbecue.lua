@@ -15,7 +15,7 @@ return {
   opts = {
     -- theme = "rose-pine", -- Matches your colorscheme automatically
     theme = {
-      normal = { bg = "NONE", bold = true, italic = true},
+      normal = { bg = "NONE", bold = true, italic = true },
       -- seperator = { fg = "love" },
       -- modified = { fg = "gold" },
       -- dirname = { fg = "rose" }
@@ -26,7 +26,7 @@ return {
 
     -- Performance optimizations for mobile
     create_autocmd = true, -- Auto-update on CursorHold
-    attach_navic = true, -- Automatically attach to LSP
+    attach_navic = true,   -- Automatically attach to LSP
     show_navic = true,
 
     -- Layout

@@ -15,22 +15,27 @@ return {
   cmd = "Telescope",
 
   keys = {
-    { "<leader>sf", "<cmd>Telescope find_files<cr>", desc = "Files" },
-    { "<leader>sv", "<cmd>Telescope git_files<cr>", desc = "Git Files" },
-    { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
-    { "<leader>sb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-    { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help" },
-    { "<leader>sr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
-    { "<leader>sc", "<cmd>Telescope commands<cr>", desc = "Commands" },
-    { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
-    { "<leader>sw", function()
-      require('telescope.builtin').grep_string()
-    end, desc = "Search Word" },
-    { "<leader>sd", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
-    { "<leader>st", "<cmd>Telescope colorscheme<cr>", desc = "Themes" },
-    { "<leader>sn", "<cmd>Telescope notify<cr>", desc = "Notifications"},
-    { "<leader>sm", "<cmd>Telescope resume<cr>", desc = "Resume last search"},
-    { "<leader>s%", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Search current buffer"},
+    { "<leader>sf", "<cmd>Telescope find_files<cr>",                desc = "Files" },
+    { "<leader>sv", "<cmd>Telescope git_files<cr>",                 desc = "Git Files" },
+    { "<leader>sg", "<cmd>Telescope live_grep<cr>",                 desc = "Live Grep" },
+    { "<leader>sb", "<cmd>Telescope buffers<cr>",                   desc = "Buffers" },
+    { "<leader>sh", "<cmd>Telescope help_tags<cr>",                 desc = "Help" },
+    { "<leader>sr", "<cmd>Telescope oldfiles<cr>",                  desc = "Recent Files" },
+    { "<leader>sc", "<cmd>Telescope commands<cr>",                  desc = "Commands" },
+    { "<leader>sk", "<cmd>Telescope keymaps<cr>",                   desc = "Keymaps" },
+    { "<leader>sd", "<cmd>Telescope diagnostics<cr>",               desc = "Diagnostics" },
+    { "<leader>st", "<cmd>Telescope colorscheme<cr>",               desc = "Themes" },
+    { "<leader>sn", "<cmd>Telescope notify<cr>",                    desc = "Notifications" },
+    { "<leader>sm", "<cmd>Telescope resume<cr>",                    desc = "Resume last search" },
+    { "<leader>s%", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Search current buffer" },
+    { "<leader>sa", "<cmd>Telescope aerial<cr>",                    desc = "Search Aerial" },
+    {
+      "<leader>sw",
+      function()
+        require('telescope.builtin').grep_string()
+      end,
+      desc = "Search word under cursor"
+    },
   },
 
   config = function()

@@ -23,8 +23,8 @@ M.navigation_keymaps = function()
   map("n", "<leader>w=", "<C-w>=", { desc = "Equal window sizes" })
 
   -- Better yank/paste
-  map({"n", "v", "x"}, "<Space><Space>y", '"+y', { desc = "Copy to system clipboard"})
-  map({"n", "v", "x"}, "<Space><Space>p", '"+p', { desc = "Paste from system clipboard"})
+  map({ "n", "v", "x" }, "<Space><Space>y", '"+y', { desc = "Copy to system clipboard" })
+  map({ "n", "v", "x" }, "<Space><Space>p", '"+p', { desc = "Paste from system clipboard" })
 
   -- Window navigation (Ctrl + hjkl)
   map("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
@@ -79,7 +79,7 @@ M.editing_keymaps = function()
   map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Unhighlight" })
 end
 
-vim.keymap.del("n", "&" )
+vim.keymap.del("n", "&")
 -- ============================================================================
 -- FORMATTING KEYMAPS - Fix indentation and format code
 -- ============================================================================
@@ -157,6 +157,32 @@ M.notify_keymaps = function()
     { desc = "Dismiss Notifications" })
 end
 
+
+-- Explorer Keymaps
+M.explore_keymaps = function()
+  -- Open the directory of the file currently being edited
+  -- If the file doesn't exist because you maybe switched to a new git branch
+  -- open the current working directory
+  map("n", "<leader>e", function()
+    local buf_name = vim.api.nvim_buf_get_name(0)
+    local dir_name = vim.fn.fnamemodify(buf_name, ":p:h")
+    if vim.fn.filereadable(buf_name) == 1 then
+      -- Pass the full file path to highlight the file
+      require("mini.files").open(buf_name, true)
+    elseif vim.fn.isdirectory(dir_name) == 1 then
+      -- If the directory exists but the file doesn't, open the directory
+      require("mini.files").open(dir_name, true)
+    else
+      -- If neither exists, fallback to the current working directory
+      require("mini.files").open(vim.uv.cwd(), true)
+    end
+  end, { desc = "Open mini.files (Directory of Current File or CWD if not exists)" })
+
+  map("n", "<leader>E", function()
+    require("mini.files").open(vim.uv.cwd(), true)
+  end, { desc = "Open mini.files (cwd)" })
+end
+
 -- ============================================================================
 -- SETTINGS KEYMAPS
 -- ============================================================================
@@ -170,6 +196,7 @@ M.settings_keymaps = function()
   map("n", "<leader>tlsp", "<cmd>LspStop<CR>", { desc = "Stop LSP" })
   map("n", "<leader>tlsi", "<cmd>LspInfo<CR>", { desc = "LSP Debug" })
 end
+
 -- ============================================================================
 -- Setup function - Call keymaps that don't depend on plugins
 -- Plugin-dependent keymaps are called from their plugin configs
@@ -182,6 +209,7 @@ M.setup = function()
   M.formatting_keymaps()
   -- M.theme_keymaps()
   M.notify_keymaps()
+  M.explore_keymaps()
   M.settings_keymaps()
   -- Plugin-dependent keymaps are called from their plugin configs
   -- See telescope.lua and harpoon.lua for when these are called

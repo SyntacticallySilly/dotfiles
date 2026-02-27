@@ -173,7 +173,7 @@ return {
       -- 'lua' Always use the Lua implementation, doesn't download any prebuilt binaries
       --
       -- See the prebuilt_binaries section for controlling the download behavior
-      implementation = 'prefer_rust_with_warning',
+      implementation = 'lua',
 
       -- Allows for a number of typos relative to the length of the query
       -- Set this to 0 to match the behavior of fzf

@@ -133,10 +133,10 @@ return {
         end,
       },
       hide = {
-        tabline = true,
-        winbar = true,
+        tabline = false,
+        winbar = false,
+        statusline = false,
       },
     })
-
   end,
 }

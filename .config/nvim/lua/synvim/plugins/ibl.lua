@@ -4,6 +4,7 @@
 return {
   "lukas-reineke/indent-blankline.nvim",
   main = "ibl",
+  enabled = false,
   event = { "BufReadPost", "BufNewFile" },
   keys = {
     { "<leader>ui", "<cmd>IBLToggle<cr>", desc = "Toggle Indent Lines" },
@@ -26,9 +27,9 @@ return {
     -- Scope highlighting (current code block)
     scope = {
       enabled = true,
-      char = "|", -- Thicker line for scope
+      char = "|",        -- Thicker line for scope
       show_start = true, -- Underline at scope start
-      show_end = true, -- Underline at scope end
+      show_end = true,   -- Underline at scope end
       show_exact_scope = true,
       injected_languages = true,
       highlight = {
@@ -131,7 +132,7 @@ return {
       }
 
       for i, color in ipairs(colors) do
-        local hl_name = "RainbowDelimiter" .. ({"Red", "Yellow", "Blue", "Orange", "Green", "Violet", "Cyan"})[i]
+        local hl_name = "RainbowDelimiter" .. ({ "Red", "Yellow", "Blue", "Orange", "Green", "Violet", "Cyan" })[i]
         vim.api.nvim_set_hl(0, hl_name, { fg = color })
       end
     end)

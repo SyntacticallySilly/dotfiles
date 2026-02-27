@@ -4,6 +4,7 @@
 return {
   "MagicDuck/grug-far.nvim",
   cmd = "GrugFar",
+  enabled = false,
   keys = {
     {
       "<leader>sar",
@@ -67,12 +68,12 @@ return {
         qflist = { n = "<localleader>q" },
         syncLocations = { n = "<localleader>s" },
         syncLine = { n = "<localleader>l" },
-        close = { n = "q" },  -- Just press 'q' to close
+        close = { n = "q" }, -- Just press 'q' to close
         historyOpen = { n = "<localleader>h" },
         historyAdd = { n = "<localleader>a" },
         refresh = { n = "<localleader>f" },
         openLocation = { n = "<localleader>o" },
-        gotoLocation = { n = "<CR>" },  -- Enter to jump
+        gotoLocation = { n = "<CR>" }, -- Enter to jump
         pickHistoryEntry = { n = "<CR>" },
         abort = { n = "<localleader>x" },
         help = { n = "g?" },
@@ -133,3 +134,4 @@ return {
     })
   end,
 }
+

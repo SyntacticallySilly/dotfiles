@@ -7,6 +7,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     "nvim-tree/nvim-web-devicons",
   },
+  event = { "BufReadPost", "BufNewFile" },
   cmd = {
     "AerialToggle",
     "AerialOpen",
@@ -14,29 +15,29 @@ return {
     "AerialNav",
   },
   keys = {
-    { "<leader>a", "<cmd>AerialToggle<cr>", desc = "Toggle Aerial" },
+    { "<leader>a", "<cmd>AerialToggle<cr>",    desc = "Toggle Aerial" },
     { "<leader>A", "<cmd>AerialNavToggle<cr>", desc = "Aerial Nav" },
-    { "[a", "<cmd>AerialPrev<cr>", desc = "Prev Symbol" },
-    { "]a", "<cmd>AerialNext<cr>", desc = "Next Symbol" },
+    { "[a",        "<cmd>AerialPrev<cr>",      desc = "Prev Symbol" },
+    { "]a",        "<cmd>AerialNext<cr>",      desc = "Next Symbol" },
   },
 
   opts = {
     -- Backends (priority order)
-    backends = { "treesitter", "lsp", "markdown", "asciidoc", "man" },
+    backends = { "lsp", "treesitter", "markdown", "asciidoc", "man" },
 
     -- Layout settings
     layout = {
-      max_width = { 40, 0.3 }, -- 40 cols or 30% of window
-      width = nil, -- Auto-size
+      max_width = { 40, 0.3 },     -- 40 cols or 30% of window
+      width = nil,                 -- Auto-size
       min_width = 25,
       default_direction = "right", -- or "prefer_left", "right", "left", "float"
-      placement = "edge", -- "window" or "edge"
+      placement = "window",        -- "window" or "edge"
       resize_to_content = true,
       preserve_equality = false,
     },
 
     -- Attach mode
-    attach_mode = "window", -- "window", "global"
+    attach_mode = "global", -- "window", "global"
 
     -- Close aerial on select
     close_on_select = false,
@@ -85,68 +86,31 @@ return {
     disable_max_size = 2000000, -- 2MB
 
     -- Filter symbols
-    filter_kind = {
-      "Class",
-      "Constructor",
-      "Enum",
-      "Function",
-      "Interface",
-      "Module",
-      "Method",
-      "Struct",
-      "Trait",
-      "Field",
-      "Property",
-    },
+    -- filter_kind = {
+    --   "Class",
+    --   "Constructor",
+    --   "Enum",
+    --   "Function",
+    --   "Interface",
+    --   "Module",
+    --   "Method",
+    --   "Struct",
+    --   "Trait",
+    --   "Field",
+    --   "Property",
+    -- },
 
     -- Highlight settings
     highlight_mode = "split_width", -- "split_width", "full_width", "last", "none"
     highlight_closest = true,
-    highlight_on_hover = false,
+    highlight_on_hover = true,
     highlight_on_jump = 300, -- ms
 
     -- Fold code when navigating
-    autojump = false,
-
-    -- Icons
-    icons = {
-      Array = " ",
-      Boolean = "󰨙 ",
-      Class = " ",
-      Constant = " ",
-      Constructor = " ",
-      Enum = " ",
-      EnumMember = " ",
-      Event = " ",
-      Field = " ",
-      File = " ",
-      Function = "󰊕 ",
-      Interface = " ",
-      Key = " ",
-      Method = "󰊕 ",
-      Module = " ",
-      Namespace = "󰦮 ",
-      Null = " ",
-      Number = "󰎠 ",
-      Object = " ",
-      Operator = " ",
-      Package = " ",
-      Property = " ",
-      String = " ",
-      Struct = " ",
-      TypeParameter = " ",
-      Variable = "󰀫 ",
-    },
+    autojump = true,
 
     -- Show box around symbols (beautiful borders)
     show_guides = true,
-    guides = {
-      mid_item = "├─",
-      last_item = "└─",
-      nested_top = "│ ",
-      whitespace = "  ",
-    },
-
     -- Floating window settings (for AerialNav)
     float = {
       border = "rounded",
@@ -171,7 +135,7 @@ return {
         winblend = 0,
       },
       autojump = false,
-      preview = false,
+      preview = true,
       keymaps = {
         ["<CR>"] = "actions.jump",
         ["<2-LeftMouse>"] = "actions.jump",
