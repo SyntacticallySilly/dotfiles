@@ -5,7 +5,8 @@ return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "nvim-tree/nvim-web-devicons",
+    "nvim-mini/mini.icons",
+    "2KAbhishek/nerdy.nvim",
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
@@ -30,6 +31,7 @@ return {
     { "<leader>s%", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Search current buffer" },
     { "<leader>sa", "<cmd>Telescope aerial<cr>",                    desc = "Search Aerial" },
     { '<leader>s"', "<cmd>Telescope registers<cr>",                 desc = "Registers" },
+    { "<leader>si", "<cmd>Telescope nerdy<cr>",                     desc = "Search Nerd Icons" },
     {
       "<leader>sw",
       function()
@@ -141,6 +143,7 @@ return {
     })
 
     -- Load extensions
-    pcall(telescope.load_extension, "fzf")
+    telescope.load_extension("fzf")
+    telescope.load_extension("nerdy")
   end,
 }

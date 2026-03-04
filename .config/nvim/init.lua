@@ -11,8 +11,5 @@ require("synvim.autocmds")
 -- Load lazy.nvim and plugins
 require("synvim.lazy")
 
--- Load theme from saved preference or default
--- require("synvim.theme-switcher").load_theme()
-
 -- Apply transparent backgrounds to all UI elements
--- require("synvim.transparent").setup()
+require("synvim.transparent").setup()

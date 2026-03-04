@@ -12,7 +12,13 @@ return {
       -- Yank operation animation
       yank = {
         enabled = true,
-        default_animation = "fade",
+        default_animation = "pulse",
+        settings = {
+          from_color = "HLYank",
+          to_color = "HLYank",
+          max_duration = 500,
+          min_duration = 500,
+        }
       },
 
       -- Search navigation animation
@@ -35,7 +41,7 @@ return {
       undo = {
         enabled = true,
         default_animation = {
-          name = "fade",
+          name = "pulse",
           settings = {
             from_color = "DiffDelete",
             max_duration = 500,
@@ -49,14 +55,14 @@ return {
       redo = {
         enabled = true,
         default_animation = {
-          name = "fade",
+          name = "pulse",
           settings = {
             from_color = "DiffAdd",
             max_duration = 500,
             min_duration = 500,
           },
         },
-        redo_mapping = "<c-r>",
+        redo_mapping = "U",
       },
     },
   }

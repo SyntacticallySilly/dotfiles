@@ -4,7 +4,7 @@
 return {
   "otavioschwanck/arrow.nvim",
   dependencies = {
-    { "nvim-tree/nvim-web-devicons" },
+    { "nvim-mini/mini.icons" },
   },
   -- keys = {
   --   { "&", desc = "Arrow Menu" }, -- Single key binding for everything

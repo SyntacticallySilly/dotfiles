@@ -67,12 +67,16 @@ M.editing_keymaps = function()
 
   map("n", "U", "<cmd>redo<CR>", { desc = "Redo" })
   map("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
+  map('n', '<leader>j', function()
+    vim.cmd('normal! i<CR><Esc>')
+  end)
 
+  map({ 'n', 'v', 'x' }, 'j', 'jzz')
+  map({ 'n', 'v', 'x' }, 'k', 'kzz')
   -- Quickly navigate quickfix files.
   map("n", "[q", ":cprev<CR>", { desc = "Previous Quickfix Item" })
   map("n", "]q", ":cnext<CR>", { desc = "Next Quickfix Item" })
 
-  -- map("n", "<leader>etf", ":s/\\(true\\|false\\)/\\={'true':'false','false':'true'}[submatch(1)]/<CR>", { desc = "Toggle true/false" })
   -- Better escape
   map("i", "jk", "<Esc>", { desc = "Exit insert mode" })
   map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Unhighlight" })

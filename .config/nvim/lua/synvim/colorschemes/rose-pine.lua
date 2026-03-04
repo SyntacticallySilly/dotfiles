@@ -8,6 +8,9 @@ return {
   opts = {
     variant = "main",
     dark_variant = "main",
+    enable = {
+      terminal = false,
+    },
     styles = {
       italic = true,
       bold = true,
@@ -45,6 +48,24 @@ return {
     },
     palette = {
       main = {
+        _nc = "#16141f",
+        base = "#191724",
+        surface = "#1f1d2e",
+        overlay = "#23294A",
+        muted = "#32385E",
+        subtle = "#8685BE",
+        text = "#dbdbff",
+        love = "#9158B8",
+        gold = "#E389C0",
+        rose = "#7885E7",
+        pine = "#57BAFA",
+        foam = "#68CFCE",
+        iris = "#C48DE7",
+        leaf = "#bdbdff",
+        highlight_low = "#21202e",
+        highlight_med = "#403d52",
+        highlight_high = "#524f67",
+        none = "NONE",
       },
     },
     highlight_groups = {
@@ -67,7 +88,7 @@ return {
       BlinkCmpDoc = { bg = "base" },
       BlinkCmpDocBorder = { bg = "base" },
       BlinkCmpDocSeparator = { bg = "base" },
-      Visual = { bg = 'surface', inherit = true, italic = true },
+      Visual = { bg = 'love', fg = 'rose', inherit = true, italic = true },
       FloatBorder = { fg = "pine" },
       BlinkCmpSignatureHelpActiveParameter = { bg = "base", },
       BlinkCmpGhostText = { fg = "subtle" },
@@ -98,7 +119,7 @@ return {
       DashboardFooter = { fg = "iris" },
       DashboardIcon = { fg = "gold", bold = true },
       DashboardKey = { fg = "foam", italic = true },
-      HLYank = { fg = "love", italic = true, bold = true },
+      HLYank = { bg = "love", fg = 'surface', italic = true, bold = true },
       MiniWindow = { bg = 'surface', fg = 'iris', bold = true },
       StatusLineTerm = { bg = 'none' },
       StatusLineTermNC = { bg = 'none' },

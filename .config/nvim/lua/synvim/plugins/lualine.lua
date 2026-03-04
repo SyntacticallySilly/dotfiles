@@ -4,7 +4,7 @@
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = {
-    "nvim-tree/nvim-web-devicons",
+    "nvim-mini/mini.icons",
     "lewis6991/gitsigns.nvim",
     "otavioschwanck/arrow.nvim",
   },
@@ -73,11 +73,11 @@ return {
 
           { 'lazy' },
           { 'quickfix' },
-          {
-            require("noice").api.status.mode.get,
-            cond = require("noice").api.status.mode.has,
-            color = { gui = 'bold', 'italic' },
-          },
+          -- {
+          --   require("noice").api.status.mode.get,
+          --   cond = require("noice").api.status.mode.has,
+          --   color = { gui = 'bold', 'italic' },
+          -- },
         },
         -- Middle: truncated file path with modified indicator
         lualine_c = {

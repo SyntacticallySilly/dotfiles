@@ -5,7 +5,7 @@ return {
   "nvimdev/dashboard-nvim",
   event = "VimEnter",
   -- enabled = false,
-  dependencies = { "nvim-tree/nvim-web-devicons" },
+  dependencies = { "nvim-mini/mini.icons" },
 
   config = function()
     local db = require("dashboard")
@@ -127,14 +127,14 @@ return {
           local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
 
           return {
-            "",
             "Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms",
+            "Todos : Ask ai to make a floating terminal impl to remove Fterm.",
           }
         end,
       },
       hide = {
-        tabline = false,
-        winbar = false,
+        tabline = true,
+        winbar = true,
         statusline = false,
       },
     })

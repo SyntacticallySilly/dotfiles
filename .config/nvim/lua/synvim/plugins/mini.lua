@@ -1,20 +1,24 @@
 return {
-  "echasnovski/mini.nvim",
+  "nvim-mini/mini.nvim",
   lazy = false,
   config = function()
-    -- Mini.icons - Replaces nvim-web-devicons
-    require("mini.icons").setup({
-      style = "glyph", -- 'glyph' or 'ascii'
-      default = {},
-      directory = {},
-      extension = {},
-      file = {},
-      filetype = {},
-      lsp = {},
-      os = {},
+    require('mini.cmdline').setup({
+      autocomplete = { enabled = false },
+      autocoorect = { enabled = true },
+      autopeek = {
+        enable = true,
+        -- Number of lines to show above and below range lines
+        n_context = 1,
+        -- Window options
+        window = {
+          -- Floating window config
+          config = {},
+          -- Function to render statuscolumn
+          statuscolumn = nil,
+        },
+      },
     })
-    -- Mock nvim-web-devicons for compatibility with other plugins
-    require("mini.icons").mock_nvim_web_devicons()
+
 
     require('mini.animate').setup({
       -- Cursor path animation (visualizes cursor movement with extmarks)

@@ -51,8 +51,8 @@ vim.opt.showmode = false
 vim.opt.spell = false
 -- vim.opt.ttyfast = true    -- Assume fast terminal connection
 -- Reduce memory usage
-vim.opt.list = true
-vim.opt.fillchars = { eob = ' ' }
+vim.opt.list = false
+vim.opt.fillchars = { eob = ' ', fold = '*', foldopen = '-', }
 -- -- Faster completion
 vim.opt.pumheight = 8 -- Limit completion menu height
 vim.opt.pumblend = 60

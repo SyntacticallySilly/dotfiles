@@ -30,7 +30,7 @@ return {
     cmdline = {
       enabled = true,
       completion = { list = { selection = { preselect = false, auto_insert = true } }, menu = { auto_show = true, draw = { columns = { { "label" } } } } },
-      sources = { 'cmdline', 'buffer' },
+      sources = { 'cmdline', 'buffer', 'path' },
     },
     completion = {
       keyword = { range = 'full' },
@@ -60,23 +60,19 @@ return {
         },
       },
       ghost_text = {
-        enabled = true,
-        -- Show the ghost text when an item has been selected
-        show_with_selection = true,
-        -- Show the ghost text when no item has been selected, defaulting to the first item
+        enabled = false,
+        show_with_selection = false,
         show_without_selection = false,
-        -- Show the ghost text when the menu is open
-        show_with_menu = true,
-        -- Show the ghost text when the menu is closed
-        show_without_menu = true,
+        show_with_menu = false,
+        show_without_menu = false,
       },
       documentation = {
-        auto_show = false,
+        auto_show = true,
         -- Delay before showing the documentation window
         auto_show_delay_ms = 500,
         -- Delay before updating the documentation window when selecting a new item,
         -- while an existing item is still visible
-        update_delay_ms = 50,
+        update_delay_ms = 100,
         -- Whether to use treesitter highlighting, disable if you run into performance issues
         treesitter_highlighting = true,
         -- Draws the item in the documentation window, by default using an internal treesitter based implementation

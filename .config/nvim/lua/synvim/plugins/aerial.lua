@@ -5,7 +5,7 @@ return {
   "stevearc/aerial.nvim",
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
-    "nvim-tree/nvim-web-devicons",
+    "nvim-mini/mini.icons",
   },
   event = { "BufReadPost", "BufNewFile" },
   cmd = {
