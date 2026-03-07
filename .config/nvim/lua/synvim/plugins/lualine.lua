@@ -56,9 +56,8 @@ return {
           {
             'filename',
             file_status = true,
-            shorting_target = 70,
             color = { gui = 'italic' },
-            path = 1,
+            path = 4,
             separator = { right = '' },
             symbols = {
               modified = '~',
@@ -98,7 +97,7 @@ return {
           {
             'diagnostics',
             sections = { 'error', 'warn', 'info', 'hint' },
-            colored = true,
+            colored = true,                  
           },
         },
         -- Right side: LSP, buffer count, time, filetype

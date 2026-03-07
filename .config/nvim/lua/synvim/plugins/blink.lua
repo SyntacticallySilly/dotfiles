@@ -81,7 +81,7 @@ return {
           min_width = 10,
           max_width = 80,
           max_height = 20,
-          border = 'rounded', -- Defaults to `vim.o.winborder` on nvim 0.11+ or 'padded' when not defined/<=0.10
+          border = 'none', -- Defaults to `vim.o.winborder` on nvim 0.11+ or 'padded' when not defined/<=0.10
           winblend = 10,
           -- Note that the gutter will be disabled when border ~= 'none'
           scrollbar = true,

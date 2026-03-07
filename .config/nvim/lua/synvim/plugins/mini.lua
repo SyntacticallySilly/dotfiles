@@ -2,22 +2,22 @@ return {
   "nvim-mini/mini.nvim",
   lazy = false,
   config = function()
-    require('mini.cmdline').setup({
-      autocomplete = { enabled = false },
-      autocoorect = { enabled = true },
-      autopeek = {
-        enable = true,
-        -- Number of lines to show above and below range lines
-        n_context = 1,
-        -- Window options
-        window = {
-          -- Floating window config
-          config = {},
-          -- Function to render statuscolumn
-          statuscolumn = nil,
-        },
-      },
-    })
+    -- require('mini.cmdline').setup({
+    --   autocomplete = { enabled = false },
+    --   autocoorect = { enabled = true },
+    --   autopeek = {
+    --     enable = true,
+    --     -- Number of lines to show above and below range lines
+    --     n_context = 1,
+    --     -- Window options
+    --     window = {
+    --       -- Floating window config
+    --       config = {},
+    --       -- Function to render statuscolumn
+    --       statuscolumn = nil,
+    --     },
+    --   },
+    -- })
 
 
     require('mini.animate').setup({

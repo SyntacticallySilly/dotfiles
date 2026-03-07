@@ -127,8 +127,7 @@ return {
           local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
 
           return {
-            "Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms",
-            "Todos : Ask ai to make a floating terminal impl to remove Fterm.",
+            stats.loaded .. "/" .. stats.count .. " " .. ms .. "ms",
           }
         end,
       },

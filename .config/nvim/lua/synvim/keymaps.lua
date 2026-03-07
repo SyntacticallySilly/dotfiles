@@ -26,10 +26,10 @@ M.navigation_keymaps = function()
   map({ "n", "v", "x" }, "<Space><Space>", '"+', { desc = "System clipboard" })
 
   -- Window navigation (Ctrl + hjkl)
-  map("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
-  map("n", "<C-j>", "<C-w>j", { desc = "Move to down window" })
-  map("n", "<C-k>", "<C-w>k", { desc = "Move to up window" })
-  map("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
+  map("n", "<leader>wh", "<C-w>h", { desc = "Move to left window" })
+  map("n", "<leader>wj", "<C-w>j", { desc = "Move to down window" })
+  map("n", "<leader>wk", "<C-w>k", { desc = "Move to up window" })
+  map("n", "<leader>wl", "<C-w>l", { desc = "Move to right window" })
 
   -- Keymaps for centering cursor and unfolding on search/navigation (add to your init.lua or keymaps file)
   map('n', 'n', 'nzzzv', { noremap = true, silent = true, desc = 'Next search match (center + unfold)' })
@@ -67,12 +67,7 @@ M.editing_keymaps = function()
 
   map("n", "U", "<cmd>redo<CR>", { desc = "Redo" })
   map("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
-  map('n', '<leader>j', function()
-    vim.cmd('normal! i<CR><Esc>')
-  end)
 
-  map({ 'n', 'v', 'x' }, 'j', 'jzz')
-  map({ 'n', 'v', 'x' }, 'k', 'kzz')
   -- Quickly navigate quickfix files.
   map("n", "[q", ":cprev<CR>", { desc = "Previous Quickfix Item" })
   map("n", "]q", ":cnext<CR>", { desc = "Next Quickfix Item" })
@@ -163,6 +158,7 @@ end
 
 -- Explorer Keymaps
 M.explore_keymaps = function()
+  -- local MiniFiles = require('mini.files')
   -- Open the directory of the file currently being edited
   -- If the file doesn't exist because you maybe switched to a new git branch
   -- open the current working directory

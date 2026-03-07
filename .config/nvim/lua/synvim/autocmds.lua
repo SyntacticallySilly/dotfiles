@@ -76,9 +76,20 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     local bufnr = vim.api.nvim_get_current_buf()
     local clients = vim.lsp.get_clients({ bufnr = bufnr })
     if #clients > 0 then
-      vim.lsp.buf.format({ bufnr = bufnr, async = false })
+      vim.lsp.buf.format({ bufnr = bufnr, async = true })
     else
       vim.cmd("normal! gg=G")
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'MiniFilesBufferUpdate',
+  callback = function(args)
+    local lines = vim.api.nvim_buf_get_lines(args.data.buf_id, 0, -1, false)
+    for i, line in ipairs(lines) do
+      -- Use vim.loop.fs_stat() to get size, mtime, etc.
+      -- Set extmarks with virtual text
     end
   end,
 })

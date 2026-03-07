@@ -33,6 +33,8 @@ return {
         use_as_default_explorer = true,
       }
     })
+    local MiniFiles = require('mini.files')
+
     -- Create hl namespace to highlight 'mini.files' target window
     local highlight_ns = vim.api.nvim_create_namespace("highlight_minifiles_target")
     vim.api.nvim_set_hl(highlight_ns, "Normal", { link = "MiniWindow" })
@@ -275,6 +277,25 @@ return {
         local cwd = vim.fs.root(bufnr, ".git")
         if gitStatusCache[cwd] then
           updateMiniWithGit(bufnr, gitStatusCache[cwd].statusMap)
+        end
+      end,
+    })
+    autocmd('User', {
+      pattern = 'MiniFilesActionRename',
+      callback = function(args)
+        local from = args.data.from
+        local to = args.data.to
+        -- Use workspace/willRenameFiles LSP request
+        local clients = vim.lsp.get_clients()
+        for _, client in ipairs(clients) do
+          if client.supports_method('workspace/willRenameFiles') then
+            local resp = client.request_sync('workspace/willRenameFiles', {
+              files = { { oldUri = vim.uri_from_fname(from), newUri = vim.uri_from_fname(to) } },
+            }, 1000)
+            if resp and resp.result then
+              vim.lsp.util.apply_workspace_edit(resp.result, client.offset_encoding)
+            end
+          end
         end
       end,
     })
