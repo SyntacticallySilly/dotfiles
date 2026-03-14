@@ -1,5 +1,6 @@
 return {
   "nvim-mini/mini.files",
+  enabled = false,
   dependencies = {
     "nvim-mini/mini.icons"
   },

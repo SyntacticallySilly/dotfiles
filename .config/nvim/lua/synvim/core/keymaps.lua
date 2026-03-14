@@ -65,6 +65,8 @@ M.editing_keymaps = function()
   map("v", "<", "<gv", { desc = "Unindent" })
   map("v", ">", ">gv", { desc = "Indent" })
 
+  map('c', 'jk', '<Esc>', { desc = 'Exit command mode' })
+
   map("n", "U", "<cmd>redo<CR>", { desc = "Redo" })
   map("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 
@@ -78,80 +80,14 @@ M.editing_keymaps = function()
 end
 
 vim.keymap.del("n", "&")
--- ============================================================================
--- FORMATTING KEYMAPS - Fix indentation and format code
--- ============================================================================
-
-M.formatting_keymaps = function()
-  -- Format entire file with LSP (if available, otherwise fallback to indent)
-  -- map("n", "<leader>fl", function()
-  --   -- Try LSP format first
-  --   local clients = vim.lsp.get_clients({ bufnr = 0 })
-  --   if #clients > 0 then
-  --     vim.lsp.buf.format({ async = true })
-  --   else
-  --     -- Fallback: use treesitter-based indenting if available
-  --     vim.notify("No LSP formatter available, use <leader>i for manual indent", vim.log.levels.WARN)
-  --   end
-  -- end, { desc = "Format file (LSP)" })
-
-  -- Format selection in visual mode
-  map("v", "<leader>ffl", function()
-    vim.lsp.buf.format({ async = true })
-  end, { desc = "Format selection" })
-
-  map("n", "<leader>ffl", vim.lsp.buf.format)
-  -- Fix indentation manually (preserves content, only fixes indent)
-  map("n", "<leader>ffi", function()
-    -- Save cursor position
-    local save_cursor = vim.api.nvim_win_get_cursor(0)
-    -- Store the view to restore scroll position
-    local save_view = vim.fn.winsaveview()
-
-    -- Use treesitter indenting if available, otherwise vim's indent
-    if vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] then
-      -- Reindent using treesitter
-      vim.cmd("normal! gg=G")
-    else
-      -- Fallback to simple reindent
-      vim.cmd("normal! gg=G")
-    end
-
-    -- Restore view and cursor
-    vim.fn.winrestview(save_view)
-    vim.api.nvim_win_set_cursor(0, save_cursor)
-
-    vim.notify("Indentation fixed", vim.log.levels.INFO)
-  end, { desc = "Fix indentation" })
-
-  -- Alternative: Format with external formatter (if you have prettier, black, etc.)
-  -- map("n", "<leader>fe", function()
-  --   -- This will use conform.nvim if you install it, or fallback to LSP
-  --   local ok, conform = pcall(require, "conform")
-  --   if ok then
-  --     conform.format({ lsp_fallback = true, async = true })
-  --   else
-  --     vim.lsp.buf.format({ async = true })
-  --   end
-  -- end, { desc = "Format with external tool" })
-end
--- ============================================================================
--- THEME SWITCHER KEYMAP
--- ============================================================================
-
--- M.theme_keymaps = function()
---   map("n", "<leader>ss", function()
---     require("synvim.theme-switcher").switch_theme()
---   end, { desc = "Switch theme" })
--- end
 
 -- ============================================================================
--- NOICE KEYMAPS
+-- NOTIFY KEYMAPS
 -- ============================================================================
 
 M.notify_keymaps = function()
   -- Notifications Dismiss
-  map("n", "<leader>nd", "<cmd>Noice dismiss<CR>",
+  map("n", "<leader>nd", "<cmd>Noice dismiss<CR> <cmd>NotificationsClear<cr>",
     { desc = "Dismiss Notifications" })
 end
 
@@ -183,17 +119,42 @@ M.explore_keymaps = function()
 end
 
 -- ============================================================================
--- SETTINGS KEYMAPS
+-- FILE KEYMAPS
 -- ============================================================================
-M.settings_keymaps = function()
-  -- Opens Dashboard.
-  map("n", "<leader>td", "<cmd>Dashboard<CR>", { desc = "Open Dashboard" })
-  -- Opens Lazy.nvim
-  map("n", "<leader>tlv", "<cmd>Lazy<CR>", { desc = "Open Lazy.nvim" })
-  -- LSP styff.
-  map("n", "<leader>tlss", "<cmd>LspRestart<CR>", { desc = "Start LSP" })
-  map("n", "<leader>tlsp", "<cmd>LspStop<CR>", { desc = "Stop LSP" })
-  map("n", "<leader>tlsi", "<cmd>LspInfo<CR>", { desc = "LSP Debug" })
+M.file_keymaps = function()
+  map("v", "<leader>ffl", function()
+    vim.lsp.buf.format({ async = true })
+  end, { desc = "Format selection" })
+
+  map("n", "<leader>ffl", vim.lsp.buf.format)
+  -- Fix indentation manually (preserves content, only fixes indent)
+  map("n", "<leader>ffi", function()
+    -- Save cursor position
+    local save_cursor = vim.api.nvim_win_get_cursor(0)
+    -- Store the view to restore scroll position
+    local save_view = vim.fn.winsaveview()
+
+    -- Use treesitter indenting if available, otherwise vim's indent
+    if vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] then
+      -- Reindent using treesitter
+      vim.cmd("normal! gg=G")
+    else
+      -- Fallback to simple reindent
+      vim.cmd("normal! gg=G")
+    end
+
+    -- Restore view and cursor
+    vim.fn.winrestview(save_view)
+    vim.api.nvim_win_set_cursor(0, save_cursor)
+
+    vim.notify("Indentation fixed", vim.log.levels.INFO)
+  end, { desc = "Fix indentation" })
+  map('n', '<leader>fc', '<cmd>ColorizerToggle<cr>', { desc = 'Colorize File' })
+  map('n', "<leader>fa", "<cmd>AerialToggle<cr>", { desc = "File Symbols" })
+  map('n', "<leader>fA", "<cmd>AerialNavToggle<cr>", { desc = "File Symbol Float" })
+  map('n', "<leader>fu", "<cmd>Atone<cr>", { desc = "File Undotree" })
+  map('n', "<leader>fp", "<cmd>Colortils<cr>", { desc = "Pick Color" })
+  map({ 'n', 'v', 'x' }, '<leader>fs', function() require("rip-substitute").sub() end, { desc = "File Subsitute" })
 end
 
 -- ============================================================================
@@ -205,11 +166,9 @@ M.setup = function()
   -- Load keymaps that have NO plugin dependencies immediately
   M.navigation_keymaps()
   M.editing_keymaps()
-  M.formatting_keymaps()
-  -- M.theme_keymaps()
   M.notify_keymaps()
   M.explore_keymaps()
-  M.settings_keymaps()
+  M.file_keymaps()
   -- Plugin-dependent keymaps are called from their plugin configs
   -- See telescope.lua and harpoon.lua for when these are called
 end

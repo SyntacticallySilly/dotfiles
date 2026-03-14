@@ -10,14 +10,15 @@ return {
         default_tab = '<C-t>',        -- shift default action (only at the beginning of a line, otherwise <TAB> is used)
         default_shift_tab = '<C-d>',  -- reverse shift default action,
         enable_backwards = true,      -- well ...
-        completion = true,            -- if the tabkey is used in a completion pum
+        completion = false,            -- if the tabkey is used in a completion pum
         tabouts = {
           { open = "'", close = "'" },
           { open = '"', close = '"' },
           { open = '`', close = '`' },
           { open = '(', close = ')' },
           { open = '[', close = ']' },
-          { open = '{', close = '}' }
+          { open = '{', close = '}' },
+          { open = '<', close = '>' },
         },
         ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
         exclude = {} -- tabout will ignore these filetypes
@@ -27,9 +28,8 @@ return {
       "nvim-treesitter/nvim-treesitter",
       "saghen/blink.cmp",
     },
-    event = "InsertEnter",
     opt = true,              -- Set this to true if the plugin is optional
-    -- event = 'InsertCharPre', -- Set the event to 'InsertCharPre' for better compatibility
+    event = 'InsertCharPre', -- Set the event to 'InsertCharPre' for better compatibility
     priority = 1000,
   }
 }

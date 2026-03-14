@@ -2,14 +2,14 @@
 -- Main entry point
 --
 -- Load core settings first (sets leader key and options)
-require("synvim.options")
+require("synvim.core.options")
 
-require("synvim.keymaps").setup()
+require("synvim.core.keymaps").setup()
 
-require("synvim.autocmds")
+require("synvim.core.autocmds")
 
 -- Load lazy.nvim and plugins
-require("synvim.lazy")
+require("synvim.core.lazy")
 
 -- Apply transparent backgrounds to all UI elements
-require("synvim.transparent").setup()
+require("synvim.core.transparent").setup()

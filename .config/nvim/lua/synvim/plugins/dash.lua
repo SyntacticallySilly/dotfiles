@@ -3,6 +3,7 @@
 
 return {
   "nvimdev/dashboard-nvim",
+  enabled = false,
   event = "VimEnter",
   -- enabled = false,
   dependencies = { "nvim-mini/mini.icons" },
@@ -62,7 +63,8 @@ return {
             key_hl = "DashboardKey",
             key_format = " [%s]",
             action = function()
-              require("mini.files").open(vim.loop.cwd(), true)
+              require("oil").open(cwd, preview)
+              -- require("mini.files").open(vim.loop.cwd(), true)
             end,
           },
           {

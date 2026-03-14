@@ -4,11 +4,10 @@ return {
   {
     "NeogitOrg/neogit",
     dependencies = {
-      "nvim-lua/plenary.nvim",         -- Required
-      "sindrets/diffview.nvim",        -- Diff integration
-      "nvim-telescope/telescope.nvim", -- Fuzzy finder integration
+      "nvim-lua/plenary.nvim",  -- Required
+      "sindrets/diffview.nvim", -- Diff integration
     },
-    cmd = "Neogit",                    -- Lazy load on command
+    cmd = "Neogit",             -- Lazy load on command
     keys = {
       -- Lazy load on keybindings
       { "<leader>gg", function() require("neogit").open() end, desc = "󰊢 Neogit Status" },
@@ -160,7 +159,7 @@ return {
       -- │                    Integrations                          │
       -- ╰──────────────────────────────────────────────────────────╯
       integrations = {
-        telescope = true,
+        telescope = false,
         diffview = true,
         fzf_lua = false, -- Set to true if you prefer fzf-lua
         mini_pick = false,

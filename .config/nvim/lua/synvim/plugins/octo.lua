@@ -4,7 +4,7 @@ return {
   cmd = "Octo",
   opts = {
     -- or "fzf-lua" or "snacks" or "default"
-    picker = "telescope",
+    picker = "snacks",
     -- bare Octo command opens picker of commands
     enable_builtin = true,
   },
@@ -39,7 +39,6 @@ return {
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "nvim-telescope/telescope.nvim",
     "nvim-mini/mini.icons",
   },
 }

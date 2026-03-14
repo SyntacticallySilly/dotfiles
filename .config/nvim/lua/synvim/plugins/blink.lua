@@ -3,9 +3,7 @@ return {
   event = "InsertEnter",
   dependencies = {
     "moyiz/blink-emoji.nvim",
-    -- 'L3MON4D3/LuaSnip', version = 'v2.*',
     "rafamadriz/friendly-snippets",
-    -- 'Kaiser-Yang/blink-cmp-dictionary', ft = { 'markdown' },
     -- "onsails/lspkind.nvim",
   },
   version = "1.*",
@@ -26,14 +24,14 @@ return {
       ["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
       ["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
     },
-    -- snippets = { preset = 'luasnip' },
+    snippets = { preset = 'default' },
     cmdline = {
       enabled = true,
       completion = { list = { selection = { preselect = false, auto_insert = true } }, menu = { auto_show = true, draw = { columns = { { "label" } } } } },
       sources = { 'cmdline', 'buffer', 'path' },
     },
     completion = {
-      keyword = { range = 'full' },
+      keyword = { range = 'prefix' },
       trigger = {
         show_on_backspace_in_keyword = true,
       },
@@ -54,8 +52,8 @@ return {
           snippet_indicator = "@",
           treesitter = { 'lsp', 'buffer' },
           columns = {
-            { "kind_icon",         gap = 1, "label" },
-            { "label_description", "kind",  gap = 1, "source_name" }
+            { "label" },
+            { "label_description", "kind", "kind_icon", gap = 1, "source_name" }
           },
         },
       },
@@ -72,7 +70,7 @@ return {
         auto_show_delay_ms = 500,
         -- Delay before updating the documentation window when selecting a new item,
         -- while an existing item is still visible
-        update_delay_ms = 100,
+        update_delay_ms = 250,
         -- Whether to use treesitter highlighting, disable if you run into performance issues
         treesitter_highlighting = true,
         -- Draws the item in the documentation window, by default using an internal treesitter based implementation
@@ -81,7 +79,7 @@ return {
           min_width = 10,
           max_width = 80,
           max_height = 20,
-          border = 'none', -- Defaults to `vim.o.winborder` on nvim 0.11+ or 'padded' when not defined/<=0.10
+          border = 'rounded', -- Defaults to `vim.o.winborder` on nvim 0.11+ or 'padded' when not defined/<=0.10
           winblend = 10,
           -- Note that the gutter will be disabled when border ~= 'none'
           scrollbar = true,
@@ -125,17 +123,6 @@ return {
             use_label_description = false,
           }
         },
-        dictionary = {
-          module = 'blink-cmp-dictionary',
-          name = 'Dict',
-          min_keyword_length = 3,
-          opts = {
-            -- Optional: explicitly force fallback mode
-            -- (By default, fallback is used when fzf is not found)
-            force_fallback = false,
-            dictionary_files = { vim.fn.expand('~/bin/spell/english.txt') },
-          },
-        },
         emoji = {
           module = "blink-emoji",
           name = "Emoji",
@@ -167,7 +154,7 @@ return {
       -- 'lua' Always use the Lua implementation, doesn't download any prebuilt binaries
       --
       -- See the prebuilt_binaries section for controlling the download behavior
-      implementation = 'lua',
+      implementation = 'rust',
 
       -- Allows for a number of typos relative to the length of the query
       -- Set this to 0 to match the behavior of fzf

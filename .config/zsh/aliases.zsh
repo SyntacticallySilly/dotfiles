@@ -47,6 +47,23 @@ alias nv='nvim'
 # Reload Zsh configuration and return to home
 alias refr='source ~/.zshrc && termux-reload-settings && cd ~'
 
+alias cp='cp - i'
+alias mv='mv -i'
+alias mkdir='mkdir -p'
+alias ps='ps auxf'
+alias ping='ping -c 10'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias countfiles="for t in files links directories; do echo \`find . -type \${t:0:1} | wc -l\` \$t; done 2> /dev/null"
+alias mktar='tar -cvf'
+alias mkbz2='tar -cvjf'
+alias mkgz='tar -cvzf'
+alias untar='tar -xvf'
+alias unbz2='tar -xvjf'
+alias ungz='tar -xvzf'
+
 # Termux-specific utilities
 alias debian="proot-distro login debian --user root --shared-tmp && termux-x11 :0 &"
 alias open='termux-open'             # Open any file in a external android app.

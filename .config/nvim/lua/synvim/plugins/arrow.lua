@@ -18,7 +18,7 @@ return {
     leader_key = "&", -- Press ; to open arrow menu
 
     -- Buffer leader key (for per-buffer marks)
-    buffer_leader_key = "m", -- Press m to open buffer-local arrow
+    buffer_leader_key = "+", -- Press m to open buffer-local arrow
 
     -- Separate items per buffer (like buffer-local marks)
     separate_by_branch = false, -- Set to true for git-branch-specific bookmarks

@@ -3,10 +3,8 @@
 
 return {
   "neovim/nvim-lspconfig",
-  event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     "saghen/blink.cmp",
-    -- "b0o/schemastore.nvim", -- Added missing dependency
   },
 
   config = function()
@@ -153,30 +151,30 @@ return {
       filetypes = { "go", "gomod", "gowork", "gotmpl" },
       root_markers = { "go.work", "go.mod", ".git" },
       capabilities = capabilities,
-      settings = {
-        gopls = {
-          analyses = {
-            unusedparams = true,
-            shadow = true,
-            nilness = true,
-            unusedwrite = true,
-            useany = true,
-          },
-          staticcheck = true,
-          gofumpt = true,
-          usePlaceholders = true,
-          completeUnimported = true,
-          hints = {
-            assignVariableTypes = true,
-            compositeLiteralFields = true,
-            compositeLiteralTypes = true,
-            constantValues = true,
-            functionTypeParameters = true,
-            parameterNames = true,
-            rangeVariableTypes = true,
-          },
-        },
-      },
+      -- settings = {
+      --   gopls = {
+      --     analyses = {
+      --       unusedparams = true,
+      --       shadow = true,
+      --       nilness = true,
+      --       unusedwrite = true,
+      --       useany = true,
+      --     },
+      --     staticcheck = true,
+      --     gofumpt = true,
+      --     usePlaceholders = true,
+      --     completeUnimported = true,
+      --     hints = {
+      --       assignVariableTypes = true,
+      --       compositeLiteralFields = true,
+      --       compositeLiteralTypes = true,
+      --       constantValues = true,
+      --       functionTypeParameters = true,
+      --       parameterNames = true,
+      --       rangeVariableTypes = true,
+      --     },
+      --   },
+      -- },
     }
 
     -- TOML LSP (taplo)
@@ -192,27 +190,18 @@ return {
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function()
         -- Navigation
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
-        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Go to references" })
-        vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
+        vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Perform rename" })
+        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Perform code action" })
 
         -- Documentation
         vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Show Documentation" })
         vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Show signature help" })
 
-        -- Code actions
-        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Perform code action" })
-        vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Perform rename" })
-
         -- Diagnostics
-        -- vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
         vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end,
           { desc = "Next Diagnostic" })
         vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end,
           { desc = "Previous Diagnostic" })
-
       end,
     })
   end,

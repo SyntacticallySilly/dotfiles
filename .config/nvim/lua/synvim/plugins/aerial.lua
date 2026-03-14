@@ -15,8 +15,6 @@ return {
     "AerialNav",
   },
   keys = {
-    { "<leader>a", "<cmd>AerialToggle<cr>",    desc = "Toggle Aerial" },
-    { "<leader>A", "<cmd>AerialNavToggle<cr>", desc = "Aerial Nav" },
     { "[a",        "<cmd>AerialPrev<cr>",      desc = "Prev Symbol" },
     { "]a",        "<cmd>AerialNext<cr>",      desc = "Next Symbol" },
   },
@@ -87,138 +85,138 @@ return {
 
     -- Filter symbols
     -- filter_kind = {
-    --   "Class",
-    --   "Constructor",
-    --   "Enum",
-    --   "Function",
-    --   "Interface",
-    --   "Module",
-    --   "Method",
-    --   "Struct",
-    --   "Trait",
-    --   "Field",
-    --   "Property",
-    -- },
+      --   "Class",
+      --   "Constructor",
+      --   "Enum",
+      --   "Function",
+      --   "Interface",
+      --   "Module",
+      --   "Method",
+      --   "Struct",
+      --   "Trait",
+      --   "Field",
+      --   "Property",
+      -- },
 
-    -- Highlight settings
-    highlight_mode = "split_width", -- "split_width", "full_width", "last", "none"
-    highlight_closest = true,
-    highlight_on_hover = true,
-    highlight_on_jump = 300, -- ms
+      -- Highlight settings
+      highlight_mode = "split_width", -- "split_width", "full_width", "last", "none"
+      highlight_closest = true,
+      highlight_on_hover = true,
+      highlight_on_jump = 300, -- ms
 
-    -- Fold code when navigating
-    autojump = true,
+      -- Fold code when navigating
+      autojump = true,
 
-    -- Show box around symbols (beautiful borders)
-    show_guides = true,
-    -- Floating window settings (for AerialNav)
-    float = {
-      border = "rounded",
-      relative = "cursor",
-      max_height = 0.9,
-      height = nil,
-      min_height = { 8, 0.1 },
-      override = function(conf, source_winid)
-        return conf
+      -- Show box around symbols (beautiful borders)
+      show_guides = true,
+      -- Floating window settings (for AerialNav)
+      float = {
+        border = "rounded",
+        relative = "cursor",
+        max_height = 0.9,
+        height = nil,
+        min_height = { 8, 0.1 },
+        override = function(conf, source_winid)
+          return conf
+        end,
+      },
+
+      -- AerialNav settings (miller column view)
+      nav = {
+        border = "rounded",
+        max_height = 0.9,
+        min_height = { 10, 0.1 },
+        max_width = 0.5,
+        min_width = { 0.2, 20 },
+        win_opts = {
+          cursorline = true,
+          winblend = 0,
+        },
+        autojump = false,
+        preview = true,
+        keymaps = {
+          ["<CR>"] = "actions.jump",
+          ["<2-LeftMouse>"] = "actions.jump",
+          ["<C-v>"] = "actions.jump_vsplit",
+          ["<C-s>"] = "actions.jump_split",
+          ["h"] = "actions.left",
+          ["l"] = "actions.right",
+          ["<C-c>"] = "actions.close",
+          ["q"] = "actions.close",
+        },
+      },
+
+      -- LSP priority (when multiple servers provide symbols)
+      lsp = {
+        diagnostics_trigger_update = true,
+        update_when_errors = true,
+        update_delay = 300, -- ms
+        priority = {
+          rust_analyzer = 10,
+          lua_ls = 9,
+          gopls = 9,
+          jdtls = 9,
+          clangd = 9,
+        },
+      },
+
+      -- Treesitter extensions
+      treesitter = {
+        update_delay = 300, -- ms
+      },
+
+      -- Markdown configuration
+      markdown = {
+        update_delay = 300,
+      },
+
+      -- Auto-open aerial
+      open_automatic = false,
+
+      -- Close behavior
+      close_automatic_events = {},
+
+      -- Post parse symbol hook (for customization)
+      post_parse_symbol = function(bufnr, item, ctx)
+        return true
+      end,
+
+      -- Post add all symbols hook
+      post_add_all_symbols = function(bufnr, items, ctx)
+        return items
+      end,
+
+      -- On attach callback
+      on_attach = function(bufnr)
+        -- Buffer-local keymaps
+        vim.keymap.set("n", "{", "<cmd>AerialPrev<cr>", {
+          buffer = bufnr,
+          desc = "Aerial Prev",
+        })
+        vim.keymap.set("n", "}", "<cmd>AerialNext<cr>", {
+          buffer = bufnr,
+          desc = "Aerial Next",
+        })
+      end,
+
+      -- On first symbols callback
+      on_first_symbols = function(bufnr)
+        -- Optional: auto-open on first symbols
+        -- require("aerial").open()
       end,
     },
 
-    -- AerialNav settings (miller column view)
-    nav = {
-      border = "rounded",
-      max_height = 0.9,
-      min_height = { 10, 0.1 },
-      max_width = 0.5,
-      min_width = { 0.2, 20 },
-      win_opts = {
-        cursorline = true,
-        winblend = 0,
-      },
-      autojump = false,
-      preview = true,
-      keymaps = {
-        ["<CR>"] = "actions.jump",
-        ["<2-LeftMouse>"] = "actions.jump",
-        ["<C-v>"] = "actions.jump_vsplit",
-        ["<C-s>"] = "actions.jump_split",
-        ["h"] = "actions.left",
-        ["l"] = "actions.right",
-        ["<C-c>"] = "actions.close",
-        ["q"] = "actions.close",
-      },
-    },
+    config = function(_, opts)
+      -- require("aerial").setup(opts)
+      --
+      --
+      -- -- Telescope integration
+      -- pcall(require("telescope").load_extension, "aerial")
 
-    -- LSP priority (when multiple servers provide symbols)
-    lsp = {
-      diagnostics_trigger_update = true,
-      update_when_errors = true,
-      update_delay = 300, -- ms
-      priority = {
-        rust_analyzer = 10,
-        lua_ls = 9,
-        gopls = 9,
-        jdtls = 9,
-        clangd = 9,
-      },
-    },
-
-    -- Treesitter extensions
-    treesitter = {
-      update_delay = 300, -- ms
-    },
-
-    -- Markdown configuration
-    markdown = {
-      update_delay = 300,
-    },
-
-    -- Auto-open aerial
-    open_automatic = false,
-
-    -- Close behavior
-    close_automatic_events = {},
-
-    -- Post parse symbol hook (for customization)
-    post_parse_symbol = function(bufnr, item, ctx)
-      return true
-    end,
-
-    -- Post add all symbols hook
-    post_add_all_symbols = function(bufnr, items, ctx)
-      return items
-    end,
-
-    -- On attach callback
-    on_attach = function(bufnr)
-      -- Buffer-local keymaps
-      vim.keymap.set("n", "{", "<cmd>AerialPrev<cr>", {
-        buffer = bufnr,
-        desc = "Aerial Prev",
-      })
-      vim.keymap.set("n", "}", "<cmd>AerialNext<cr>", {
-        buffer = bufnr,
-        desc = "Aerial Next",
-      })
-    end,
-
-    -- On first symbols callback
-    on_first_symbols = function(bufnr)
-      -- Optional: auto-open on first symbols
-      -- require("aerial").open()
-    end,
-  },
-
-  config = function(_, opts)
-    require("aerial").setup(opts)
-
-
-    -- Telescope integration
-    pcall(require("telescope").load_extension, "aerial")
-
-    -- Optional: Add to lualine
-    -- In your lualine config, add to sections:
-    -- sections = {
-    --   lualine_x = { "aerial" },
-    -- }
-  end,
-}
+      -- Optional: Add to lualine
+      -- In your lualine config, add to sections:
+      -- sections = {
+        --   lualine_x = { "aerial" },
+        -- }
+      end,
+    }

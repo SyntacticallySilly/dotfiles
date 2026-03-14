@@ -1,6 +1,7 @@
 return {
   "rcarriga/nvim-notify",
   lazy = false,
+  enabled = false,
   opts = {
     stages = "fade_in_slide_out",
     timecut = 3000,
