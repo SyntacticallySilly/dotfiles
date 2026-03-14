@@ -57,7 +57,7 @@ zinit light zdharma-continuum/zinit-annex-bin-gem-node
 # # ───────────────────────────────────────────────────────────────
 # zinit snippet OMZP::*
 # Colorized man pages
-zinit snippet OMZP::colored-man-pages
+# zinit snippet OMZP::colored-man-pages
 
 # Display images in terminal (catimg command)
 zinit snippet OMZP::catimg

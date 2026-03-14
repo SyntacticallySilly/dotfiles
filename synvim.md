@@ -1,254 +1,449 @@
-# Synvim: The Opinionated Neovim Guide
+# Synvim: Neovim That Feels Fast (Even On Termux)
 
-Synvim is a highly customized and performance-focused Neovim configuration, designed to be a fast, modern, and efficient text editor within the Termux environment. It is built on Lua and managed by the `lazy.nvim` plugin manager.
+Synvim is a Lua-based Neovim setup built for speed and simplicity on Android. It uses lazy loading, clean UI, and practical keybinds.
 
-## Table of Contents
-
-1.  [Core Philosophy](#1-core-philosophy)
-2.  [Structure of the Configuration](#2-structure-of-the-configuration)
-3.  [Plugin Management (`lazy.nvim`)](#3-plugin-management-lazynvim)
-4.  [Keybindings](#4-keybindings)
-    -   [Leader Key](#leader-key)
-    -   [Telescope (Search)](#telescope-search)
-    -   [Harpoon (Navigation)](#harpoon-navigation)
-    -   [Window and Buffer Management](#window-and-buffer-management)
-    -   [Formatting](#formatting)
-5.  [Core Plugins Deep Dive](#5-core-plugins-deep-dive)
-    -   [UI & Appearance](#ui--appearance)
-    -   [Editing & Text Manipulation](#editing--text-manipulation)
-    -   [Navigation & Motion](#navigation--motion)
-    -   [LSP & Development](#lsp--development)
-    -   [Git Integration](#git-integration)
-6.  [Theming](#6-theming)
-    -   [Theme Switcher](#theme-switcher)
-    -   [Transparency](#transparency)
-7.  [Full Plugin List](#7-full-plugin-list)
+This guide keeps things plain and human-friendly and reflects the actual config files in this repo.
 
 ---
 
-## 1. Core Philosophy
+## Where The Config Lives
 
--   **Performance First**: Every plugin and setting is chosen with the constraints of a mobile environment in mind. Lazy loading is used extensively to ensure fast startup times.
--   **Modal and Mnemonic**: Keybindings are organized logically under the `<leader>` key, following a mnemonic structure (e.g., `<leader>s` for search, `<leader>h` for harpoon).
--   **Visually Clean**: The UI is designed to be minimal yet informative, with a focus on transparency and modern aesthetics.
--   **Integrated Experience**: Tools like Telescope, Harpoon, and the LSP are deeply integrated to provide a seamless workflow for searching, navigating, and writing code.
+Everything is in `~/.config/nvim`:
 
----
-
-## 2. Structure of the Configuration
-
-The Neovim configuration lives in `~/.config/nvim`. The structure is as follows:
-
--   `init.lua`: The main entry point. It loads settings, the plugin manager, and the theme.
--   `lua/synvim/`: The core configuration directory.
-    -   `lazy.lua`: Bootstraps the `lazy.nvim` plugin manager.
-    -   `settings.lua`: Contains all core Neovim options (`vim.opt`).
-    -   `keymaps.lua`: Defines all the keybindings.
-    -   `theme-switcher.lua`: A custom module for interactively switching themes.
-    -   `transparent.lua`: A module to apply transparent backgrounds to UI elements.
-    -   `plugins/`: A directory where each file represents a plugin or a group of related plugins.
-    -   `themes/`: A directory where each file defines a colorscheme plugin.
+- `init.lua` → entry point
+- `lua/synvim/core/` → options, keymaps, autocmds, lazy.nvim bootstrap
+- `lua/synvim/plugins/` → plugin configs
+- `lua/synvim/colorschemes/` → theme configs
+- `lazy-lock.json` → pinned plugin versions
 
 ---
 
-## 3. Plugin Management (`lazy.nvim`)
+## Plugin Manager: lazy.nvim
 
-Synvim uses `lazy.nvim` for plugin management. It is configured to lazy-load almost every plugin, meaning they are only loaded when they are actually needed (e.g., on a specific command, filetype, or event). This is crucial for maintaining a fast startup time.
+Synvim uses **lazy.nvim**. It auto-installs itself if missing and loads plugins only when needed.
 
--   **Configuration**: The plugin specifications are located in the `lua/synvim/plugins/` and `lua/synvim/themes/` directories.
--   **Interface**: You can open the `lazy.nvim` interface by running the command `:Lazy`.
+Open the plugin UI:
 
----
-
-## 4. Keybindings
-
-### Leader Key
-
-The leader key is set to the **spacebar**. All custom keybindings are prefixed with `<leader>`.
-
-### Telescope (Search)
-
-Telescope is the central fuzzy finder. All search-related actions are grouped under `<leader>s`.
-
-| Keybinding | Action |
-|---|---|
-| `<leader>sf` | Search for files. |
-| `<leader>sg` | Search for a string in all files (live grep). |
-| `<leader>sb` | Search through open buffers. |
-| `<leader>sh` | Search help tags. |
-| `<leader>sr` | Search recent files. |
-| `<leader>sk` | Search keymaps. |
-| `<leader>sc` | Search commands. |
-| `<leader>st` | Search for TODO comments. |
-| `<leader>sts`| Switch themes. |
-
-### Harpoon (Navigation)
-
-Harpoon is used for quick navigation between frequently used files. All harpoon actions are under `<leader>h`.
-
-| Keybinding | Action |
-|---|---|
-| `<leader>ha` | Add the current file to the harpoon list. |
-| `<leader>hm` | Show the harpoon menu. |
-| `<leader>h1` - `<leader>h4` | Jump to the corresponding file in the harpoon list. |
-| `<C-S-P>` / `<C-S-N>` | Navigate to the previous/next harpoon mark. |
-
-### Window and Buffer Management
-
-| Keybinding | Action |
-|---|---|
-| `<leader>wv` / `<leader>wh` | Split window vertically/horizontally. |
-| `<leader>wc` / `<leader>wo` | Close current/other windows. |
-| `<C-h/j/k/l>` | Move between windows. |
-| `<leader>bn` / `<leader>bp` | Go to the next/previous buffer. |
-| `<leader>bd` | Close the current buffer. |
-| `<leader>e` | Open a file explorer in the current file's directory. |
-| `<leader>E` | Open a file explorer in the current working directory. |
-
-### Formatting
-
-| Keybinding | Action |
-|---|---|
-| `<leader>f` | Format the current file or visual selection using LSP. |
-| `<leader>i` | Fix indentation for the entire file. |
+```
+:Lazy
+```
 
 ---
 
-## 5. Core Plugins Deep Dive
+## Core Settings (What It Feels Like)
 
-### UI & Appearance
+From `core/options.lua`:
 
--   **`lualine.nvim`**: A minimal and modern status line that shows the current mode, git branch, file path, battery status, and time.
--   **`bufferline.nvim`**: Provides clean and simple buffer tabs at the top of the screen.
--   **`noice.nvim`**: Replaces the default command line with a floating input, and enhances the UI for messages and notifications.
--   **`alpha-nvim`**: A beautiful and functional dashboard that greets you on startup, providing quick access to common actions.
--   **`dressing.nvim`**: Improves the default UI for `vim.ui.input()` and `vim.ui.select()` with floating windows.
--   **`nvim-web-devicons`**: Adds file type icons to many plugins like Telescope and Lualine.
-
-### Editing & Text Manipulation
-
--   **`blink.cmp`**: A performant and feature-rich completion engine. It uses the enter key for completion and provides snippet support.
--   **`Comment.nvim`**: Smart commenting that automatically uses the correct comment syntax for the file type.
--   **`nvim-surround`**: Easily add, change, and delete surrounding pairs like quotes, brackets, and parentheses.
--   **`yanky.nvim`**: An improved yank and put system with a persistent yank history, accessible via Telescope.
--   **`conform.nvim`**: A modern formatter that can handle indentation and formatting on save.
-
-### Navigation & Motion
-
--   **`flash.nvim`**: A revolutionary navigation plugin that allows you to jump anywhere on the screen with just two keystrokes.
--   **`neoscroll.nvim`**: Provides smooth scrolling animations for a more pleasant viewing experience.
--   **`vim-illuminate`**: Highlights all occurrences of the word under the cursor, making it easy to see where a variable is used.
-
-### LSP & Development
-
--   **`nvim-lspconfig`**: The core plugin for configuring Language Server Protocol (LSP) clients.
--   **`pyright`**, **`rust-analyzer`**, **`lua_ls`**: Pre-configured language servers for Python, Rust, and Lua.
--   **`trouble.nvim`**: A beautiful and powerful UI for viewing diagnostics, references, and other lists.
--   **`todo-comments.nvim`**: Highlights and allows you to search for TODO, FIXME, and other keywords in your code.
-
-### Git Integration
-
--   **`gitsigns.nvim`**: Adds git decorations to the sign column, allowing you to see which lines have been added, modified, or deleted. It also provides commands for staging, resetting, and previewing hunks.
+- Line numbers + relative numbers
+- 2-space indent, spaces not tabs
+- No swap/backup files
+- Persistent undo
+- Rounded floating windows
+- Transparent UI elements
+- `termguicolors` enabled
+- Fold method uses Treesitter
 
 ---
 
-## 6. Theming
+## Autocmd Behavior
 
-### Theme Switcher
+From `core/autocmds.lua`:
 
-Synvim includes a custom theme switcher that allows you to change your colorscheme on the fly.
-
--   **Keybinding**: `<leader>sts`
--   **Functionality**: It opens a Telescope window with a list of all available themes. As you navigate the list, it provides a live preview of each theme. When you select a theme, it is applied and saved as your new default.
-
-### Transparency
-
-The configuration is designed to be transparent by default. The `transparent.lua` module ensures that all major UI elements, including floating windows, menus, and sidebars, have a transparent background, allowing your terminal's background to show through.
+- Restores cursor position when reopening files
+- Markdown files: wrap + spell + linebreak
+- Auto-creates parent folders on save
+- Always starts Treesitter on filetype
+- CursorHold shows diagnostics in a float
 
 ---
 
-## 7. Full Plugin List
+## LSP + Completion
 
-Below is a list of all the plugins included in Synvim, categorized by their function.
+Configured servers (see `plugins/lspconfig.lua`):
 
-<details>
-<summary><strong>UI & Appearance</strong></summary>
+- `clangd`, `lua_ls`, `taplo`, `gopls`, `pyright`, `rust_analyzer`
 
--   `alpha-nvim` (Dashboard)
--   `bamboo.nvim` (Theme)
--   `bufferline.nvim` (Buffer tabs)
--   `catppuccin` (Theme)
--   `darkvoid.nvim` (Theme)
--   `dracula.nvim` (Theme)
--   `dressing.nvim` (UI for input/select)
--   `everforest-nvim` (Theme)
--   `gruvbox.nvim` (Theme)
--   `kanagawa.nvim` (Theme)
--   `lualine.nvim` (Status line)
--   `monokai-pro.nvim` (Theme)
--   `nightfox.nvim` (Theme)
--   `noice.nvim` (Command line UI)
--   `nord.nvim` (Theme)
--   `nvim-web-devicons` (Icons)
--   `rainbow-delimiters.nvim` (Colored brackets)
--   `render-markdown.nvim` (Markdown rendering)
--   `rose-pine` (Theme)
--   `tokyonight.nvim` (Theme)
--   `which-key.nvim` (Keybinding hints)
+Completion is handled by **blink.cmp** with `preset = "enter"`.
 
-</details>
+If a language server is missing, install it with `pkg` or `npm` depending on the server.
 
-<details>
-<summary><strong>Editing & Completion</strong></summary>
+---
 
--   `blink.cmp` (Completion engine)
--   `Comment.nvim` (Smart commenting)
--   `conform.nvim` (Formatting)
--   `friendly-snippets` (Snippets collection)
--   `nvim-surround` (Surrounding pairs)
--   `yanky.nvim` (Yank history)
+## Treesitter
 
-</details>
+Treesitter powers syntax highlighting and folding.
 
-<details>
-<summary><strong>Navigation & Motion</strong></summary>
+- Parsers install to `~/bin/TS/parsers`
+- Includes many languages (bash, lua, rust, go, js/ts, markdown, etc.)
 
--   `beacon.nvim` (Cursor jump highlighting)
--   `flash.nvim` (Fast navigation)
--   `harpoon` (Quick file navigation)
--   `neoscroll.nvim` (Smooth scrolling)
--   `nvim-luxmotion` (Smooth motion animations)
--   `telescope-file-browser.nvim` (File browser)
+---
 
-</details>
+## Keymap Cheatsheet (Actual Config)
 
-<details>
-<summary><strong>LSP & Development</strong></summary>
+Leader is **space**.
 
--   `ccc.nvim` (Color picker)
--   `colorful-menu.nvim` (LSP menu theming)
--   `lspkind.nvim` (Icons for LSP)
--   `nvim-lspconfig` (LSP configuration)
--   `nvim-treesitter` (Syntax parsing)
--   `todo-comments.nvim` (TODO highlighting)
--   `trouble.nvim` (Diagnostics UI)
+### Core Navigation + Editing
 
-</details>
+- `<leader>wv` split vertical
+- `<leader>wH` split horizontal
+- `<leader>wq` close window
+- `<leader>wo` close other windows
+- `<leader>w=` equal window sizes
+- `<leader>wh` / `wj` / `wk` / `wl` move between windows
+- `<leader>bn` / `<leader>bp` next/prev buffer
+- `<leader>bd` delete buffer
+- `<Space><Space>` system clipboard register (n/v/x)
+- `n` / `N` next/prev search result (keeps cursor centered)
+- `<C-d>` / `<C-u>` scroll down/up (keeps cursor centered)
+- `<C-Up>` / `<C-Down>` / `<C-Left>` / `<C-Right>` resize splits
+- `jk` in insert mode → escape
+- `jk` in command-line mode → escape
+- `J` join lines without moving cursor
+- `U` redo
+- `[q` / `]q` quickfix prev/next
+- `<Esc>` clears search highlight
 
-<details>
-<summary><strong>Utilities & Others</strong></summary>
+### Mini.nvim (Text Objects, Surround, Comment, Motions)
 
--   `gitsigns.nvim` (Git integration)
--   `lazy.nvim` (Plugin manager)
--   `markdown.nvim` (Markdown tools)
--   `nerdy.nvim` (Nerd font icon picker)
--   `nui.nvim` (UI component library)
--   `obsidian.nvim` (Obsidian integration)
--   `plenary.nvim` (Utility library)
--   `termux.nvim` (Termux integration)
--   `undo-glow.nvim` (Undo/redo animations)
--   `undotree` (Visual undo history)
--   `vim-be-good` (Vim practice game)
--   `wilder.nvim` (Command line completion)
+- `gc` comment selection, `gcc` comment line
+- `gsa` add surround, `gsd` delete, `gsr` replace, `gsf`/`gsF` find, `gsh` highlight, `gsn` update n_lines
+- Text objects (mini.ai): `a`/`i` plus `gan`/`gin` (next), `gal`/`gil` (last), `g[`/`g]` (jump)
+- Bracketed motions (mini.bracketed): `[` or `]` + suffix
+- Suffixes enabled: `b` buffer, `c` comment, `d` diagnostic, `f` file, `i` indent, `j` jump, `l` location, `o` oldfile, `q` quickfix, `t` treesitter, `u` undo, `w` window, `y` yank
 
-</details>
+### File + Explorer
+
+- `<leader>E` open **mini.files** in current working directory
+- `<leader>e` opens **Oil** floating file explorer (this overrides the mini.files mapping)
+- `<leader>ffl` format (normal) / format selection (visual)
+- `<leader>ffi` fix indentation
+- `<leader>fs` rip-substitute (find/replace)
+- `<leader>fa` toggle Aerial symbols
+- `<leader>fA` toggle Aerial nav window
+
+### LSP
+
+- `K` hover docs
+- `<C-k>` signature help
+- `<leader>cr` rename symbol
+- `<leader>ca` code action
+- `[d` / `]d` prev/next diagnostic
+
+### Search (Snacks Picker)
+
+- `<leader>sf` files
+- `<leader>sv` git files
+- `<leader>sg` live grep
+- `<leader>sb` buffers
+- `<leader>sh` help
+- `<leader>sr` recent files
+- `<leader>sc` commands
+- `<leader>sk` keymaps
+- `<leader>sd` diagnostics
+- `<leader>st` colorschemes
+- `<leader>sn` notifications
+- `<leader>sm` resume last picker
+- `<leader>s%` current buffer lines
+- `<leader>sa` LSP symbols
+- `<leader>s"` registers
+- `<leader>si` icons
+- `<leader>s:` command history
+- `<leader>s/` search history
+- `<leader>sw` grep word under cursor (normal or visual)
+- `<leader>su` undo history
+
+Also LSP navigations via Snacks:
+
+- `gd` goto definition
+- `gD` goto declaration
+- `gr` references
+- `gI` implementations
+- `gy` type definition
+- `gai` incoming calls
+- `gao` outgoing calls
+
+Snacks picker window keys:
+
+- `<C-j>` / `<C-k>` move list
+- `<C-n>` / `<C-p>` history forward/back
+- `<C-q>` send to quickfix
+- `<C-u>` / `<C-d>` scroll preview
+- `jk` cancel (insert mode)
+
+Snacks buffer picker extras:
+
+- `x` / `dd` delete buffer from list
+- `<C-x>` delete buffer (input)
+
+Snacks dashboard keys (on start screen):
+
+- `f` find file
+- `n` new file
+- `e` explore (Oil)
+- `g` find text
+- `r` recent files
+- `c` config files
+- `s` restore session
+- `l` Lazy UI
+- `q` quit
+
+### Diagnostics (Trouble)
+
+- `<leader>xx` workspace diagnostics
+- `<leader>xX` buffer diagnostics
+- `<leader>cs` symbols (Trouble)
+- `<leader>cl` LSP list (right)
+- `<leader>xL` location list
+- `<leader>xQ` quickfix list
+
+Inside Trouble window:
+
+- `q` close
+- `<Esc>` cancel
+- `r` refresh
+- `j` / `k` move
+- `<CR>` jump
+- `<Tab>` jump
+- `<C-x>` open split
+- `<C-v>` open vsplit
+- `<C-t>` open tab
+- `m` toggle mode
+- `o` jump + close
+- `P` toggle preview
+- `p` preview
+- `K` hover
+- `zM` / `zm` close folds
+- `zR` / `zr` open folds
+- `zA` / `za` toggle fold
+
+### Git (Neogit)
+
+- `<leader>gg` status
+- `<leader>gc` commit
+- `<leader>gp` push
+- `<leader>gl` pull
+- `<leader>gB` branch
+- `<leader>gd` diff
+- `<leader>gS` stash
+- `<leader>gr` rebase
+- `<leader>gm` merge
+- `<leader>gf` fetch
+- `<leader>gL` log
+- `<leader>gR` reset
+- `<leader>gC` cherry-pick
+- `<leader>gw` worktree
+
+### GitHub (Octo)
+
+- `<leader>oi` list issues
+- `<leader>op` list PRs
+- `<leader>od` list discussions
+- `<leader>on` list notifications
+- `<leader>os` search
+
+### Bookmarks (Arrow)
+
+- `H` previous bookmark
+- `L` next bookmark
+- `<leader>bb` toggle bookmark
+- `<leader>bx` clear all bookmarks
+- `<leader>1`..`<leader>9` jump to bookmark index
+
+Arrow menu leader key is `&` (opens Arrow menu). Default `&` was removed to free the key.
+
+Inside Arrow menu:
+
+- `e` edit
+- `s` toggle bookmark
+- `x` remove
+- `C` clear all
+- `v` vertical split
+- `-` horizontal split
+- `[` / `]` prev/next item
+- `q` close
+
+### TODO Comments
+
+- `[t` / `]t` previous/next TODO
+- `<leader>st` list TODOs (picker)
+- `<leader>xq` TODO quickfix list
+
+### Notifications
+
+- `<leader>nd` dismiss notifications (Noice + notify)
+
+### Color Tools
+
+- `<leader>fc` toggle Colorizer
+- `<leader>fp` open Colortils (color picker)
+- `<leader>cc` open Colortils (alias)
+
+Colortils window keys:
+
+- `h` / `l` adjust
+- `H` / `L` big adjust
+- `<CR>` replace
+- `g<CR>` replace in other format
+- `q` exit
+
+### Symbols (Aerial)
+
+- `[a` / `]a` prev/next symbol
+- `{` / `}` also mapped to prev/next symbol (buffer-local)
+
+Aerial window keys include:
+
+- `<CR>` jump
+- `<2-LeftMouse>` jump
+- `<C-v>` jump in vsplit
+- `<C-s>` jump in split
+- `q` close
+- `o` / `za` toggle tree
+- `O` / `zA` toggle tree recursive
+- `h` / `l` close/open
+- `H` / `L` close/open recursive
+- `zR` / `zM` open/close all
+- `zr` / `zm` increase/decrease fold level
+- `zx` / `zX` sync folds
+
+Aerial nav window keys:
+
+- `<CR>` / `<2-LeftMouse>` jump
+- `<C-v>` / `<C-s>` split/vsplit
+- `h` / `l` move left/right
+- `<C-c>` / `q` close
+
+### Undo Tree (Atone)
+
+- `<leader>fu` open Atone
+
+Inside Atone:
+
+- `j` / `k` move
+- `<CR>` undo to state
+- `q` / `<Esc>` close
+- `?` help
+
+### Quickfix (Quicker)
+
+Active only in quickfix buffers:
+
+- `>` expand quickfix entry
+
+### File Manager (Oil)
+
+Open Oil (floating):
+
+- `<leader>e`
+
+Inside Oil buffer:
+
+- `g?` help
+- `l` open/select
+- `<C-l>` refresh
+- `h` go to parent
+- `<C-s>` open vertical split
+- `<C-h>` open horizontal split
+- `<C-t>` open in tab
+- `<C-p>` preview
+- `_` open cwd
+- `` ` `` change directory
+- `g~` change directory for tab
+- `gx` open external
+- `g.` toggle hidden
+- `g\\` toggle trash
+- `gs` change sort
+- `q` close
+
+Note: `use_default_keymaps = true`, so Oil defaults also apply.
+
+### Markdown (markdown.nvim)
+
+Active only in Markdown files:
+
+- `gs` toggle surround
+- `gss` toggle surround line
+- `ds` delete surround
+- `cs` change surround
+- `gl` add link
+- `gx` open link
+- `]c` / `]p` / `]]` / `[[` heading navigation
+- `<M-l><M-o>` / `<M-L><M-O>` add list item below/above
+- `<M-c>` toggle checkbox
+- Visual mode: `<C-b>` / `<C-i>` bold/italic
+
+### Completion (blink.cmp)
+
+- `<C-space>` show completion + docs
+- `<C-e>` hide
+- `<C-n>` / `<C-p>` next/prev
+- `<C-j>` / `<C-k>` next/prev
+- `<Up>` / `<Down>` next/prev
+- `<Tab>` / `<S-Tab>` snippet forward/back
+- `<C-b>` / `<C-f>` scroll docs
+
+### AI Suggestions (Supermaven)
+
+- `<C-y>` accept suggestion
+- `<C-]>` clear suggestion
+- `<C-j>` accept word
+
+---
+
+## Notes About Disabled Plugins
+
+These are present in config but disabled, so their keymaps won’t work unless you enable them:
+
+- **flash.nvim**: `s`, `S`, `r`, `R`, `<C-s>` (cmdline) → disabled
+- **grug-far.nvim**: `<leader>sar`, `<leader>saR` (normal), `<leader>sar` (visual) → disabled
+  Inside grug-far if enabled:
+  - `<localleader>r` replace
+  - `<localleader>q` quickfix
+  - `<localleader>s` sync locations
+  - `<localleader>l` sync line
+  - `<localleader>h` history
+  - `<localleader>a` add history
+  - `<localleader>f` refresh
+  - `<localleader>o` open location
+  - `<localleader>x` abort
+  - `g?` help
+  - `q` close
+  - `<CR>` jump
+
+---
+
+## UI / Editing Plugins (Plain English)
+
+Some notable plugins you’ll notice:
+
+- **mini.nvim**: text objects, surround, comment, pairs, bracketed motions
+- **noice + notify**: nicer command-line messages and popups
+- **which-key**: keybind hints
+- **gitsigns + neogit**: Git in the editor
+- **trouble + todo-comments**: diagnostics + TODO list
+- **aerial**: file symbol outline
+- **render-markdown**: better Markdown rendering
+- **oil**: file manager in a buffer
+
+---
+
+## Themes + Transparency
+
+- Multiple themes are preconfigured (`rose-pine`, `catppuccin`, `kanagawa`, `everforest`)
+- Transparency is enabled via `core/transparent.lua`
+
+If you want solid backgrounds, disable that module in `init.lua`.
+
+---
+
+## Quick Troubleshooting
+
+- **LSP not working?** Make sure the language server binary exists in `$PATH`.
+- **Slow startup?** Run `:Lazy` and check for plugin errors.
+- **Weird colors?** Try `:colorscheme rose-pine`.
+
+---
+
+## Related Doc
+
+Shell + Termux setup is documented in `syndot.md`.

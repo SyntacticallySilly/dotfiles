@@ -1,80 +1,89 @@
 return {
-  "echasnovski/mini.nvim",
+  "nvim-mini/mini.nvim",
   lazy = false,
   config = function()
-    -- Mini.icons - Replaces nvim-web-devicons
-    require("mini.icons").setup({
-      style = "glyph", -- 'glyph' or 'ascii'
-      default = {},
-      directory = {},
-      extension = {},
-      file = {},
-      filetype = {},
-      lsp = {},
-      os = {},
-    })
-    -- Mock nvim-web-devicons for compatibility with other plugins
-    require("mini.icons").mock_nvim_web_devicons()
+    -- require('mini.cmdline').setup({
+    --   autocomplete = { enabled = false },
+    --   autocoorect = { enabled = true },
+    --   autopeek = {
+    --     enable = true,
+    --     -- Number of lines to show above and below range lines
+    --     n_context = 1,
+    --     -- Window options
+    --     window = {
+    --       -- Floating window config
+    --       config = {},
+    --       -- Function to render statuscolumn
+    --       statuscolumn = nil,
+    --     },
+    --   },
+    -- })
 
-    require('mini.animate').setup({
-      -- Cursor path animation (visualizes cursor movement with extmarks)
-      cursor = {
-        enable = false,
-        timing = require('mini.animate').gen_timing.linear({ duration = 150, unit = 'total' }),
-        path = require('mini.animate').gen_path.line({
-          predicate = function(dest) return math.abs(dest[1]) > 1 end,
-          max_output_steps = 800,
-        }),
-      },
 
-      -- Vertical scroll (smooth scrolling via subscrolls)
-      scroll = {
-        enable = false,
-        timing = require('mini.animate').gen_timing.linear({ duration = 200, unit = 'total' }),
-        subscroll = require('mini.animate').gen_subscroll.equal({
-          predicate = function(total_scroll) return total_scroll > 1 end,
-          max_output_steps = 80,
-        }),
-      },
+    vim.api.nvim_create_autocmd("InsertEnter", {
+      once = true,
+      callback = function()
+        require('mini.animate').setup({
+          -- Cursor path animation (visualizes cursor movement with extmarks)
+          cursor = {
+            enable = false,
+            timing = require('mini.animate').gen_timing.linear({ duration = 150, unit = 'total' }),
+            path = require('mini.animate').gen_path.line({
+              predicate = function(dest) return math.abs(dest[1]) > 1 end,
+              max_output_steps = 800,
+            }),
+          },
 
-      -- Window resize (gradual size changes across windows)
-      resize = {
-        enable = true,
-        timing = require('mini.animate').gen_timing.linear({ duration = 180, unit = 'total' }),
-        subresize = require('mini.animate').gen_subresize.equal({
-          predicate = function(sizes_from, sizes_to)
-            return vim.tbl_count(sizes_from) >= 2
-          end,
-        }),
-      },
+          -- Vertical scroll (smooth scrolling via subscrolls)
+          scroll = {
+            enable = false,
+            timing = require('mini.animate').gen_timing.linear({ duration = 200, unit = 'total' }),
+            subscroll = require('mini.animate').gen_subscroll.equal({
+              predicate = function(total_scroll) return total_scroll > 1 end,
+              max_output_steps = 80,
+            }),
+          },
 
-      -- Window open (floating overlay visualization)
-      open = {
-        enable = true,
-        timing = require('mini.animate').gen_timing.linear({ duration = 150, unit = 'total' }),
-        winconfig = require('mini.animate').gen_winconfig.wipe({
-          predicate = function(win_id)
-            local tabpage = vim.api.nvim_win_get_tabpage(win_id)
-            return #vim.api.nvim_tabpage_list_wins(tabpage) > 1
-          end,
-          direction = 'from_edge',
-        }),
-        winblend = require('mini.animate').gen_winblend.linear({ from = 100, to = 70 }),
-      },
+          -- Window resize (gradual size changes across windows)
+          resize = {
+            enable = true,
+            timing = require('mini.animate').gen_timing.linear({ duration = 180, unit = 'total' }),
+            subresize = require('mini.animate').gen_subresize.equal({
+              predicate = function(sizes_from, sizes_to)
+                return vim.tbl_count(sizes_from) >= 2
+              end,
+            }),
+          },
 
-      -- Window close (reverse floating overlay)
-      close = {
-        enable = true,
-        timing = require('mini.animate').gen_timing.linear({ duration = 150, unit = 'total' }),
-        winconfig = require('mini.animate').gen_winconfig.wipe({
-          predicate = function(win_id)
-            local tabpage = vim.api.nvim_win_get_tabpage(win_id)
-            return #vim.api.nvim_tabpage_list_wins(tabpage) > 1
-          end,
-          direction = 'to_edge',
-        }),
-        winblend = require('mini.animate').gen_winblend.linear({ from = 100, to = 70 }),
-      },
+          -- Window open (floating overlay visualization)
+          open = {
+            enable = true,
+            timing = require('mini.animate').gen_timing.linear({ duration = 150, unit = 'total' }),
+            winconfig = require('mini.animate').gen_winconfig.wipe({
+              predicate = function(win_id)
+                local tabpage = vim.api.nvim_win_get_tabpage(win_id)
+                return #vim.api.nvim_tabpage_list_wins(tabpage) > 1
+              end,
+              direction = 'from_edge',
+            }),
+            winblend = require('mini.animate').gen_winblend.linear({ from = 100, to = 70 }),
+          },
+
+          -- Window close (reverse floating overlay)
+          close = {
+            enable = true,
+            timing = require('mini.animate').gen_timing.linear({ duration = 150, unit = 'total' }),
+            winconfig = require('mini.animate').gen_winconfig.wipe({
+              predicate = function(win_id)
+                local tabpage = vim.api.nvim_win_get_tabpage(win_id)
+                return #vim.api.nvim_tabpage_list_wins(tabpage) > 1
+              end,
+              direction = 'to_edge',
+            }),
+            winblend = require('mini.animate').gen_winblend.linear({ from = 100, to = 70 }),
+          },
+        })
+      end,
     })
 
     -- Mini.ai - Enhanced text objects
@@ -157,8 +166,6 @@ return {
         replace = "gsr",
         update_n_lines = "gsn",
       },
-      n_lines = 20,
-      search_method = "cover_or_next",
     })
   end,
 }

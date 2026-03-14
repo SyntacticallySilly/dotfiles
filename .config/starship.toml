@@ -13,21 +13,21 @@ format = "[$path]($style)[$read_only]($read_only_style) "
 [git_branch]
 format = "[$symbol$branch(:$remote_branch)]($style) "
 symbol = " "
-style = "italic purple"
+style = "purple"
 
 # ── Git Metrics (the +added ~modified -deleted) ──
 [git_metrics]
 disabled = false
 format = "([$added]($added_style) [$deleted]($deleted_style) )"
-added_style = "italic green"
-deleted_style = "italic red"
+added_style = "green"
+deleted_style = "red"
 only_nonzero_diffs = true
 
 # ── Git Status ───────────────────────────────────
 [git_status]
 disabled = true
 format = "([$all_status$ahead_behind]($style) )"
-style = "italic cyan"
+style = "cyan"
 
 # ── Prompt Character ─────────────────────────────
 [character]
@@ -38,7 +38,7 @@ error_symbol = "[<=](bold red)"
 [cmd_duration]
 min_time = 2000
 format = "[ $duration]($style)"
-style = "italic yellow"
+style = "yellow"
 
 [profiles]
 transient = """

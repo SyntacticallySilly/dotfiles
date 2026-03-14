@@ -3,15 +3,11 @@
 
 return {
   "catgoose/nvim-colorizer.lua",
-  event = "BufReadPre",
   cmd = {
     "ColorizerAttachToBuffer",
     "ColorizerDetachFromBuffer",
     "ColorizerReloadAllBuffers",
     "ColorizerToggle",
-  },
-  keys = {
-    { "<leader>uc", "<cmd>ColorizerToggle<cr>", desc = "Toggle Colorizer" },
   },
 
   opts = {
@@ -71,20 +67,20 @@ return {
       },
 
       -- Hex codes
-      RGB = true,        -- #RGB
-      RGBA = true,       -- #RGBA
-      RRGGBB = true,     -- #RRGGBB
-      RRGGBBAA = true,   -- #RRGGBBAA
-      AARRGGBB = true,   -- 0xAARRGGBB
+      RGB = true,      -- #RGB
+      RGBA = true,     -- #RGBA
+      RRGGBB = true,   -- #RRGGBB
+      RRGGBBAA = true, -- #RRGGBBAA
+      AARRGGBB = true, -- 0xAARRGGBB
 
       -- CSS functions
-      rgb_fn = true,     -- rgb(), rgba()
-      hsl_fn = true,     -- hsl(), hsla()
-      css = false,       -- Enable all CSS features at once
-      css_fn = true,     -- Enable all CSS functions
+      rgb_fn = true, -- rgb(), rgba()
+      hsl_fn = true, -- hsl(), hsla()
+      css = false,   -- Enable all CSS features at once
+      css_fn = true, -- Enable all CSS functions
 
       -- Tailwind colors
-      tailwind = false,  -- Can enable per-filetype above
+      tailwind = false, -- Can enable per-filetype above
       tailwind_opts = {
         update_names = false,
       },
@@ -99,7 +95,7 @@ return {
       mode = "virtualtext",
 
       -- Virtualtext configuration
-      virtualtext = "󱓻 ",           -- Character to display
+      virtualtext = "󱓻 ", -- Character to display
       virtualtext_inline = "before", -- Display after the color code
       virtualtext_mode = "foreground", -- Color the virtualtext character
 

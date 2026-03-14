@@ -4,13 +4,6 @@
 return {
   "XXiaoA/atone.nvim",
   cmd = "Atone",
-  keys = {
-    {
-      "<leader>m",
-      "<cmd>Atone toggle<cr>",
-      desc = "Toggle Undo Tree",
-    },
-  },
 
   opts = {
     -- Layout configuration
@@ -51,7 +44,7 @@ return {
         "qf",
         "oil",
         "Trouble",
-        "TelescopePrompt",
+        "SnacksPicker"
       },
     },
 
@@ -60,7 +53,7 @@ return {
       tree = {
         quit = { "<C-c>", "q", "<Esc>" },
         next_node = "j", -- Supports v:count (e.g., 5j)
-        pre_node = "k", -- Supports v:count (e.g., 3k)
+        pre_node = "k",  -- Supports v:count (e.g., 3k)
         jump_to_G = "G",
         jump_to_gg = "gg",
         undo_to = "<CR>", -- Apply undo state

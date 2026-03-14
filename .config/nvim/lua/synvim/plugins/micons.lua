@@ -1,5 +1,5 @@
 return {
-  "echasnovski/mini.icons",
+  "nvim-mini/mini.icons",
   lazy = false,
   config = function()
     -- Mini.icons - Replaces nvim-web-devicons

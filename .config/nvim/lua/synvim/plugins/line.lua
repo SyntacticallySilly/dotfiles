@@ -4,7 +4,7 @@
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = {
-    "nvim-tree/nvim-web-devicons",
+    "nvim-mini/mini.icons",
     "lewis6991/gitsigns.nvim",
     "otavioschwanck/arrow.nvim",
   },
@@ -31,7 +31,6 @@ return {
 
     lualine.setup({
       options = {
-        -- theme = 'rose-pine',
         globalstatus = true,
         component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
@@ -56,9 +55,8 @@ return {
           {
             'filename',
             file_status = true,
-            shorting_target = 70,
             color = { gui = 'italic' },
-            path = 1,
+            path = 4,
             separator = { right = '' },
             symbols = {
               modified = '~',
@@ -73,11 +71,6 @@ return {
 
           { 'lazy' },
           { 'quickfix' },
-          {
-            require("noice").api.status.mode.get,
-            cond = require("noice").api.status.mode.has,
-            color = { gui = 'bold', 'italic' },
-          },
         },
         -- Middle: truncated file path with modified indicator
         lualine_c = {
@@ -107,7 +100,7 @@ return {
             'lsp_status',
             color = { gui = 'italic' },
             colored = true,
-            icon = '',
+            icon = ' ',
           },
         },
         lualine_y = {
@@ -121,7 +114,7 @@ return {
           },
           {
             'selectioncount',
-          }
+          },
         },
         lualine_z = {
           {
@@ -133,41 +126,23 @@ return {
           },
         },
       },
-      inactive_sections = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = {
-
-        },
-        lualine_x = {
-          {
-            "filetype",
-            colored = true,
-            icon_only = true,
-          },
-        },
-        lualine_y = {},
-        lualine_z = {},
-      },
       tabline = {
-        lualine_b = {
+        lualine_c = {
           {
             'buffers',
             show_modified_status = true,
             show_filename_only = true, -- Shows shortened relative path when set to false.
-            use_mode_colors = true,
+            use_mode_colors = false,
             max_length = vim.o.columns * 4,
-
+            buffers_color = {
+              active = 'TablineAct',
+              inactive = 'TablineNC'
+            },
             symbols = {
               alternate_file = '¿',
+              directory = ' ',
               modified = '~'
             },
-          },
-          {
-            "branch",
-            icon = "󰘬",
-            color = { gui = 'bold' },
-            separator = { right = '' },
           },
         },
         lualine_z = {

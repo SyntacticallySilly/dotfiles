@@ -1,15 +1,14 @@
 return {
   'stevearc/quicker.nvim',
-  -- enabled = false,
   ft = "qf",
   config = function()
     require("quicker").setup({
       -- Local options to set for quickfix
       opts = {
-        buflisted = false,
+        buflisted = true,
         number = true,
         relativenumber = true,
-        signcolumn = "auto",
+        signcolumn = "yes",
         winfixheight = true,
         wrap = false,
       },
@@ -17,6 +16,7 @@ return {
       use_default_opts = true,
       -- Keymaps to set for the quickfix buffer
       keys = {
+        { ">", "<cmd>lua require('quicker').expand()<CR>", desc = "Expand quickfix content" },
       },
       -- Callback function to run any custom logic or keymaps for the quickfix buffer
       on_qf = function(bufnr) end,
@@ -39,28 +39,28 @@ return {
       },
       follow = {
         -- When quickfix window is open, scroll to closest item to the cursor
-        enabled = false,
+        enabled = true,
       },
       -- Map of quickfix item type to icon
-      type_icons = {
-        E = "󰅚 ",
-        W = "󰀪 ",
-        I = " ",
-        N = " ",
-        H = " ",
-      },
+      -- type_icons = {
+      --   E = "󰅚 ",
+      --   W = "󰀪 ",
+      --   I = " ",
+      --   N = " ",
+      --   H = " ",
+      -- },
       -- Border characters
-      borders = {
-        vert = "┃",
-        -- Strong headers separate results from different files
-        strong_header = "━",
-        strong_cross = "╋",
-        strong_end = "┫",
-        -- Soft headers separate results within the same file
-        soft_header = "╌",
-        soft_cross = "╂",
-        soft_end = "┨",
-      },
+      -- borders = {
+      --   vert = "┃",
+      --   -- Strong headers separate results from different files
+      --   strong_header = "━",
+      --   strong_cross = "╋",
+      --   strong_end = "┫",
+      --   -- Soft headers separate results within the same file
+      --   soft_header = "╌",
+      --   soft_cross = "╂",
+      --   soft_end = "┨",
+      -- },
       -- How to trim the leading whitespace from results. Can be 'all', 'common', or false
       trim_leading_whitespace = "common",
       -- Maximum width of the filename column
@@ -68,7 +68,7 @@ return {
         return math.floor(math.min(95, vim.o.columns / 2))
       end,
       -- How far the header should extend to the right
-      header_length = function(type, start_col)
+      header_length = function(ype, start_col)
         return vim.o.columns - start_col
       end,
     })

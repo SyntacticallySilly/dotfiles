@@ -17,7 +17,7 @@ end
 M.navigation_keymaps = function()
   -- Window splits
   map("n", "<leader>wv", "<cmd>vsplit<CR>", { desc = "Split vertical" })
-  map("n", "<leader>wh", "<cmd>split<CR>", { desc = "Split horizontal" })
+  map("n", "<leader>wH", "<cmd>split<CR>", { desc = "Split horizontal" })
   map("n", "<leader>wq", "<cmd>close<CR>", { desc = "Close window" })
   map("n", "<leader>wo", "<cmd>only<CR>", { desc = "Close other windows" })
   map("n", "<leader>w=", "<C-w>=", { desc = "Equal window sizes" })
@@ -26,10 +26,10 @@ M.navigation_keymaps = function()
   map({ "n", "v", "x" }, "<Space><Space>", '"+', { desc = "System clipboard" })
 
   -- Window navigation (Ctrl + hjkl)
-  map("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
-  map("n", "<C-j>", "<C-w>j", { desc = "Move to down window" })
-  map("n", "<C-k>", "<C-w>k", { desc = "Move to up window" })
-  map("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
+  map("n", "<leader>wh", "<C-w>h", { desc = "Move to left window" })
+  map("n", "<leader>wj", "<C-w>j", { desc = "Move to down window" })
+  map("n", "<leader>wk", "<C-w>k", { desc = "Move to up window" })
+  map("n", "<leader>wl", "<C-w>l", { desc = "Move to right window" })
 
   -- Keymaps for centering cursor and unfolding on search/navigation (add to your init.lua or keymaps file)
   map('n', 'n', 'nzzzv', { noremap = true, silent = true, desc = 'Next search match (center + unfold)' })
@@ -65,6 +65,8 @@ M.editing_keymaps = function()
   map("v", "<", "<gv", { desc = "Unindent" })
   map("v", ">", ">gv", { desc = "Indent" })
 
+  map('c', 'jk', '<Esc>', { desc = 'Exit command mode' })
+
   map("n", "U", "<cmd>redo<CR>", { desc = "Redo" })
   map("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 
@@ -72,31 +74,54 @@ M.editing_keymaps = function()
   map("n", "[q", ":cprev<CR>", { desc = "Previous Quickfix Item" })
   map("n", "]q", ":cnext<CR>", { desc = "Next Quickfix Item" })
 
-  -- map("n", "<leader>etf", ":s/\\(true\\|false\\)/\\={'true':'false','false':'true'}[submatch(1)]/<CR>", { desc = "Toggle true/false" })
   -- Better escape
   map("i", "jk", "<Esc>", { desc = "Exit insert mode" })
   map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Unhighlight" })
 end
 
 vim.keymap.del("n", "&")
+
 -- ============================================================================
--- FORMATTING KEYMAPS - Fix indentation and format code
+-- NOTIFY KEYMAPS
 -- ============================================================================
 
-M.formatting_keymaps = function()
-  -- Format entire file with LSP (if available, otherwise fallback to indent)
-  -- map("n", "<leader>fl", function()
-  --   -- Try LSP format first
-  --   local clients = vim.lsp.get_clients({ bufnr = 0 })
-  --   if #clients > 0 then
-  --     vim.lsp.buf.format({ async = true })
-  --   else
-  --     -- Fallback: use treesitter-based indenting if available
-  --     vim.notify("No LSP formatter available, use <leader>i for manual indent", vim.log.levels.WARN)
-  --   end
-  -- end, { desc = "Format file (LSP)" })
+M.notify_keymaps = function()
+  -- Notifications Dismiss
+  map("n", "<leader>nd", "<cmd>Noice dismiss<CR> <cmd>NotificationsClear<cr>",
+    { desc = "Dismiss Notifications" })
+end
 
-  -- Format selection in visual mode
+
+-- Explorer Keymaps
+M.explore_keymaps = function()
+  -- local MiniFiles = require('mini.files')
+  -- Open the directory of the file currently being edited
+  -- If the file doesn't exist because you maybe switched to a new git branch
+  -- open the current working directory
+  map("n", "<leader>e", function()
+    local buf_name = vim.api.nvim_buf_get_name(0)
+    local dir_name = vim.fn.fnamemodify(buf_name, ":p:h")
+    if vim.fn.filereadable(buf_name) == 1 then
+      -- Pass the full file path to highlight the file
+      require("mini.files").open(buf_name, true)
+    elseif vim.fn.isdirectory(dir_name) == 1 then
+      -- If the directory exists but the file doesn't, open the directory
+      require("mini.files").open(dir_name, true)
+    else
+      -- If neither exists, fallback to the current working directory
+      require("mini.files").open(vim.uv.cwd(), true)
+    end
+  end, { desc = "Open mini.files (Directory of Current File or CWD if not exists)" })
+
+  map("n", "<leader>E", function()
+    require("mini.files").open(vim.uv.cwd(), true)
+  end, { desc = "Open mini.files (cwd)" })
+end
+
+-- ============================================================================
+-- FILE KEYMAPS
+-- ============================================================================
+M.file_keymaps = function()
   map("v", "<leader>ffl", function()
     vim.lsp.buf.format({ async = true })
   end, { desc = "Format selection" })
@@ -124,76 +149,12 @@ M.formatting_keymaps = function()
 
     vim.notify("Indentation fixed", vim.log.levels.INFO)
   end, { desc = "Fix indentation" })
-
-  -- Alternative: Format with external formatter (if you have prettier, black, etc.)
-  -- map("n", "<leader>fe", function()
-  --   -- This will use conform.nvim if you install it, or fallback to LSP
-  --   local ok, conform = pcall(require, "conform")
-  --   if ok then
-  --     conform.format({ lsp_fallback = true, async = true })
-  --   else
-  --     vim.lsp.buf.format({ async = true })
-  --   end
-  -- end, { desc = "Format with external tool" })
-end
--- ============================================================================
--- THEME SWITCHER KEYMAP
--- ============================================================================
-
--- M.theme_keymaps = function()
---   map("n", "<leader>ss", function()
---     require("synvim.theme-switcher").switch_theme()
---   end, { desc = "Switch theme" })
--- end
-
--- ============================================================================
--- NOICE KEYMAPS
--- ============================================================================
-
-M.notify_keymaps = function()
-  -- Notifications Dismiss
-  map("n", "<leader>nd", "<cmd>Noice dismiss<CR>",
-    { desc = "Dismiss Notifications" })
-end
-
-
--- Explorer Keymaps
-M.explore_keymaps = function()
-  -- Open the directory of the file currently being edited
-  -- If the file doesn't exist because you maybe switched to a new git branch
-  -- open the current working directory
-  map("n", "<leader>e", function()
-    local buf_name = vim.api.nvim_buf_get_name(0)
-    local dir_name = vim.fn.fnamemodify(buf_name, ":p:h")
-    if vim.fn.filereadable(buf_name) == 1 then
-      -- Pass the full file path to highlight the file
-      require("mini.files").open(buf_name, true)
-    elseif vim.fn.isdirectory(dir_name) == 1 then
-      -- If the directory exists but the file doesn't, open the directory
-      require("mini.files").open(dir_name, true)
-    else
-      -- If neither exists, fallback to the current working directory
-      require("mini.files").open(vim.uv.cwd(), true)
-    end
-  end, { desc = "Open mini.files (Directory of Current File or CWD if not exists)" })
-
-  map("n", "<leader>E", function()
-    require("mini.files").open(vim.uv.cwd(), true)
-  end, { desc = "Open mini.files (cwd)" })
-end
-
--- ============================================================================
--- SETTINGS KEYMAPS
--- ============================================================================
-M.settings_keymaps = function()
-  -- Opens Dashboard.
-  map("n", "<leader>td", "<cmd>Dashboard<CR>", { desc = "Open Dashboard" })
-  -- Opens Lazy.nvim
-  map("n", "<leader>tlv", "<cmd>Lazy<CR>", { desc = "Open Lazy.nvim" })
-  -- LSP styff.
-  map("n", "<leader>tlss", "<cmd>LspRestart<CR>", { desc = "Start LSP" })
-  map("n", "<leader>tlsp", "<cmd>LspStop<CR>", { desc = "Stop LSP" })
-  map("n", "<leader>tlsi", "<cmd>LspInfo<CR>", { desc = "LSP Debug" })
+  map('n', '<leader>fc', '<cmd>ColorizerToggle<cr>', { desc = 'Colorize File' })
+  map('n', "<leader>fa", "<cmd>AerialToggle<cr>", { desc = "File Symbols" })
+  map('n', "<leader>fA", "<cmd>AerialNavToggle<cr>", { desc = "File Symbol Float" })
+  map('n', "<leader>fu", "<cmd>Atone<cr>", { desc = "File Undotree" })
+  map('n', "<leader>fp", "<cmd>Colortils<cr>", { desc = "Pick Color" })
+  map({ 'n', 'v', 'x' }, '<leader>fs', function() require("rip-substitute").sub() end, { desc = "File Subsitute" })
 end
 
 -- ============================================================================
@@ -205,11 +166,9 @@ M.setup = function()
   -- Load keymaps that have NO plugin dependencies immediately
   M.navigation_keymaps()
   M.editing_keymaps()
-  M.formatting_keymaps()
-  -- M.theme_keymaps()
   M.notify_keymaps()
   M.explore_keymaps()
-  M.settings_keymaps()
+  M.file_keymaps()
   -- Plugin-dependent keymaps are called from their plugin configs
   -- See telescope.lua and harpoon.lua for when these are called
 end

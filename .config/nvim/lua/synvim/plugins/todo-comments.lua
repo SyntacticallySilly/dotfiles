@@ -5,7 +5,6 @@ return {
   "folke/todo-comments.nvim",
   dependencies = { "nvim-lua/plenary.nvim" },
   event = { "BufReadPre", "BufNewFile" },
-  cmd = { "TodoTrouble", "TodoTelescope", "TodoQuickFix" },
 
   opts = {
     signs = true, -- Show icons in sign column
@@ -14,16 +13,16 @@ return {
     -- Keywords recognized as todo comments
     keywords = {
       FIX = {
-        icon = " ",
+        -- icon = " ",
         color = "error",
         alt = { "FIXME", "BUG", "FIXIT", "ISSUE" },
       },
-      TODO = { icon = " ", color = "info" },
-      HACK = { icon = " ", color = "warning" },
-      WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
-      PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-      NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
-      TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+      -- TODO = { icon = " ", color = "info" },
+      -- HACK = { icon = " ", color = "warning" },
+      -- WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+      -- PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+      -- NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+      -- TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
     },
 
     -- Highlighting style
@@ -51,6 +50,7 @@ return {
   keys = {
     { "]t",         function() require("todo-comments").jump_next() end, desc = "Next todo" },
     { "[t",         function() require("todo-comments").jump_prev() end, desc = "Previous todo" },
-    { "<leader>sq", "<cmd>TodoQuickFix<CR>",                             desc = "Todo Quickfix" },
+    { "<leader>st", function() Snacks.picker.todo_comments() end,        desc = "Todo" },
+    { "<leader>xq", "<cmd>TodoQuickFix<CR>",                             desc = "Todo Quickfix" },
   },
 }

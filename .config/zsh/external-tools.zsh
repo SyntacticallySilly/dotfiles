@@ -43,11 +43,5 @@ function transient-prompt() {
 }
 
 
-# ───────────────────────────────────────────────────────────────
-#  Zsh-Notify Configuration
-# ───────────────────────────────────────────────────────────────
-# Set the title for notifications sent by zsh-notify
-# export ZSH_NOTIFY_TITLE="Termux Shell"
-
 autoload -Uz edit-command-line
 zle -N edit-command-line

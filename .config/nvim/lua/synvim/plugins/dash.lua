@@ -3,9 +3,10 @@
 
 return {
   "nvimdev/dashboard-nvim",
+  enabled = false,
   event = "VimEnter",
   -- enabled = false,
-  dependencies = { "nvim-tree/nvim-web-devicons" },
+  dependencies = { "nvim-mini/mini.icons" },
 
   config = function()
     local db = require("dashboard")
@@ -62,7 +63,8 @@ return {
             key_hl = "DashboardKey",
             key_format = " [%s]",
             action = function()
-              require("mini.files").open(vim.loop.cwd(), true)
+              require("oil").open(cwd, preview)
+              -- require("mini.files").open(vim.loop.cwd(), true)
             end,
           },
           {
@@ -89,7 +91,7 @@ return {
           {
             icon = "󰒲 ",
             icon_hl = "DashboardIcon",
-            desc = "Lazy (Plugins)",
+            desc = "Lazy",
             desc_hl = "DashboardDesc",
             key = "l",
             key_hl = "DashboardKey",
@@ -127,14 +129,13 @@ return {
           local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
 
           return {
-            "",
-            "Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms",
+            stats.loaded .. "/" .. stats.count .. " " .. ms .. "ms",
           }
         end,
       },
       hide = {
-        tabline = false,
-        winbar = false,
+        tabline = true,
+        winbar = true,
         statusline = false,
       },
     })

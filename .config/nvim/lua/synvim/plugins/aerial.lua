@@ -5,7 +5,7 @@ return {
   "stevearc/aerial.nvim",
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
-    "nvim-tree/nvim-web-devicons",
+    "nvim-mini/mini.icons",
   },
   event = { "BufReadPost", "BufNewFile" },
   cmd = {
@@ -15,10 +15,8 @@ return {
     "AerialNav",
   },
   keys = {
-    { "<leader>a", "<cmd>AerialToggle<cr>",    desc = "Toggle Aerial" },
-    { "<leader>A", "<cmd>AerialNavToggle<cr>", desc = "Aerial Nav" },
-    { "[a",        "<cmd>AerialPrev<cr>",      desc = "Prev Symbol" },
-    { "]a",        "<cmd>AerialNext<cr>",      desc = "Next Symbol" },
+    { "[a", "<cmd>AerialPrev<cr>", desc = "Prev Symbol" },
+    { "]a", "<cmd>AerialNext<cr>", desc = "Next Symbol" },
   },
 
   opts = {
@@ -101,10 +99,10 @@ return {
     -- },
 
     -- Highlight settings
-    highlight_mode = "split_width", -- "split_width", "full_width", "last", "none"
+    highlight_mode = "split_width",   -- "split_width", "full_width", "last", "none"
     highlight_closest = true,
     highlight_on_hover = true,
-    highlight_on_jump = 300, -- ms
+    highlight_on_jump = 300,   -- ms
 
     -- Fold code when navigating
     autojump = true,
@@ -152,7 +150,7 @@ return {
     lsp = {
       diagnostics_trigger_update = true,
       update_when_errors = true,
-      update_delay = 300, -- ms
+      update_delay = 300,   -- ms
       priority = {
         rust_analyzer = 10,
         lua_ls = 9,
@@ -164,7 +162,7 @@ return {
 
     -- Treesitter extensions
     treesitter = {
-      update_delay = 300, -- ms
+      update_delay = 300,   -- ms
     },
 
     -- Markdown configuration
@@ -202,23 +200,9 @@ return {
     end,
 
     -- On first symbols callback
-    on_first_symbols = function(bufnr)
-      -- Optional: auto-open on first symbols
-      -- require("aerial").open()
-    end,
+    -- on_first_symbols = function(bufnr)
+    --   -- Optional: auto-open on first symbols
+    --   -- require("aerial").open()
+    -- end,
   },
-
-  config = function(_, opts)
-    require("aerial").setup(opts)
-
-
-    -- Telescope integration
-    pcall(require("telescope").load_extension, "aerial")
-
-    -- Optional: Add to lualine
-    -- In your lualine config, add to sections:
-    -- sections = {
-    --   lualine_x = { "aerial" },
-    -- }
-  end,
 }
