@@ -5,9 +5,8 @@ return {
   dependencies = {
     "moyiz/blink-emoji.nvim",
     "rafamadriz/friendly-snippets",
-    -- "onsails/lspkind.nvim",
   },
-  version = "1.*",
+  sem_version = "1.*",
 
   opts = {
     keymap = {

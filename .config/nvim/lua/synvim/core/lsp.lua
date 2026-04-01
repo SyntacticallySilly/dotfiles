@@ -1,14 +1,14 @@
 vim.lsp.enable({ 'clangd', 'lua_ls', 'taplo', 'gopls', 'rust_analyzer' })
 
--- local capabilities = require('blink.cmp').get_lsp_capabilities({
---   textDocument = { completion = { completionItem = { snippetSupport = false } } },
--- })
+local capabilities = require('blink.cmp').get_lsp_capabilities({
+  textDocument = { completion = { completionItem = { snippetSupport = false } } },
+})
 
 vim.lsp.config.lua_ls = {
   cmd          = { "lua-language-server" },
   filetypes    = { "lua" },
   root_markers = { ".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml", "selene.yml", ".git" },
-  -- capabilities = capabilities,
+  capabilities = capabilities,
   settings     = {
     Lua = {
       runtime = {
@@ -45,7 +45,7 @@ vim.lsp.config.rust_analyzer = {
   cmd = { "rust-analyzer" },
   filetypes = { "rust" },
   root_markers = { "Cargo.toml", "rust-project.json" },
-  -- capabilities = capabilities,
+  capabilities = capabilities,
   settings = {
     ["rust-analyzer"] = {
       cargo = {
@@ -80,21 +80,21 @@ vim.lsp.config.gopls = {
   cmd = { "gopls" },
   filetypes = { "go", "gomod", "gowork", "gotmpl" },
   root_markers = { "go.work", "go.mod", ".git" },
-  -- capabilities = capabilities,
+  capabilities = capabilities,
 }
 
 vim.lsp.config.taplo = {
   cmd = { "taplo", "lsp", "stdio" },
   filetypes = { "toml" },
-  -- capabilities = capabilities,
+  capabilities = capabilities,
 }
 
 vim.lsp.config.clangd = {
   filetypes = { "c", "cpp" },
-  -- capabilities = capabilities,
+  capabilities = capabilities,
 }
 
 vim.lsp.config.jdtls = {
   filetypes = { "java", "kt" },
-  -- capabilities = capabilities
+  capabilities = capabilities
 }

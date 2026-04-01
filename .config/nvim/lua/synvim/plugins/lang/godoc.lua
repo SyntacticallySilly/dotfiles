@@ -1,6 +1,6 @@
 return {
   "fredrikaverpil/godoc.nvim",
-  version = "*",
+  sem_version = "*",
   dependencies = {
     { "folke/snacks.nvim" },                                         -- optional
   },

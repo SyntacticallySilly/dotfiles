@@ -106,13 +106,14 @@ return {
             { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})", },
             -- { icon = " ", key = "e", desc = "Explore", action = ":lua require('oil').toggle_float(nil ,{ preview = {} })" },
             { icon = " ", key = "e", desc = "Explore", action = ":lua require('mini.files').open()" },
-            { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
+            { icon = "󰒲 ", key = "l", desc = "Plugins", action = ":ZShow" },
             { icon = " ", key = "s", desc = "Restore Session", section = "session" },
             { icon = " ", key = "q", desc = "Quit", action = ":qa" }
           },
-          { title = "Recent Projects", section = "projects",     indent = 2, padding = 1 },
-          { title = "Recent Files",    section = "recent_files", indent = 2, padding = 2 },
-          { section = "startup" },
+          { title = "Recent Projects", section = "projects",     indent = 2,                                                            padding = 1 },
+          { title = "Recent Files",    section = "recent_files", indent = 2,                                                            padding = 2 },
+          { align = "center",          padding = 1,              function() return require("synvim.core.startup")
+            .dashboard_item() end, },
         }
       end,
     },
@@ -148,7 +149,7 @@ return {
             { win = "input",   title = "{live}",         height = 1, border = "rounded" },
           },
         },
-        waterfall = {
+        select = {
           hidden = { "preview" },
           layout = {
             backdrop = false,
@@ -235,13 +236,13 @@ return {
         },
         recent = {
           filter = { cwd = true },
-          layout = { preset = "waterfall" }
+          layout = { preset = "select" }
         },
         icons = {
-          layout = { preset = 'waterfall' }
+          layout = { preset = 'select' }
         },
         commands = {
-          layout = { preset = 'waterfall' }
+          layout = { preset = 'select' }
         },
         diagnostics = {
           layout = { preset = "fallacy" },
@@ -265,15 +266,15 @@ return {
           --     pcall(vim.cmd.colorscheme, item.text)
           --   end
           -- end,
-          layout = { preset = "waterfall", hidden = {} },
+          layout = { preset = "select", hidden = {} },
         },
         keymaps = {
-          layout = { preset = "waterfall" },
+          layout = { preset = "select" },
         },
         buffers = {
           current = false,
           sort_lastused = true,
-          layout = { preset = 'waterfall' },
+          layout = { preset = 'select' },
           win = {
             input = {
               keys = {

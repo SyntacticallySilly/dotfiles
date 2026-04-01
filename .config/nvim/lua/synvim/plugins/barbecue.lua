@@ -3,7 +3,7 @@ return {
   name = "barbecue",
   event = 'LspAttach',
   enabled = false,
-  version = "*",
+  sem_version = "*",
   dependencies = {
     "SmiteshP/nvim-navic",
     "nvim-mini/mini.icons", -- optional dependency

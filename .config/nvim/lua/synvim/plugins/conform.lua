@@ -15,6 +15,7 @@ return {
   },
   -- This will provide type hinting with LuaLS
   ---@module "conform"
+  ---@diagnostic disable-next-line
   ---@type conform.setupOpts
   opts = {
     -- Define your formatters
