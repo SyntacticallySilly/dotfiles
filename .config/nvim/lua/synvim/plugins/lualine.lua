@@ -6,7 +6,6 @@ return {
   dependencies = {
     "nvim-mini/mini.icons",
   },
-  event = 'BufRead',
   config = function()
     local lualine = require("lualine")
     -- Mode icon map
@@ -135,7 +134,7 @@ return {
           {
             'buffers',
             show_modified_status = true,
-            show_filename_only = false, -- Shows shortened relative path when set to false.
+            show_filename_only = true, -- Shows shortened relative path when set to false.
             use_mode_colors = false,
             max_length = vim.o.columns * 4,
             buffers_color = {

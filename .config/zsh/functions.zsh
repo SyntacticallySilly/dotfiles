@@ -249,3 +249,5 @@ function copy-buffer-to-clipboard() {
   zle -M "Copied to clipboard"
 }
 zle -N copy-buffer-to-clipboard
+
+pkgm() { local s=$(apt list 2>/dev/null | sort | fzf --style=full --color=dark --layout=default --height=80% --border --preview 'apt show {1} 2>/dev/null' --preview-window=down:50%); [[ -n "$s" ]] && { clear; pkg install "$(echo "$s" | awk -F'/' '{print $1}')"; } || clear; }

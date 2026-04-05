@@ -67,7 +67,7 @@ return {
       prompt_save_on_select_new_entry = true,
       -- Oil will automatically delete hidden buffers after this delay
       -- You can set the delay to false to disable cleanup entirely
-      -- Note that the cleanup process only starts when none of the oil buffers are currently displayed
+      -- Note that the cleanup process only starts when rounded of the oil buffers are currently displayed
       cleanup_delay_ms = 2000,
       lsp_file_methods = {
         -- Enable or disable LSP file operations
@@ -106,7 +106,7 @@ return {
         ["gx"] = "actions.open_external",
         ["g."] = { "actions.toggle_hidden", mode = "n" },
         ["g\\"] = { "actions.toggle_trash", mode = "n" },
-        ["q"] = { "actions.close", mode = 'n'}
+        ["q"] = { "actions.close", mode = 'n' }
       },
       -- Set to false to disable all of the above keymaps
       use_default_keymaps = true,
@@ -208,7 +208,7 @@ return {
         min_height = { 5, 0.1 },
         height = nil,
         border = 'rounded',
-        minimized_border = "none",
+        minimized_border = "rounded",
         win_options = {
           winblend = 0,
         },

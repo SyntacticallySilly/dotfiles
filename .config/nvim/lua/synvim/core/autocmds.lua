@@ -1,6 +1,8 @@
-
 -- restore cursor to file position in previous editing session
+local restore_cursor_group = vim.api.nvim_create_augroup("RestoreCursor", { clear = true })
+
 vim.api.nvim_create_autocmd("BufReadPost", {
+  group = restore_cursor_group,
   callback = function(args)
     local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
     local line_count = vim.api.nvim_buf_line_count(args.buf)
@@ -8,7 +10,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
       vim.api.nvim_win_set_cursor(0, mark)
       -- defer centering slightly so it's applied after render
       vim.schedule(function()
-        vim.cmd("normal! zz")
+        vim.cmd.normal({ args = { "zz" }, bang = true })
       end)
     end
   end,
@@ -20,7 +22,6 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.conceallevel = 1
     vim.opt_local.wrap = true
     vim.opt_local.linebreak = true
-    vim.opt_local.spell = true
   end,
 })
 
@@ -45,37 +46,30 @@ vim.api.nvim_create_autocmd("InsertLeave", {
   end,
 })
 
-vim.api.nvim_create_autocmd("VimResized", {
-  callback = function()
-    local current_tab = vim.fn.tabpagenr()
-    vim.cmd("tabdo wincmd =")
-    vim.cmd("tabnext " .. current_tab)
-  end,
-})
+-- vim.api.nvim_create_autocmd("VimResized", {
+--   callback = function()
+--     local current_tab = vim.fn.tabpagenr()
+--     vim.cmd("tabdo wincmd =")
+--     vim.cmd("tabnext " .. current_tab)
+--   end,
+-- })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-  callback = function(event)
-    if event.match:match("^%w%w+:[\\/][\\/]") then return end
-    ---@diagnostic disable-next-line : undefined-field
-    local file = vim.loop.fs_realpath(event.match) or event.match
-    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
-  end,
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   callback = function(event)
+--     if event.match:match("^%w%w+:[\\/][\\/]") then return end
+--     ---@diagnostic disable-next-line : undefined-field
+--     local file = vim.loop.fs_realpath(event.match) or event.match
+--     vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "gitcommit", "text" },
   callback = function()
-    vim.opt_local.spell = true
     vim.opt_local.wrap = true
   end,
 })
 
-
-vim.api.nvim_create_autocmd("CursorHold", {
-  callback = function()
-    vim.diagnostic.open_float(nil, { focusable = false, border = "rounded" })
-  end,
-})
 
 -- vim.api.nvim_create_autocmd("BufWritePre", {
 --   group = vim.api.nvim_create_augroup("AutoFormat", { clear = true }),

@@ -13,7 +13,7 @@ return {
   priority = 1000,
   lazy = false,
   keys = {
-    { "<leader>sf", function() require('snacks').picker.files() end,                desc = "Search files" },
+    { "<leader>sf", function() require('snacks').picker.smart() end,                desc = "Search files" },
     { "<leader>sv", function() require('snacks').picker.git_files() end,            desc = "Search git files" },
     { "<leader>sg", function() require('snacks').picker.grep() end,                 desc = "Search text" },
     { "<leader>sb", function() require('snacks').picker.buffers() end,              desc = "Search buffers" },
@@ -31,16 +31,18 @@ return {
     { "<leader>si", function() require('snacks').picker.icons() end,                desc = "Search icons" },
     { "<leader>s:", function() require('snacks').picker.command_history() end,      desc = "Search command history" },
     { "<leader>s/", function() require('snacks').picker.search_history() end,       desc = "Search find history" },
-    { "<leader>sw", function() require('snacks').picker.grep_word() end,            desc = "Search word under cursor", mode = { "n", "x" }, },
+    { "<leader>sw", function() require('snacks').picker.grep_word() end,            desc = "Search word under cursor",   mode = { "n", "x" }, },
     { "<leader>su", function() require('snacks').picker.undo() end,                 desc = "Search undo history" },
     { "gd",         function() require('snacks').picker.lsp_definitions() end,      desc = "Goto definition" },
     { "gD",         function() require('snacks').picker.lsp_declarations() end,     desc = "Goto declaration" },
-    { "gr",         function() require('snacks').picker.lsp_references() end,       nowait = true,                     desc = "Search references" },
+    { "gr",         function() require('snacks').picker.lsp_references() end,       nowait = true,                       desc = "Search references" },
     { "gI",         function() require('snacks').picker.lsp_implementations() end,  desc = "Goto implementation" },
     { "gy",         function() require('snacks').picker.lsp_type_definitions() end, desc = "Goto type definition" },
     { "gai",        function() require('snacks').picker.lsp_incoming_calls() end,   desc = "Calls incoming" },
     { "gao",        function() require('snacks').picker.lsp_outgoing_calls() end,   desc = "Calls outgoing" },
-    { "<leader>E",  function() require('snacks').explorer.open() end },
+    { "<leader>gi", function() require('snacks').picker.gh_issue() end,             desc = "GitHub Issues (open)" },
+    { "<leader>gP", function() require('snacks').picker.gh_pr() end,                desc = "GitHub Pull Requests (open)" },
+    -- { "<leader>E",  function() require('snacks').explorer.open() end },
     { "<leader>tt", function() require('snacks').terminal.toggle() end,             desc = "Toggle terminal" },
     { "<leader>tl", function() require('snacks').terminal.toggle('lazygit') end,    desc = "Toggle lazygit" },
     { "<leader>tc", function() require('snacks').terminal.toggle('codex') end,      desc = "Toggle codex" },
@@ -56,22 +58,13 @@ return {
   -- end,
   opts = {
     bigfile = { enabled = true },
-    explorer = {
-      replace_netrw = false, -- Replace netrw with the snacks explorer
-    },
+    -- explorer = {
+    --   replace_netrw = false, -- Replace netrw with the snacks explorer
+    -- },
 
     dashboard = {
       width = 40,
       sections = function()
-        --           local header = [[
-        --       ████ ██████           █████      ██
-        --      ███████████             █████ 
-        --      █████████ ███████████████████ ███   ███████████
-        --     █████████  ███    █████████████ █████ ██████████████
-        --    █████████ ██████████ █████████ █████ █████ ████ █████
-        --  ███████████ ███    ███ █████████ █████ █████ ████ █████
-        -- ██████  █████████████████████ ████ █████ █████ ████ ██████
-        -- ]]
         local header = [[
    .-'''-.    ____     __ ,---.   .--.,---.  ,---..-./`) ,---.    ,---.
   / _     \   \   \   /  /|    \  |  ||   /  |   |\ .-.')|    \  /    |
@@ -101,21 +94,31 @@ return {
             title = "Actions",
             indent = 2,
             padding = 1,
-            { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+            { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('smart')" },
             { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
             { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})", },
             -- { icon = " ", key = "e", desc = "Explore", action = ":lua require('oil').toggle_float(nil ,{ preview = {} })" },
+            { icon = "󱎸", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('grep')" },
             { icon = " ", key = "e", desc = "Explore", action = ":lua require('mini.files').open()" },
             { icon = "󰒲 ", key = "l", desc = "Plugins", action = ":ZShow" },
             { icon = " ", key = "s", desc = "Restore Session", section = "session" },
             { icon = " ", key = "q", desc = "Quit", action = ":qa" }
           },
-          { title = "Recent Projects", section = "projects",     indent = 2,                                                            padding = 1 },
-          { title = "Recent Files",    section = "recent_files", indent = 2,                                                            padding = 2 },
-          { align = "center",          padding = 1,              function() return require("synvim.core.startup")
-            .dashboard_item() end, },
+          { title = "Recent Files",    section = "recent_files", indent = 2, padding = 2 },
+          {
+            align = "center",
+            padding = 1,
+            function()
+              return require("synvim.core.startup")
+                  .dashboard_item()
+            end,
+          },
+          { title = "Recent Projects", section = "projects",     indent = 2, padding = 1 },
         }
       end,
+    },
+    gh = {
+      enabled = true,
     },
     -- explorer = { enabled = true },
     indent = {
@@ -161,7 +164,7 @@ return {
             box = "vertical",
             title = "{title}",
             title_pos = "center",
-            { win = "list",    border = "none" },
+            { win = "list",    border = "rounded" },
             { win = "input",   height = 1,          border = "rounded" },
             { win = "preview", title = "{preview}", height = 0.4,      border = "top" },
           },

@@ -1,6 +1,6 @@
 return {
   'sairyy/zshow.nvim',
-  lazy = false, -- no need for lazy loading
+  cmd = "ZShow",
   init = function()
     vim.g.zshow_opts = {
       width = 0.8,  -- window width as a % of neovim's width

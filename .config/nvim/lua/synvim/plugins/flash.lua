@@ -1,25 +1,29 @@
 -- SynVim Flash Plugin
 -- Enhanced navigation - jump anywhere with 2 keystrokes
-
 return {
   "folke/flash.nvim",
-  enabled = false,
-  event = { "BufReadPost", "BufNewFile" },
+  ---@type Flash.Config
   opts = {
-    modes = {
-      search = {
-        enabled = true, -- Enhanced search
-        multi_window = true,
-        mode = "search",
-        incremental = true,
-      },
-      char = {
-        enabled = false, -- Enhanced f/F/t/T
-        jump_labels = false,
+    multi_window = false,
+    mode = "fuzzy",
+    incremental = true,
+    nohlsearch = true,
+    style = "inline", ---@type "eol" | "overlay" | "right_align" | "inline"
+    highlight = {
+      -- show a backdrop with hl FlashBackdrop
+      backdrop = true,
+      -- Highlight the search matches
+      matches = true,
+      -- extmark priority
+      priority = 5000,
+      groups = {
+        match = "FlashMatch",
+        current = "FlashCurrent",
+        backdrop = "FlashBackdrop",
+        label = "FlashLabel",
       },
     },
   },
-
   keys = {
     { "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
     { "S",     mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },

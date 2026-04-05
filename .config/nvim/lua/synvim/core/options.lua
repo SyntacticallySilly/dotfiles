@@ -57,49 +57,4 @@ vim.opt.list = false
 vim.opt.fillchars = { eob = ' ', fold = '*', foldopen = '-', foldclose = '+', foldsep = ' ' }
 vim.opt.pumheight = 8 -- Limit completion menu height
 vim.opt.pumblend = 60
-vim.diagnostic.config({
-  virtual_text = {
-    spacing = 4,
-    severity = vim.diagnostic.severity,
-    prefix = function(x)
-      return ({ " ", " ", " ", " " })[x.severity]
-    end,
-  },
-  signs = {
-    text = {
-      [vim.diagnostic.severity.ERROR] = " ",
-      [vim.diagnostic.severity.WARN]  = " ",
-      [vim.diagnostic.severity.HINT]  = " ",
-      [vim.diagnostic.severity.INFO]  = " ",
-    },
-    texthl = {
-      [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
-      [vim.diagnostic.severity.WARN]  = "DiagnosticSignWarn",
-      [vim.diagnostic.severity.INFO]  = "DiagnosticSignInfo",
-      [vim.diagnostic.severity.HINT]  = "DiagnosticSignHint",
-    },
-    numhl = {
-      [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
-      [vim.diagnostic.severity.WARN]  = "DiagnosticSignWarn",
-      [vim.diagnostic.severity.INFO]  = "DiagnosticSignInfo",
-      [vim.diagnostic.severity.HINT]  = "DiagnosticSignHint",
-    },
-    linehl = {
-      [vim.diagnostic.severity.ERROR] = "DiagnosticLineError",
-    }
-  },
-  underline = false,
-  update_in_insert = false,
-  severity_sort = true,
-  float = {
-    border = "rounded",
-    severity_sort = true,
-    header = { " Diagnostics", 'DiagnosticSignWarn' }
-  },
-})
 
-vim.lsp.buf.hover({
-  title = 'Documentation',
-  title_pos = 'center',
-  relative = 'editor',
-})

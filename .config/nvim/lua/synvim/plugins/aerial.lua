@@ -98,7 +98,7 @@ return {
     -- },
 
     -- Highlight settings
-    highlight_mode = "split_width", -- "split_width", "full_width", "last", "none"
+    highlight_mode = "split_width", -- "split_width", "full_width", "last", "rounded"
     highlight_closest = true,
     highlight_on_hover = true,
     highlight_on_jump = 300, -- ms
