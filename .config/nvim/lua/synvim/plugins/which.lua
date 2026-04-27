@@ -3,8 +3,6 @@
 
 return {
   "folke/which-key.nvim",
-  keys = { '<leader>', nil },
-
   opts = {
     preset = "helix",
     delay = 300,

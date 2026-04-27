@@ -1,8 +1,8 @@
 -- restore cursor to file position in previous editing session
-local restore_cursor_group = vim.api.nvim_create_augroup("RestoreCursor", { clear = true })
+vim.api.nvim_create_augroup("SynVim", { clear = true })
 
 vim.api.nvim_create_autocmd("BufReadPost", {
-  group = restore_cursor_group,
+  group = "SynVim",
   callback = function(args)
     local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
     local line_count = vim.api.nvim_buf_line_count(args.buf)
@@ -17,6 +17,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+  group = "SynVim",
   pattern = "markdown",
   callback = function()
     vim.opt_local.conceallevel = 1
@@ -25,9 +26,17 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-local render_markdown_group = vim.api.nvim_create_augroup("RenderMarkdownInsertToggle", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "help",
+  group = "SynVim",
+  callback = function()
+    vim.keymap.set('n', 'q', '<cmd>quit<cr>')
+    vim.opt_local.rnu = true
+  end,
+})
+
 vim.api.nvim_create_autocmd("InsertEnter", {
-  group = render_markdown_group,
+  group = "SynVim",
   callback = function(args)
     if vim.bo[args.buf].filetype ~= "markdown" then
       return
@@ -37,7 +46,7 @@ vim.api.nvim_create_autocmd("InsertEnter", {
 })
 
 vim.api.nvim_create_autocmd("InsertLeave", {
-  group = render_markdown_group,
+  group = "SynVim",
   callback = function(args)
     if vim.bo[args.buf].filetype ~= "markdown" then
       return
@@ -46,15 +55,9 @@ vim.api.nvim_create_autocmd("InsertLeave", {
   end,
 })
 
--- vim.api.nvim_create_autocmd("VimResized", {
---   callback = function()
---     local current_tab = vim.fn.tabpagenr()
---     vim.cmd("tabdo wincmd =")
---     vim.cmd("tabnext " .. current_tab)
---   end,
--- })
 
 -- vim.api.nvim_create_autocmd("BufWritePre", {
+  -- group = render_markdown_group,
 --   callback = function(event)
 --     if event.match:match("^%w%w+:[\\/][\\/]") then return end
 --     ---@diagnostic disable-next-line : undefined-field
@@ -64,6 +67,7 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 -- })
 
 vim.api.nvim_create_autocmd("FileType", {
+  group = "SynVim",
   pattern = { "gitcommit", "text" },
   callback = function()
     vim.opt_local.wrap = true
@@ -71,21 +75,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 
--- vim.api.nvim_create_autocmd("BufWritePre", {
---   group = vim.api.nvim_create_augroup("AutoFormat", { clear = true }),
---   pattern = "*",
---   callback = function()
---     local bufnr = vim.api.nvim_get_current_buf()
---     local clients = vim.lsp.get_clients({ bufnr = bufnr })
---     if #clients > 0 then
---       vim.lsp.buf.format({ bufnr = bufnr, async = true })
---     else
---       vim.cmd("normal! gg=G")
---     end
---   end,
--- })
-
 vim.api.nvim_create_autocmd('User', {
+  group = "SynVim",
   pattern = 'MiniFilesBufferUpdate',
   callback = function(args)
     local lines = vim.api.nvim_buf_get_lines(args.data.buf_id, 0, -1, false)
@@ -100,6 +91,7 @@ vim.api.nvim_create_autocmd('User', {
 ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
 -- local progress = vim.defaulttable()
 -- vim.api.nvim_create_autocmd("LspProgress", {
+  -- group = "SynVim",
 --   ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
 --   callback = function(ev)
 --     local client = vim.lsp.get_client_by_id(ev.data.client_id)
@@ -143,66 +135,6 @@ vim.api.nvim_create_autocmd('User', {
 --     })
 --   end,
 -- })
--- local augroup = vim.api.nvim_create_augroup("FloatingHelp", { clear = true })
---
--- --- Open a buffer in a centered floating window.
--- ---@param buf integer
--- local function open_float(buf)
---   local width                = math.floor(vim.o.columns * 0.8)
---   local height               = math.floor(vim.o.lines * 0.8)
---
---   local win                  = vim.api.nvim_open_win(buf, true, {
---     relative  = "editor",
---     width     = width,
---     height    = height,
---     row       = math.floor((vim.o.lines - height) / 2 - 1),
---     col       = math.floor((vim.o.columns - width) / 2),
---     border    = "rounded",
---     title     = " Help ",
---     title_pos = "center",
---   })
---
---   -- Clean up visuals inside the float
---   vim.wo[win].number         = false
---   vim.wo[win].relativenumber = false
---   vim.wo[win].signcolumn     = "no"
---   vim.wo[win].statuscolumn   = ""
---   vim.wo[win].wrap           = false
---   vim.wo[win].linebreak      = false
--- end
---
--- vim.api.nvim_create_autocmd("BufWinEnter", {
---   group    = augroup,
---   desc     = "Open every help buffer in a floating window",
---   callback = function(args)
---     local buf = args.buf
---
---     -- Only act on help buffers
---     if vim.bo[buf].buftype ~= "help" then
---       return
---     end
---
---     local win = vim.api.nvim_get_current_win()
---     local cfg = vim.api.nvim_win_get_config(win)
---
---     -- If it's already floating, leave it alone
---     -- (e.g. following a tag inside the float)
---     if cfg.relative ~= "" then
---       return
---     end
---
---     -- Safety: don't close the last window
---     if #vim.api.nvim_list_wins() < 2 then
---       return
---     end
---
---     -- Close the auto-created split; the buffer stays loaded
---     vim.api.nvim_win_close(win, false)
---
---     -- Re-open the same buffer in a centered float
---     open_float(buf)
---   end,
--- })
 -- vim.api.nvim_create_autocmd("FileType", {
 --   pattern = 'oil',
 --   callback = function(args)
@@ -216,21 +148,12 @@ vim.api.nvim_create_autocmd('User', {
 --     end, 100)
 --   end
 -- })
+
 vim.api.nvim_create_autocmd("User", {
+  group = "SynVim",
   pattern = "MiniFilesActionRename",
   callback = function(event)
     require('snacks').rename.on_rename_file(event.data.from, event.data.to)
   end,
 })
 
--- vim.api.nvim_create_autocmd("User", {
---   pattern = "InsertEnter",
---   callback = function(x)
---   end
--- })
--- vim.api.nvim_create_autocmd("User", {
---   pattern = "InsertLeave",
---   callback = function(x)
---
---   end
--- })

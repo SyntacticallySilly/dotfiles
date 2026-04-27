@@ -2,10 +2,11 @@
 return {
   "rose-pine/neovim",
   name = "rose-pine",
-  -- lazy = false,
-  -- priority = 1000,
+  lazy = false,
+  priority = 1000,
 
-  opts = {
+  config = function()
+  require('rose-pine').setup({
     variant = "main",
     dark_variant = "main",
     enable = {
@@ -140,10 +141,13 @@ return {
       TablineNC = { bg = 'none', fg = 'subtle' },
       RenderMarkdownCode = { bg = 'none' },
     }
-  },
+  })
 
-  config = function(_, opts)
-    require("rose-pine").setup(opts)
-    vim.cmd("colorscheme rose-pine-main")
-  end,
+  vim.cmd('colorscheme rose-pine-main')
+end
+
+  -- config = function(_, opts)
+    -- require("rose-pine").setup(opts)
+    -- vim.cmd("colorscheme rose-pine-main")
+  -- end,
 }

@@ -68,66 +68,66 @@ local function make_capabilities()
   return capabilities
 end
 
-local function is_large_buffer(bufnr)
-  if vim.api.nvim_buf_line_count(bufnr) > 10000 then
-    return true
-  end
+-- local function is_large_buffer(bufnr)
+--   if vim.api.nvim_buf_line_count(bufnr) > 10000 then
+--     return true
+--   end
+--
+--   local name = vim.api.nvim_buf_get_name(bufnr)
+--   if name == "" then
+--     return false
+--   end
+--
+--   local stat = vim.uv.fs_stat(name)
+--   return stat and stat.size > 512 * 1024 or false
+-- end
+--
+-- local function attach_document_highlight(client, bufnr)
+--   if not client:supports_method("textDocument/documentHighlight") then
+--     return
+--   end
+--
+--   local group = vim.api.nvim_create_augroup(("SynvimLspDocumentHighlight%d"):format(bufnr), { clear = true })
+--
+--   vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+--     group = group,
+--     buffer = bufnr,
+--     callback = vim.lsp.buf.document_highlight,
+--   })
+--
+--   vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI", "LspDetach" }, {
+--     group = group,
+--     buffer = bufnr,
+--     callback = function(event)
+--       vim.lsp.buf.clear_references()
+--
+--       if event.event == "LspDetach" then
+--         vim.api.nvim_clear_autocmds({ group = group, buffer = bufnr })
+--       end
+--     end,
+--   })
+-- end
 
-  local name = vim.api.nvim_buf_get_name(bufnr)
-  if name == "" then
-    return false
-  end
+-- local function attach_navic(client, bufnr)
+--   if not client:supports_method("textDocument/documentSymbol") then
+--     return
+--   end
+--
+--   local ok, navic = pcall(require, "nvim-navic")
+--   if ok and type(navic.attach) == "function" then
+--     pcall(navic.attach, client, bufnr)
+--   end
+-- end
 
-  local stat = vim.uv.fs_stat(name)
-  return stat and stat.size > 512 * 1024 or false
-end
-
-local function attach_document_highlight(client, bufnr)
-  if not client:supports_method("textDocument/documentHighlight") then
-    return
-  end
-
-  local group = vim.api.nvim_create_augroup(("SynvimLspDocumentHighlight%d"):format(bufnr), { clear = true })
-
-  vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-    group = group,
-    buffer = bufnr,
-    callback = vim.lsp.buf.document_highlight,
-  })
-
-  vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI", "LspDetach" }, {
-    group = group,
-    buffer = bufnr,
-    callback = function(event)
-      vim.lsp.buf.clear_references()
-
-      if event.event == "LspDetach" then
-        vim.api.nvim_clear_autocmds({ group = group, buffer = bufnr })
-      end
-    end,
-  })
-end
-
-local function attach_navic(client, bufnr)
-  if not client:supports_method("textDocument/documentSymbol") then
-    return
-  end
-
-  local ok, navic = pcall(require, "nvim-navic")
-  if ok and type(navic.attach) == "function" then
-    pcall(navic.attach, client, bufnr)
-  end
-end
-
-local function on_attach(client, bufnr)
-  if is_large_buffer(bufnr) and client.server_capabilities.semanticTokensProvider then
-    pcall(vim.lsp.semantic_tokens.enable, false, { bufnr = bufnr })
-  else
-    attach_document_highlight(client, bufnr)
-  end
-
-  attach_navic(client, bufnr)
-end
+-- local function on_attach(client, bufnr)
+--   if is_large_buffer(bufnr) and client.server_capabilities.semanticTokensProvider then
+--     pcall(vim.lsp.semantic_tokens.enable, false, { bufnr = bufnr })
+--   else
+--     attach_document_highlight(client, bufnr)
+--   end
+--
+--   attach_navic(client, bufnr)
+-- end
 
 local function bordered_handler(handler, opts)
   return function(err, result, ctx, config)
@@ -165,6 +165,15 @@ vim.diagnostic.config({
   underline = true,
   update_in_insert = false,
   severity_sort = true,
+  float = {
+    border = "rounded",
+    focusable = false,
+    ---@diagnostic disable-next-line
+    header = false,
+    severity_sort = true,
+    scope = "cursor",
+    source = "if_many",
+  }
 })
 
 vim.lsp.handlers["textDocument/hover"] = bordered_handler(vim.lsp.handlers.hover, {
@@ -181,29 +190,6 @@ vim.lsp.handlers["textDocument/signatureHelp"] = bordered_handler(vim.lsp.handle
   max_width = 100,
 })
 
-vim.api.nvim_create_autocmd("CursorHold", {
-  group = lsp_group,
-  callback = function(args)
-    if vim.api.nvim_get_mode().mode ~= "n" then
-      return
-    end
-
-    if #vim.lsp.get_clients({ bufnr = args.buf }) == 0 then
-      return
-    end
-
-    vim.diagnostic.open_float({
-      border = "rounded",
-      focusable = false,
-      ---@diagnostic disable-next-line
-      header = false,
-      severity_sort = true,
-      scope = "cursor",
-      source = "if_many",
-    })
-  end,
-})
-
 vim.lsp.config("*", {
   capabilities = make_capabilities(),
   detached = true,
@@ -212,7 +198,7 @@ vim.lsp.config("*", {
     allow_incremental_sync = true,
     debounce_text_changes = 150,
   },
-  on_attach = on_attach,
+  -- on_attach = on_attach,
 })
 
 local runtime_path = vim.env.VIMRUNTIME or vim.fn.expand("$VIMRUNTIME")
@@ -233,7 +219,7 @@ local servers = {
           callSnippet = "Replace",
         },
         diagnostics = {
-          globals = { "vim" },
+          globals = { "vim", "nvim", "Snacks" },
         },
         format = {
           enable = true,
@@ -255,9 +241,9 @@ local servers = {
           checkThirdParty = false,
           library = {
             runtime_path,
-            config_lua_path,
+            -- config_lua_path,
           },
-          maxPreload = 2000,
+          maxPreload = 300,
           preloadFileSize = 300,
         },
       },

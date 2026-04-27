@@ -1,141 +1,150 @@
 return {
-  "nvim-mini/mini.nvim",
-  lazy = false,
-  config = function()
-    -- mini.files - q file ezplorer
-    require("mini.files").setup({
-      mappings = {
-        go_in       = "l",
-        go_out      = "h",
-        open_file   = "<CR>", -- Enter
-        open_split  = "-",    -- Horizontal split
-        open_vsplit = "|",    -- Vertical split
-        remove      = "d",
-        delete      = "x",
-        move        = "m",
-        rename      = "c",
-        copy        = "y",
-        clear_dir   = "C",
-        show_help   = "?",
-        close       = "q", -- Or Esc
-      },
-      windows = {
-        preview = true, -- Enable live preview (fits your UI aesthetic prefs)
-        max_number = 3,
-        width_focus = 20,
-        width_preview = 35,
-        width_nofocus = 10,
-      },
-      options = {
-        permanent_delete = true,
-        use_as_default_explorer = true,
-      }
-    })
+	"nvim-mini/mini.nvim",
+	lazy = false,
+	config = function()
+		-- mini.files - q file ezplorer
+		require("mini.files").setup({
+			mappings = {
+				go_in = "l",
+				go_out = "h",
+				open_file = "<CR>", -- Enter
+				open_split = "-", -- Horizontal split
+				open_vsplit = "|", -- Vertical split
+				remove = "d",
+				synchronise = "s",
+				delete = "x",
+				move = "m",
+				rename = "c",
+				copy = "y",
+				clear_dir = "C",
+				show_help = "?",
+				close = "q", -- Or Esc
+			},
+			windows = {
+				preview = true, -- Enable live preview (fits your UI aesthetic prefs)
+				max_number = 3,
+				width_focus = 20,
+				width_preview = 35,
+				width_nofocus = 10,
+			},
+			options = {
+				permanent_delete = true,
+				use_as_default_explorer = true,
+			},
+		})
 
-    -- Mini.ai - Enhanced text objects
-    require("mini.ai").setup({
-      mappings = {
-        around = "a",
-        inside = "i",
-        around_next = "gan",
-        inside_next = "gin",
-        around_last = "gal",
-        inside_last = "gil",
-        goto_left = "[g",
-        goto_right = "]g",
-      },
-      n_lines = 500,
-      search_method = "cover_or_next",
-      custom_textobjects = nil,
-    })
+		-- Mini.ai - Enhanced text objects
+		require("mini.ai").setup({
+			mappings = {
+				around = "a",
+				inside = "i",
+				around_next = "gan",
+				inside_next = "gin",
+				around_last = "gal",
+				inside_last = "gil",
+				goto_left = "[g",
+				goto_right = "]g",
+			},
+			n_lines = 500,
+			search_method = "cover_or_next",
+			custom_textobjects = nil,
+		})
 
-    -- Mini.bracketed - Bracket navigation
-    require("mini.bracketed").setup({
-      buffer     = { suffix = "b", options = {} },
-      comment    = { suffix = "c", options = {} },
-      conflict   = { suffix = "x", options = {} },
-      diagnostic = { suffix = "d", options = {} },
-      file       = { suffix = "f", options = {} },
-      indent     = { suffix = "i", options = {} },
-      jump       = { suffix = "j", options = {} },
-      location   = { suffix = "l", options = {} },
-      oldfile    = { suffix = "o", options = {} },
-      quickfix   = { suffix = "q", options = {} },
-      treesitter = { suffix = "t", options = {} },
-      undo       = { suffix = "u", options = {} },
-      window     = { suffix = "w", options = {} },
-      yank       = { suffix = "y", options = {} },
-    })
+		-- Mini.bracketed - Bracket navigation
+		require("mini.bracketed").setup({
+			buffer = { suffix = "b", options = {} },
+			comment = { suffix = "c", options = {} },
+			conflict = { suffix = "x", options = {} },
+			diagnostic = { suffix = "d", options = {} },
+			file = { suffix = "f", options = {} },
+			indent = { suffix = "i", options = {} },
+			jump = { suffix = "j", options = {} },
+			location = { suffix = "l", options = {} },
+			oldfile = { suffix = "o", options = {} },
+			quickfix = { suffix = "q", options = {} },
+			treesitter = { suffix = "t", options = {} },
+			undo = { suffix = "u", options = {} },
+			window = { suffix = "w", options = {} },
+			yank = { suffix = "y", options = {} },
+		})
 
-    require("mini.sessions").setup({
-      autoread = true,
-      autowrite = true,
-    })
-    require('mini.diff').setup({
-      view = {
-        style = 'sign',
-        -- Signs used for hunks with 'sign' view
-        signs = { add = '│', change = '│', delete = '│' },
-      },
-    })
+		require("mini.sessions").setup({
+			autoread = true,
+			autowrite = true,
+		})
+		require("mini.diff").setup({
+			view = {
+				style = "sign",
+				-- Signs used for hunks with 'sign' view
+				signs = { add = "│", change = "│", delete = "│" },
+			},
+		})
 
-    -- Mini.surround - Replaces surround
-    require("mini.surround").setup({
-      mappings = {
-        add = "gsa",
-        delete = "gsd",
-        find = "gsf",
-        find_left = "gsF",
-        highlight = "gsh",
-        replace = "gsr",
-        update_n_lines = "gsn",
-      },
-    })
-    -- mini.files extra
-    -- Create hl namespace to highlight 'mini.files' target window
-    local highlight_ns = vim.api.nvim_create_namespace("highlight_minifiles_target")
-    vim.api.nvim_set_hl(highlight_ns, "Normal", { link = "MiniWindow" })
-    vim.api.nvim_set_hl(highlight_ns, "SignColumn", { link = "MiniWindow" })
+		-- Mini.surround - Replaces surround
+		require("mini.surround").setup({
+			mappings = {
+				add = "gsa",
+				delete = "gsd",
+				find = "gsf",
+				find_left = "gsF",
+				highlight = "gsh",
+				replace = "gsr",
+				update_n_lines = "gsn",
+			},
+		})
+		-- mini.files extra
+		-- Create hl namespace to highlight 'mini.files' target window
+		local highlight_ns = vim.api.nvim_create_namespace("highlight_minifiles_target")
+		vim.api.nvim_set_hl(highlight_ns, "Normal", { link = "MiniWindow" })
+		vim.api.nvim_set_hl(highlight_ns, "SignColumn", { link = "MiniWindow" })
 
-    local hl_target_win = function()
-      -- Only highlight a window if there is more than one possible target
-      local possible_targets = vim
-          .iter(vim.api.nvim_tabpage_list_wins(0))
-          :filter(function(w) return vim.api.nvim_win_get_config(w).relative == "" end)
-          :fold(0, function(acc, _) return acc + 1 end)
-      if possible_targets == 1 then return end
+		local hl_target_win = function()
+			-- Only highlight a window if there is more than one possible target
+			local possible_targets = vim.iter(vim.api.nvim_tabpage_list_wins(0))
+				:filter(function(w)
+					return vim.api.nvim_win_get_config(w).relative == ""
+				end)
+				:fold(0, function(acc, _)
+					return acc + 1
+				end)
+			if possible_targets == 1 then
+				return
+			end
 
-      -- Temporarily set a window hl namespace and setup restore after closing explorer
-      local target_win_id = require("mini.files").get_explorer_state().target_window
-      local orig_hl_ns = vim.api.nvim_get_hl_ns({ winid = target_win_id })
-      local restore = function() vim.api.nvim_win_set_hl_ns(target_win_id, orig_hl_ns ~= -1 and orig_hl_ns or 0) end
-      vim.api.nvim_win_set_hl_ns(target_win_id, highlight_ns)
-      vim.api.nvim_create_autocmd("User", { once = true, pattern = "MiniFilesExplorerClose", callback = restore })
-    end
+			-- Temporarily set a window hl namespace and setup restore after closing explorer
+			local target_win_id = require("mini.files").get_explorer_state().target_window
+			local orig_hl_ns = vim.api.nvim_get_hl_ns({ winid = target_win_id })
+			local restore = function()
+				vim.api.nvim_win_set_hl_ns(target_win_id, orig_hl_ns ~= -1 and orig_hl_ns or 0)
+			end
+			vim.api.nvim_win_set_hl_ns(target_win_id, highlight_ns)
+			vim.api.nvim_create_autocmd("User", { once = true, pattern = "MiniFilesExplorerClose", callback = restore })
+		end
 
-    local au_opts = { pattern = "MiniFilesExplorerOpen", callback = hl_target_win, desc = "Highlight target window" }
-    vim.api.nvim_create_autocmd("User", au_opts)
+		local au_opts =
+			{ pattern = "MiniFilesExplorerOpen", callback = hl_target_win, desc = "Highlight target window" }
+		vim.api.nvim_create_autocmd("User", au_opts)
 
-    local nsMiniFiles = vim.api.nvim_create_namespace("mini_files_git")
-    local autocmd = vim.api.nvim_create_autocmd
-    local _, MiniFiles = pcall(require, "mini.files")
+		local nsMiniFiles = vim.api.nvim_create_namespace("mini_files_git")
+		local autocmd = vim.api.nvim_create_autocmd
+		local _, MiniFiles = pcall(require, "mini.files")
 
-    -- Cache for git status
-    local gitStatusCache = {}
-    local cacheTimeout = 2000 -- in milliseconds
-    local uv = vim.uv or vim.loop
+		-- Cache for git status
+		local gitStatusCache = {}
+		local cacheTimeout = 2000 -- in milliseconds
+		local uv = vim.uv or vim.loop
 
-    local function isSymlink(path)
-      ---@diagnostic disable-next-line : undefined-field
-      local stat = uv.fs_lstat(path)
-      return stat and stat.type == "link"
-    end
+		local function isSymlink(path)
+			---@diagnostic disable-next-line : undefined-field
+			local stat = uv.fs_lstat(path)
+			return stat and stat.type == "link"
+		end
 
-    ---@type table<string, {symbol: string, hlGroup: string}>
-    ---@param status string
-    ---@return string symbol, string hlGroup
-    local function mapSymbols(status, is_symlink)
-      local statusMap = {
+		---@type table<string, {symbol: string, hlGroup: string}>
+		---@param status string
+		---@return string symbol, string hlGroup
+		local function mapSymbols(status, is_symlink)
+			local statusMap = {
         -- stylua: ignore start
         [" M"] = { symbol = "•", hlGroup = "MiniDiffSignChange" }, -- Modified in the working directory
         ["M "] = { symbol = "✹", hlGroup = "MiniDiffSignChange" }, -- modified in index
@@ -151,217 +160,202 @@ return {
         ["UA"] = { symbol = "⊕", hlGroup = "MiniDiffSignAdd" }, -- file is unmerged and added in working tree
         ["??"] = { symbol = "?", hlGroup = "MiniDiffSignDelete" }, -- Untracked files
         ["!!"] = { symbol = "!", hlGroup = "MiniDiffSignChange" }, -- Ignored files
-        -- stylua: ignore end
-      }
+				-- stylua: ignore end
+			}
 
-      local result = statusMap[status] or { symbol = "?", hlGroup = "NonText" }
-      local gitSymbol = result.symbol
-      local gitHlGroup = result.hlGroup
+			local result = statusMap[status] or { symbol = "?", hlGroup = "NonText" }
+			local gitSymbol = result.symbol
+			local gitHlGroup = result.hlGroup
 
-      local symlinkSymbol = is_symlink and "↩" or ""
+			local symlinkSymbol = is_symlink and "↩" or ""
 
-      -- Combine symlink symbol with Git status if both exist
-      local combinedSymbol = (symlinkSymbol .. gitSymbol)
-          :gsub("^%s+", "")
-          :gsub("%s+$", "")
-      -- Change the color of the symlink icon from "MiniDiffSignDelete" to something else
-      local combinedHlGroup = is_symlink and "MiniDiffSignDelete" or gitHlGroup
+			-- Combine symlink symbol with Git status if both exist
+			local combinedSymbol = (symlinkSymbol .. gitSymbol):gsub("^%s+", ""):gsub("%s+$", "")
+			-- Change the color of the symlink icon from "MiniDiffSignDelete" to something else
+			local combinedHlGroup = is_symlink and "MiniDiffSignDelete" or gitHlGroup
 
-      return combinedSymbol, combinedHlGroup
-    end
+			return combinedSymbol, combinedHlGroup
+		end
 
-    ---@param cwd string
-    ---@param callback function
-    ---@return nil
-    local function fetchGitStatus(cwd, callback)
-      local clean_cwd = cwd:gsub("^minifiles://%d+/", "")
-      ---@param content table
-      local function on_exit(content)
-        if content.code == 0 then
-          callback(content.stdout)
-          -- vim.g.content = content.stdout
-        end
-      end
-      ---@see vim.system
-      vim.system(
-        { "git", "status", "--ignored", "--porcelain" },
-        { text = true, cwd = clean_cwd },
-        on_exit
-      )
-    end
+		---@param cwd string
+		---@param callback function
+		---@return nil
+		local function fetchGitStatus(cwd, callback)
+			local clean_cwd = cwd:gsub("^minifiles://%d+/", "")
+			---@param content table
+			local function on_exit(content)
+				if content.code == 0 then
+					callback(content.stdout)
+					-- vim.g.content = content.stdout
+				end
+			end
+			---@see vim.system
+			vim.system({ "git", "status", "--ignored", "--porcelain" }, { text = true, cwd = clean_cwd }, on_exit)
+		end
 
-    ---@param buf_id integer
-    ---@param gitStatusMap table
-    ---@return nil
-    local function updateMiniWithGit(buf_id, gitStatusMap)
-      vim.schedule(function()
-        local nlines = vim.api.nvim_buf_line_count(buf_id)
-        local cwd = vim.fs.root(buf_id, ".git")
-        local escapedcwd = cwd and vim.pesc(cwd)
-        ---@diagnostic disable-next-line : param-type-mismatch
-        escapedcwd = vim.fs.normalize(escapedcwd)
+		---@param buf_id integer
+		---@param gitStatusMap table
+		---@return nil
+		local function updateMiniWithGit(buf_id, gitStatusMap)
+			vim.schedule(function()
+				local nlines = vim.api.nvim_buf_line_count(buf_id)
+				local cwd = vim.fs.root(buf_id, ".git")
+				local escapedcwd = cwd and vim.pesc(cwd)
+				---@diagnostic disable-next-line : param-type-mismatch
+				escapedcwd = vim.fs.normalize(escapedcwd)
 
-        for i = 1, nlines do
-          local entry = MiniFiles.get_fs_entry(buf_id, i)
-          if not entry then
-            break
-          end
-          local relativePath = entry.path:gsub("^" .. escapedcwd .. "/", "")
-          local status = gitStatusMap[relativePath]
+				for i = 1, nlines do
+					local entry = MiniFiles.get_fs_entry(buf_id, i)
+					if not entry then
+						break
+					end
+					local relativePath = entry.path:gsub("^" .. escapedcwd .. "/", "")
+					local status = gitStatusMap[relativePath]
 
-          if status then
-            local symbol, hlGroup = mapSymbols(status, isSymlink(entry.path))
-            vim.api.nvim_buf_set_extmark(buf_id, nsMiniFiles, i - 1, 0, {
-              sign_text = symbol,
-              sign_hl_group = hlGroup,
-              priority = 2,
-            })
-            -- This below code is responsible for coloring the text of the items. comment it out if you don't want that
-            local line = vim.api.nvim_buf_get_lines(buf_id, i - 1, i, false)[1]
-            -- Find the name position accounting for potential icons
-            local nameStartCol = line:find(vim.pesc(entry.name)) or 0
+					if status then
+						local symbol, hlGroup = mapSymbols(status, isSymlink(entry.path))
+						vim.api.nvim_buf_set_extmark(buf_id, nsMiniFiles, i - 1, 0, {
+							sign_text = symbol,
+							sign_hl_group = hlGroup,
+							priority = 2,
+						})
+						-- This below code is responsible for coloring the text of the items. comment it out if you don't want that
+						local line = vim.api.nvim_buf_get_lines(buf_id, i - 1, i, false)[1]
+						-- Find the name position accounting for potential icons
+						local nameStartCol = line:find(vim.pesc(entry.name)) or 0
 
-            if nameStartCol > 0 then
-              vim.api.nvim_buf_set_extmark(
-                buf_id,
-                nsMiniFiles,
-                i - 1,
-                nameStartCol - 1,
-                {
-                  end_col = nameStartCol + #entry.name - 1,
-                  hl_group = hlGroup,
-                }
-              )
-            end
-          else
-          end
-        end
-      end)
-    end
+						if nameStartCol > 0 then
+							vim.api.nvim_buf_set_extmark(buf_id, nsMiniFiles, i - 1, nameStartCol - 1, {
+								end_col = nameStartCol + #entry.name - 1,
+								hl_group = hlGroup,
+							})
+						end
+					else
+					end
+				end
+			end)
+		end
 
-    -- Thanks for the idea of gettings https://github.com/refractalize/oil-git-status.nvim signs for dirs
-    ---@param content string
-    ---@return table
-    local function parseGitStatus(content)
-      local gitStatusMap = {}
-      -- lua match is faster than vim.split (in my experience )
-      for line in content:gmatch("[^\r\n]+") do
-        local status, filePath = string.match(line, "^(..)%s+(.*)")
-        -- Split the file path into parts
-        local parts = {}
-        for part in filePath:gmatch("[^/]+") do
-          table.insert(parts, part)
-        end
-        -- Start with the root directory
-        local currentKey = ""
-        for i, part in ipairs(parts) do
-          if i > 1 then
-            -- Concatenate parts with a separator to create a unique key
-            currentKey = currentKey .. "/" .. part
-          else
-            currentKey = part
-          end
-          -- If it's the last part, it's a file, so add it with its status
-          if i == #parts then
-            gitStatusMap[currentKey] = status
-          else
-            -- If it's not the last part, it's a directory. Check if it exists, if not, add it.
-            if not gitStatusMap[currentKey] then
-              gitStatusMap[currentKey] = status
-            end
-          end
-        end
-      end
-      return gitStatusMap
-    end
+		-- Thanks for the idea of gettings https://github.com/refractalize/oil-git-status.nvim signs for dirs
+		---@param content string
+		---@return table
+		local function parseGitStatus(content)
+			local gitStatusMap = {}
+			-- lua match is faster than vim.split (in my experience )
+			for line in content:gmatch("[^\r\n]+") do
+				local status, filePath = string.match(line, "^(..)%s+(.*)")
+				-- Split the file path into parts
+				local parts = {}
+				for part in filePath:gmatch("[^/]+") do
+					table.insert(parts, part)
+				end
+				-- Start with the root directory
+				local currentKey = ""
+				for i, part in ipairs(parts) do
+					if i > 1 then
+						-- Concatenate parts with a separator to create a unique key
+						currentKey = currentKey .. "/" .. part
+					else
+						currentKey = part
+					end
+					-- If it's the last part, it's a file, so add it with its status
+					if i == #parts then
+						gitStatusMap[currentKey] = status
+					else
+						-- If it's not the last part, it's a directory. Check if it exists, if not, add it.
+						if not gitStatusMap[currentKey] then
+							gitStatusMap[currentKey] = status
+						end
+					end
+				end
+			end
+			return gitStatusMap
+		end
 
-    ---@param buf_id integer
-    ---@return nil
-    local function updateGitStatus(buf_id)
-      if not vim.fs.root(buf_id, ".git") then
-        return
-      end
-      local cwd = vim.fs.root(buf_id, ".git")
-      -- local cwd = vim.fn.expand("%:p:h")
-      local currentTime = os.time()
+		---@param buf_id integer
+		---@return nil
+		local function updateGitStatus(buf_id)
+			if not vim.fs.root(buf_id, ".git") then
+				return
+			end
+			local cwd = vim.fs.root(buf_id, ".git")
+			-- local cwd = vim.fn.expand("%:p:h")
+			local currentTime = os.time()
 
-      if
-          gitStatusCache[cwd]
-          and currentTime - gitStatusCache[cwd].time < cacheTimeout
-      then
-        updateMiniWithGit(buf_id, gitStatusCache[cwd].statusMap)
-      else
-        ---@diagnostic disable-next-line : param-type-mismatch
-        fetchGitStatus(cwd, function(content)
-          local gitStatusMap = parseGitStatus(content)
-          ---@diagnostic disable-next-line : need-check-nil
-          gitStatusCache[cwd] = {
-            time = currentTime,
-            statusMap = gitStatusMap,
-          }
-          updateMiniWithGit(buf_id, gitStatusMap)
-        end)
-      end
-    end
+			if gitStatusCache[cwd] and currentTime - gitStatusCache[cwd].time < cacheTimeout then
+				updateMiniWithGit(buf_id, gitStatusCache[cwd].statusMap)
+			else
+				---@diagnostic disable-next-line : param-type-mismatch
+				fetchGitStatus(cwd, function(content)
+					local gitStatusMap = parseGitStatus(content)
+					---@diagnostic disable-next-line : need-check-nil
+					gitStatusCache[cwd] = {
+						time = currentTime,
+						statusMap = gitStatusMap,
+					}
+					updateMiniWithGit(buf_id, gitStatusMap)
+				end)
+			end
+		end
 
-    ---@return nil
-    local function clearCache()
-      gitStatusCache = {}
-    end
+		---@return nil
+		local function clearCache()
+			gitStatusCache = {}
+		end
 
-    local function augroup(name)
-      return vim.api.nvim_create_augroup("MiniFiles_" .. name, { clear = true })
-    end
+		local function augroup(name)
+			return vim.api.nvim_create_augroup("MiniFiles_" .. name, { clear = true })
+		end
 
-    autocmd("User", {
-      group = augroup("start"),
-      pattern = "MiniFilesExplorerOpen",
-      callback = function()
-        local bufnr = vim.api.nvim_get_current_buf()
-        updateGitStatus(bufnr)
-      end,
-    })
+		autocmd("User", {
+			group = augroup("start"),
+			pattern = "MiniFilesExplorerOpen",
+			callback = function()
+				local bufnr = vim.api.nvim_get_current_buf()
+				updateGitStatus(bufnr)
+			end,
+		})
 
-    autocmd("User", {
-      group = augroup("close"),
-      pattern = "MiniFilesExplorerClose",
-      callback = function()
-        clearCache()
-      end,
-    })
+		autocmd("User", {
+			group = augroup("close"),
+			pattern = "MiniFilesExplorerClose",
+			callback = function()
+				clearCache()
+			end,
+		})
 
-    autocmd("User", {
-      group = augroup("update"),
-      pattern = "MiniFilesBufferUpdate",
-      callback = function(args)
-        local bufnr = args.data.buf_id
-        local cwd = vim.fs.root(bufnr, ".git")
-        if gitStatusCache[cwd] then
-          updateMiniWithGit(bufnr, gitStatusCache[cwd].statusMap)
-        end
-      end,
-    })
-    autocmd('User', {
-      pattern = 'MiniFilesActionRename',
-      callback = function(args)
-        local from = args.data.from
-        local to = args.data.to
-        -- Use workspace/willRenameFiles LSP request
-        local clients = vim.lsp.get_clients()
-        for _, client in ipairs(clients) do
-          ---@diagnostic disable-next-line : missing-parameter, param-type-mismatch
-          if client.supports_method('workspace/willRenameFiles') then
-            ---@diagnostic disable-next-line : param-type-mismatch
-            local resp = client.request_sync('workspace/willRenameFiles', {
-              files = { { oldUri = vim.uri_from_fname(from), newUri = vim.uri_from_fname(to) } },
-              ---@diagnostic disable-next-line : param-type-mismatch
-            }, 1000)
-            if resp and resp.result then
-              vim.lsp.util.apply_workspace_edit(resp.result, client.offset_encoding)
-            end
-          end
-        end
-      end,
-    })
-  end,
+		autocmd("User", {
+			group = augroup("update"),
+			pattern = "MiniFilesBufferUpdate",
+			callback = function(args)
+				local bufnr = args.data.buf_id
+				local cwd = vim.fs.root(bufnr, ".git")
+				if gitStatusCache[cwd] then
+					updateMiniWithGit(bufnr, gitStatusCache[cwd].statusMap)
+				end
+			end,
+		})
+		autocmd("User", {
+			pattern = "MiniFilesActionRename",
+			callback = function(args)
+				local from = args.data.from
+				local to = args.data.to
+				-- Use workspace/willRenameFiles LSP request
+				local clients = vim.lsp.get_clients()
+				for _, client in ipairs(clients) do
+					---@diagnostic disable-next-line : missing-parameter, param-type-mismatch
+					if client.supports_method("workspace/willRenameFiles") then
+						---@diagnostic disable-next-line : param-type-mismatch
+						local resp = client.request_sync("workspace/willRenameFiles", {
+							files = { { oldUri = vim.uri_from_fname(from), newUri = vim.uri_from_fname(to) } },
+							---@diagnostic disable-next-line : param-type-mismatch
+						}, 1000)
+						if resp and resp.result then
+							vim.lsp.util.apply_workspace_edit(resp.result, client.offset_encoding)
+						end
+					end
+				end
+			end,
+		})
+	end,
 }

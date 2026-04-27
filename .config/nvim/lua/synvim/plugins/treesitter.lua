@@ -3,6 +3,7 @@
 
 return {
   "nvim-treesitter/nvim-treesitter",
+  enabled = false,
   lazy = true,
   event = 'BufReadPre',
   build = ':TSUpdate',

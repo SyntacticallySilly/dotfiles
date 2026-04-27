@@ -6,6 +6,7 @@ return {
   dependencies = {
     "nvim-mini/mini.icons",
   },
+  lazy = false,
   config = function()
     local lualine = require("lualine")
     -- Mode icon map
