@@ -5,7 +5,7 @@ return {
 	dependencies = {
 		-- "moyiz/blink-emoji.nvim",
 		"rafamadriz/friendly-snippets",
-		"saghen/blink.lib",
+		-- "saghen/blink.lib",
 	},
 	version = "1.*",
 
@@ -122,7 +122,7 @@ return {
 			-- 'lua' Always use the Lua implementation, doesn't download any prebuilt binaries
 			--
 			-- See the prebuilt_binaries section for controlling the download behavior
-			implementation = "prefer_rust",
+			implementation = "lua",
 
 			-- Allows for a number of typos relative to the length of the query
 			-- Set this to 0 to match the behavior of fzf

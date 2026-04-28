@@ -2,6 +2,10 @@
 # ║  Startup Actions                                              ║
 # ║  Commands executed when interactive shell starts             ║
 # ╚══════════════════════════════════════════════════════════════╝
+# Auto start tmux
+if [ -z "$TMUX" ]; then
+    tmux attach -t main || tmux new -s main
+fi
 
 # ───────────────────────────────────────────────────────────────
 #  SSH Server Auto-Start

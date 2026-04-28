@@ -4,7 +4,6 @@
   "atone.nvim": { "branch": "main", "commit": "804e69c0be5d4e84e04d6c6c424353069eb14338" },
   "barbecue": { "branch": "main", "commit": "6e4a86355253348531887c7a76d2c7612e15e5d1" },
   "blink.cmp": { "branch": "main", "commit": "6f5538d0ac8a154a489036db4b8f0436a7a70771" },
-  "blink.lib": { "branch": "main", "commit": "dda2666685a5ac3598166577d2e34f1fff6b1637" },
   "catppuccin": { "branch": "main", "commit": "426dbebe06b5c69fd846ceb17b42e12f890aedf1" },
   "colortils.nvim": { "branch": "main", "commit": "948d4eddbd20c3e9eac79368dc50c7929d4fb823" },
   "conform.nvim": { "branch": "master", "commit": "dca1a190aa85f9065979ef35802fb77131911106" },
@@ -35,9 +34,9 @@
   "rose-pine": { "branch": "main", "commit": "9504524e5ed0e326534698f637f9d038ba4cd0ee" },
   "smear-cursor.nvim": { "branch": "main", "commit": "9e9378d6ee34bb3782e0e8c63d9ec8ca618b479b" },
   "snacks.nvim": { "branch": "main", "commit": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e" },
-  "tabout.nvim": { "branch": "master", "commit": "9a3499480a8e53dcaa665e2836f287e3b7764009" },
   "tiny-glimmer.nvim": { "branch": "main", "commit": "1f1f26d84882b6f216cbeba548f2359c2118a876" },
   "todo-comments.nvim": { "branch": "main", "commit": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668" },
+  "tree-sitter-manager.nvim": { "branch": "main", "commit": "33a94d022e3a5a500d878b784ba7fec61559c70a" },
   "trouble.nvim": { "branch": "main", "commit": "bd67efe408d4816e25e8491cc5ad4088e708a69a" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" }
 }
