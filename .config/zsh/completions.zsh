@@ -94,3 +94,5 @@ source ~/dotfiles/.config/zsh/comp/starship.zsh
 # source ~/dotfiles/.config/zsh/comp/nala.zsh
 source ~/dotfiles/.config/zsh/comp/typioca.zsh
 source ~/dotfiles/.config/zsh/comp/typer.zsh
+source ~/dotfiles/.config/zsh/comp/treesitter.zsh
+source ~/dotfiles/.config/zsh/comp/atuin.zsh

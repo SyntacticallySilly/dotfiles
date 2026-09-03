@@ -10,9 +10,11 @@
 alias y='yazi'
 # eza: Modern ls replacement with icons
 alias l='eza -aa --no-quotes --group-directories-first --icons=always --git-ignore --git'
-alias lsf='eza -a -f --icons=always --no-quotes --git-ignore --git --no-user'
+alias ls='eza -aa --no-quotes --group-directories-first --icons=auto  --follow-symlinks'
+alias sf='eza -a -f --icons=always --no-quotes --git-ignore --git --no-user'
 alias lsd='eza -a -DRTl --level 2 --icons=always --no-quotes --git-ignore --git --no-user'
 alias lsa='eza -a --icons=always --tree --level=3 --no-quotes --git-ignore --git --no-user'
+alias lsg="eza --git-repos"
 
 # ───────────────────────────────────────────────────────────────
 #  Navigation
@@ -67,11 +69,9 @@ alias ungz='tar -xvzf'
 # Termux-specific utilities
 alias debian="proot-distro login debian --user root --shared-tmp && termux-x11 :0 &"
 alias open='termux-open'             # Open any file in a external android app.
-# alias pkg='nala'                     #}
-# alias apt='nala'                     #}-- Replace legacy apt and pkg for a better frontend.
 alias acp="termux-clipboard-set <"   # Copy file to clipboard
 alias aps="termux-clipboard-get >"   # Paste clipboard to file
-alias sysup="nala update -y && nala upgrade -y && zinit update && zsh ~/dotfiles/update.sh && source ~/.zshrc && termux-reload-settings"
+alias sysup="apt update -y && apt upgrade -y && zinit update && zsh ~/dotfiles/update.sh"
 # ───────────────────────────────────────────────────────────────
 #  SSH Server Management
 # ───────────────────────────────────────────────────────────────
@@ -88,7 +88,7 @@ alias cd="z"
 alias grep="rg"
 alias cat='bat --style=plain'
 alias less='bat --paging=always'
-# alias ps='procs'
+alias ps='procs'
 alias du="dust"
 alias df="duf"
 
@@ -103,8 +103,8 @@ alias janitor='zsh ~/dotfiles/scripts/janitor.sh'
 # Theme cycler.
 alias themectl='zsh ~/dotfiles/scripts/theme-cycler.sh'
 
-# Shizuku remote shell
-alias rish='zsh ~/scripts/rish'
+# for rish
+alias rish="sh ~/bin/rish"
 
 alias help='glow ~/dotfiles/syndot.md'
 
@@ -112,7 +112,7 @@ alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
 # alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
 alias -s json=jless
-alias -s md=bat
+alias -s md='$EDITOR'
 alias -s go='$EDITOR'
 alias -s rs='$EDITOR'
 alias -s txt=bat

@@ -80,6 +80,7 @@ return {
 						-- symbols = { added = "+", modified = "!", removed = "-" },
 						symbols = { added = "", modified = "", removed = "" },
 					},
+					-- { "overseer" },
 				},
 				-- Right side: LSP, buffer count, time, filetype
 				lualine_x = {

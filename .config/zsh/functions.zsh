@@ -140,7 +140,7 @@ function pkr() {
   dpkg --get-selections | awk '{print $1}' | fzf --multi \
     --prompt="remove : " \
     --preview="nala show {}" \
-    --preview-window=right:60% | xargs -r nala remove -y
+    --preview-window=right:60% | xargs -r apt remove -y
   }
 
 function fga() {

@@ -1,6 +1,6 @@
 -- SynVim - Performance-Focused Neovim Config for Termux
 -- Main entry point
-vim.g.synvim_start_time = (vim.uv or vim.loop).hrtime()
+-- vim.g.synvim_start_time = (vim.uv or vim.loop).hrtime()
 
 -- Load core settings first (sets leader key and options)
 require("core.options")
@@ -13,4 +13,4 @@ require("core.lsp")
 require("core.highlights")
 require("scripts.lsp_hover").setup()
 require("scripts.undotree")
-require("scripts.range_highlight")
+require("scripts.lsp_idle").setup()

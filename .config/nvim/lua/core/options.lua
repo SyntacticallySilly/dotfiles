@@ -13,7 +13,7 @@ vim.opt.autoread = true
 vim.opt.autoindent = true
 vim.opt.copyindent = true
 vim.opt.autochdir = false
-vim.opt.foldenable = false
+-- vim.opt.foldenable = false
 vim.opt.softtabstop = 2
 vim.opt.winborder = "rounded"
 vim.opt.ssop = "buffers,help,localoptions,options"
@@ -39,25 +39,28 @@ vim.opt.splitbelow = true -- Split below
 vim.opt.splitright = true -- Split right
 vim.opt.cursorline = true -- Highlight current line
 vim.opt.termguicolors = true -- True color support
-vim.opt.scrolloff = 10 -- Keep 8 lines visible when scrolling
-vim.opt.sidescrolloff = 10 -- Keep 8 columns visible when scrolling
+vim.opt.scrolloff = 10
+vim.opt.sidescrolloff = 15
 vim.opt.updatetime = 500 -- Faster update time (better performance)
 vim.opt.timeoutlen = 250 -- Timeout for key sequences
 vim.opt.cmdheight = 0
 vim.opt.undolevels = 2000 -- More undo history (default is 1000)
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undo" -- Undo directory
-vim.opt.foldlevel = 99 -- Start with all folds open
+-- vim.opt.foldlevel = 99 -- Start with all folds open
 vim.opt.laststatus = 3
 vim.opt.numberwidth = 3
 vim.opt.mousemoveevent = true
+vim.opt.mouse = "n"
 vim.opt.statuscolumn = "%s%=%l%r%=%#StatColSep#│"
 vim.opt.signcolumn = "auto"
 vim.opt.showmode = false
 vim.opt.showcmd = false
 vim.opt.spell = false
-vim.opt.list = false
-vim.opt.fillchars = { eob = " ", fold = "*", foldopen = "-", foldclose = "+", foldsep = " " }
+-- vim.opt.shortmess:append("WIF")
+vim.o.list = true
+vim.opt.listchars = { eol = " ", tab = "  ", trail = "╴", multispace = "    " }
+vim.opt.fillchars = { fold = " ", eob = " ", lastline = " " }
 vim.opt.pumheight = 8 -- Limit completion menu height
 vim.opt.pumblend = 60
-vim.opt.guicursor = "n-c-o:block,i:ver20,v-ve:hor20,a:blinkon700-blinkoff20-blinkwait1"
+-- vim.opt.guicursor = "n-c-o:block,i:ver20,v-ve:hor20,a:blinkon700-blinkoff20-blinkwait1"
 -- a:blinkwait:1000-blinkon:1000

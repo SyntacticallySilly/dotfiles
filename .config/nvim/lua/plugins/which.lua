@@ -51,7 +51,7 @@ return {
 			{ "<leader>f", group = "File" },
 			{ "<leader>x", group = "Diagnostics" },
 			{ "<leader>c", group = "Code" },
-			{ "<leader>o", group = "Octo" },
+			{ "<leader>r", group = "Session" },
 			{ "<leader>t", group = "Toggle" },
 			{ "<leader>n", group = "Notifications" },
 			{ "<Space><Space>", group = "Utilites" },

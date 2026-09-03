@@ -8,13 +8,14 @@ local diagnostic_icons = {
 }
 
 vim.diagnostic.config({
-	virtual_text = {
-		spacing = 2,
-		source = "if_many",
-		prefix = function(diagnostic)
-			return diagnostic_icons[diagnostic.severity] or ""
-		end,
-	},
+	-- virtual_text = {
+	-- 	spacing = 2,
+	-- 	source = "if_many",
+	-- 	prefix = function(diagnostic)
+	-- 		return diagnostic_icons[diagnostic.severity] or ""
+	-- 	end,
+	-- },
+	virtual_text = false,
 	signs = {
 		text = diagnostic_icons,
 		texthl = {
@@ -33,24 +34,31 @@ vim.diagnostic.config({
 			[vim.diagnostic.severity.ERROR] = "DiagnosticLineError",
 		},
 	},
-	underline = true,
+	underline = false,
 	update_in_insert = false,
+	-- virtual_lines = {
+	-- 	current_line = false,
+	-- 	-- format = function() end,
+	-- },
 	severity_sort = true,
+	float = {
+		---@diagnostic disable-next-line:assign-type-mismatch
+		header = false,
+		focusable = false,
+		prefix = "-> ",
+		scope = "line",
+		border = "none",
+		severity_sort = true,
+		source = "if_many",
+	},
 })
 
--- Opens the float
-vim.api.nvim_create_autocmd("CursorHold", {
-	callback = function()
-		vim.diagnostic.open_float(nil, {
-			border = "rounded",
-			focusable = false,
-			header = false,
-			severity_sort = true,
-			scope = "cursor",
-			source = "if_many",
-		})
-	end,
-})
+-- -- Opens the float
+-- vim.api.nvim_create_autocmd("CursorHold", {
+-- 	callback = function()
+-- 		vim.diagnostic.open_float(nil)
+-- 	end,
+-- })
 
 -- ─── Markview LSP Hover ─────────────────────────────────────────────────────
 
@@ -166,17 +174,27 @@ vim.lsp.config("rust_analyzer", {
 })
 
 -- clangd needs utf-16 offset encoding to silence the encoding-mismatch warning.
-vim.lsp.config("clangd", {
-	cmd = {
-		"clangd",
-		"--background-index",
-		"--clang-tidy",
-		"--header-insertion=never",
-		"--completion-style=detailed",
-		"--offset-encoding=utf-16",
-		"--limit-results=100",
-	},
-	filetypes = { "c", "cpp", "objc", "objcpp" },
+-- vim.lsp.config("clangd", {
+-- 	cmd = {
+-- 		"clangd",
+-- 		"--background-index",
+-- 		"--clang-tidy",
+-- 		"--header-insertion=never",
+-- 		"--completion-style=detailed",
+-- 		"--offset-encoding=utf-16",
+-- 		"--limit-results=100",
+-- 	},
+-- 	filetypes = { "c", "cpp", "objc", "objcpp" },
+-- 	root_markers = {
+-- 		".clangd",
+-- 		"compile_commands.json",
+-- 		"compile_flags.txt",
+-- 		".git",
+-- 	},
+-- })
+vim.lsp.config("ccls", {
+	cmd = { "ccls" },
+	filetypes = { "c", "cpp" },
 	root_markers = {
 		".clangd",
 		"compile_commands.json",
@@ -295,6 +313,17 @@ vim.lsp.config("zls", {
 	},
 })
 
+vim.lsp.config("ty", {
+	cmd = { "ty", "server" },
+	filetypes = { "python" },
+	root_markers = { "pyproject.toml", "ty.toml", ".git" },
+	settings = {
+		ty = {
+			-- ty language server settings go here
+		},
+	},
+})
+
 vim.lsp.config("marksman", {
 	cmd = { "marksman", "server" },
 	filetypes = { "markdown", "markdown.mdx" },
@@ -308,6 +337,8 @@ vim.lsp.enable({
 	"rust_analyzer",
 	"clangd",
 	"gopls",
+	"ccls",
+	"ty",
 	"kotlin_lsp",
 	"taplo",
 	"yamlls",

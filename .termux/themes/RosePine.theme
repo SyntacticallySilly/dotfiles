@@ -1,21 +1,31 @@
-# Rosé Pine
-background: #191724
-foreground: #e0def4
-cursor: #db9bff
+# Scheme: Rosé Pine (http://rosepinetheme.com)
+# Author: ThatOneCalculator (https://github.com/thatonecalculator)
 
-color0: #26233a
-color1: #eb6f92
-color2: #8685BE
-color3: #f6c177
-color4: #9ccfd8
-color5: #c4a7e7
-color6: #ebbcba
-color7: #e0def4
-color8: #6e6a86
-color9: #eb6f92
-color10: #8685BE
-color11: #f6c177
-color12: #9ccfd8
-color13: #c4a7e7
-color14: #ebbcba
-color15: #e0def4
+background=#191724
+foreground=#e0def4
+cursor=#D27AFF
+
+# black
+color0=#26233a
+color8=#6e6a86
+# red
+color1=#eb6f92
+color9=#eb6f92
+# green
+color2=#31748f
+color10=#31748f
+# yellow
+color3=#f6c177
+color11=#f6c177
+# blue
+color4=#9ccfd8
+color12=#9ccfd8
+# magenta
+color5=#c4a7e7
+color13=#c4a7e7
+# cyan
+color6=#ebbcba
+color14=#ebbcba
+# white
+color7=#e0def4
+color15=#e0def4

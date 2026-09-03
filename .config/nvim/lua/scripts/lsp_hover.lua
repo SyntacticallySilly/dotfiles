@@ -57,9 +57,9 @@ hover.config = {
 		},
 	},
 
-	clangd = {
+	ccls = {
 		condition = function(client_name)
-			return client_name == "clangd"
+			return client_name == "ccls"
 		end,
 
 		winopts = {
@@ -105,6 +105,19 @@ hover.config = {
 			footer_pos = "right",
 			footer = {
 				{ " 󰌠 Python ", "@constant" },
+			},
+		},
+	},
+
+	ty = {
+		condition = function(client_name)
+			return client_name == "ty"
+		end,
+
+		winopts = {
+			footer_pos = "right",
+			footer = {
+				{ " 󰌠 pTYhon ", "@constant" },
 			},
 		},
 	},

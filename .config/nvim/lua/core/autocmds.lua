@@ -25,48 +25,40 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "help", "quickfix" },
+	group = "SynVim",
+	pattern = "*",
+	callback = function()
+		pcall(vim.treesitter.start)
+	end,
+})
+
+vim.api.nvim_create_autocmd("InsertEnter", {
+	group = "SynVim",
+	callback = function()
+		vim.opt.listchars = { eol = "↩", tab = "  ", trail = "╴", multispace = "    " }
+	end,
+})
+
+vim.api.nvim_create_autocmd("InsertLeave", {
+	group = "SynVim",
+	callback = function()
+		vim.opt.listchars = { eol = " ", tab = "  ", trail = "╴", multispace = "    " }
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "help", "quickfix", "nvim-undotree" },
 	group = "SynVim",
 	callback = function()
 		vim.keymap.set("n", "q", "<cmd>quit<cr>")
 	end,
 })
 
-vim.api.nvim_create_autocmd("CmdlineEnter", {
-	once = true,
-	callback = function()
-		require("lua.scripts.range_highlight").setup({})
-	end,
-})
-
--- vim.api.nvim_create_autocmd("InsertEnter", {
--- 	group = "SynVim",
--- 	callback = function(args)
--- 		if vim.bo[args.buf].filetype ~= "markdown" then
--- 			return
--- 		end
--- 		vim.cmd("RenderMarkdown buf_disable")
+-- vim.api.nvim_create_autocmd("CmdlineEnter", {
+-- 	once = true,
+-- 	callback = function()
+-- 		require("lua.scripts.range_highlight").setup({})
 -- 	end,
--- })
---
--- vim.api.nvim_create_autocmd("InsertLeave", {
--- 	group = "SynVim",
--- 	callback = function(args)
--- 		if vim.bo[args.buf].filetype ~= "markdown" then
--- 			return
--- 		end
--- 		vim.cmd("RenderMarkdown buf_enable")
--- 	end,
--- })
-
--- vim.api.nvim_create_autocmd("BufWritePre", {
--- group = render_markdown_group,
---   callback = function(event)
---     if event.match:match("^%w%w+:[\\/][\\/]") then return end
---     ---@diagnostic disable-next-line : undefined-field
---     local file = vim.loop.fs_realpath(event.match) or event.match
---     vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
---   end,
 -- })
 
 vim.api.nvim_create_autocmd("FileType", {
@@ -94,6 +86,7 @@ vim.api.nvim_create_autocmd("LspProgress", {
 	---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
 	callback = function(ev)
 		local spinner = { "", "", "", "", "", "" }
+		---@diagnostic disable-next-line: param-type-mismatch
 		vim.notify(vim.lsp.status(), "info", {
 			id = "lsp_progress",
 			title = "LSP Progress",
@@ -105,20 +98,6 @@ vim.api.nvim_create_autocmd("LspProgress", {
 	end,
 })
 
----@diagno-- vim.api.nvim_create_autocmd("FileType", {
---   pattern = 'oil',
---   callback = function(args)
---     local bufnr = args.buf
---     vim.defer_fn(function()
---       if vim.api.nvim_buf_is_valid(bufnr)
---           and vim.bo[bufnr].filetype == "oil"
---       then
---         require('oil').toggle_preview()
---       end
---     end, 100)
---   end
--- })
-
 vim.api.nvim_create_autocmd("User", {
 	group = "SynVim",
 	pattern = "MiniFilesActionRename",
@@ -126,46 +105,3 @@ vim.api.nvim_create_autocmd("User", {
 		require("snacks").rename.on_rename_file(event.data.from, event.data.to)
 	end,
 })
-
--- ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
--- local progress = vim.defaulttable()
--- vim.api.nvim_create_autocmd("LspProgress", {
--- 	---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
--- 	callback = function(ev)
--- 		local client = vim.lsp.get_client_by_id(ev.data.client_id)
--- 		local value = ev.data.params.value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
--- 		if not client or type(value) ~= "table" then
--- 			return
--- 		end
--- 		local p = progress[client.id]
---
--- 		for i = 1, #p + 1 do
--- 			if i == #p + 1 or p[i].token == ev.data.params.token then
--- 				p[i] = {
--- 					token = ev.data.params.token,
--- 					msg = ("[%3d%%] %s%s"):format(
--- 						value.kind == "end" and 100 or value.percentage or 100,
--- 						value.title or "",
--- 						value.message and (" **%s**"):format(value.message) or ""
--- 					),
--- 					done = value.kind == "end",
--- 				}
--- 				break
--- 			end
--- 		end
---
--- 		local msg = {} ---@type string[]
--- 		progress[client.id] = vim.tbl_filter(function(v)
--- 			return table.insert(msg, v.msg) or not v.done
--- 		end, p)
---
--- 		local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
--- 		vim.notify(table.concat(msg, "\n"), "info", {
--- 			id = "lsp_progress",
--- 			opts = function(notif)
--- 				notif.icon = #progress[client.id] == 0 and " "
--- 					or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
--- 			end,
--- 		})
--- 	end,
--- })

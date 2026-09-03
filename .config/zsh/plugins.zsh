@@ -26,6 +26,8 @@ zinit light hlissner/zsh-autopair
 # Syntax highlighting (load late for performance)
 zinit light zdharma-continuum/fast-syntax-highlighting
 
+# theme/prompt
+# zinit ice depth=1; zinit light quantumnic/powerlevel10k
 # ───────────────────────────────────────────────────────────────
 #  Utility Plugins
 # ───────────────────────────────────────────────────────────────

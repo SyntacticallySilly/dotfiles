@@ -47,8 +47,10 @@ M.navigation_keymaps = function()
 	map("n", "<leader>bn", "<cmd>bnext<CR>", { desc = "Next buffer" })
 	map("n", "<leader>bp", "<cmd>bprev<CR>", { desc = "Previous buffer" })
 	map("n", "<leader>bd", function()
+		---@diagnostic disable:undefined-global
 		Snacks.bufdelete()
 	end, { desc = "Delete buffer" })
+	map("n", "gx", "", { desc = "Open with system app" })
 end
 
 -- ============================================================================
@@ -161,6 +163,8 @@ M.file_keymaps = function()
 		vim.notify("File indented", vim.log.levels.INFO)
 	end, { desc = "File Indent" })
 	map("n", "<leader>fc", "<cmd>ColorizerToggle<cr>", { desc = "Colorize File" })
+	map("n", "<leader>fw", "<cmd>write<cr>", { desc = "File Write" })
+	map("n", "<leader>fq", "<cmd>quit<cr>", { desc = "File Quit" })
 	map("n", "<leader>fa", "<cmd>AerialToggle<cr>", { desc = "File Symbols" })
 	map("n", "<leader>fA", "<cmd>AerialNavToggle<cr>", { desc = "File Symbol Float" })
 	-- map("n", "<leader>fu", "<cmd>Atone<cr>", { desc = "File Undotree" })

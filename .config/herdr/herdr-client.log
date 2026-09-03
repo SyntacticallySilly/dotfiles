@@ -1,5 +1,0 @@
-2026-07-05T05:39:58.634016Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=3574
-2026-07-05T05:39:58.634172Z  INFO herdr::client: connecting to server path=/data/data/com.termux/files/home/.config/herdr/herdr-client.sock
-2026-07-05T05:39:58.841444Z  INFO herdr::client: handshake succeeded version=14 encoding=SemanticFrame
-2026-07-05T05:40:39.567342Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
-2026-07-05T05:40:39.567568Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]

@@ -34,6 +34,17 @@ return {
 			},
 		})
 
+		require("mini.statuscolumn").setup({
+			-- Statuscolumn content as functions that return statusline-like string
+			content = {
+				active = nil,
+				inactive = nil,
+			},
+
+			-- Whether to dim column content in inactive windows
+			dim_inactive = true,
+		})
+
 		-- mini.files - q file ezplorer
 		-- require("mini.files").setup({
 		-- 	mappings = {
@@ -65,22 +76,22 @@ return {
 		-- 	},
 		-- })
 
-		-- Mini.ai - Enhanced text objects
-		require("mini.ai").setup({
-			mappings = {
-				around = "a",
-				inside = "i",
-				around_next = "gan",
-				inside_next = "gin",
-				around_last = "gal",
-				inside_last = "gil",
-				goto_left = "[g",
-				goto_right = "]g",
-			},
-			n_lines = 500,
-			search_method = "cover_or_next",
-			custom_textobjects = nil,
-		})
+		-- -- Mini.ai - Enhanced text objects
+		-- require("mini.ai").setup({
+		-- 	mappings = {
+		-- 		around = "a",
+		-- 		inside = "i",
+		-- 		around_next = "gan",
+		-- 		inside_next = "gin",
+		-- 		around_last = "gal",
+		-- 		inside_last = "gil",
+		-- 		goto_left = "[g",
+		-- 		goto_right = "]g",
+		-- 	},
+		-- 	n_lines = 500,
+		-- 	search_method = "cover_or_next",
+		-- 	custom_textobjects = nil,
+		-- })
 
 		-- Mini.bracketed - Bracket navigation
 		require("mini.bracketed").setup({
@@ -100,10 +111,6 @@ return {
 			yank = { suffix = "y", options = {} },
 		})
 
-		require("mini.sessions").setup({
-			autoread = true,
-			autowrite = true,
-		})
 		require("mini.diff").setup({
 			view = {
 				style = "sign",
@@ -112,18 +119,18 @@ return {
 			},
 		})
 
-		-- Mini.surround - Replaces surround
-		require("mini.surround").setup({
-			mappings = {
-				add = "gsa",
-				delete = "gsd",
-				find = "gsf",
-				find_left = "gsF",
-				highlight = "gsh",
-				replace = "gsr",
-				update_n_lines = "gsn",
-			},
-		})
+		-- -- Mini.surround - Replaces surround
+		-- require("mini.surround").setup({
+		-- 	mappings = {
+		-- 		add = "gsa",
+		-- 		delete = "gsd",
+		-- 		find = "gsf",
+		-- 		find_left = "gsF",
+		-- 		highlight = "gsh",
+		-- 		replace = "gsr",
+		-- 		update_n_lines = "gsn",
+		-- 	},
+		-- })
 		-- mini.files extra
 		-- Create hl namespace to highlight 'mini.files' target window
 		-- local highlight_ns = vim.api.nvim_create_namespace("highlight_minifiles_target")

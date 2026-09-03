@@ -1,0 +1,91 @@
+yaml-language-server: $schema; https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
+
+palette:
+  blue: "#89B4FA"
+  green: "#A6E3A1"
+  lavender: "#B4BEFE"
+  os: "#ACB0BE"
+  pink: "#F5C2E7"
+  red: "#F38BA8"
+  yellow: "#F9E2AF"
+  closer: p:os
+
+upgrade:
+  source: cdn
+  interval: 168h
+  auto: false
+  notice: false
+
+blocks:
+  # ── Primary prompt · left side ──────────────────────────────
+  - type: prompt
+    alignment: left
+    segments:
+      # current directory
+      - type: path
+        style: plain
+        foreground: p:pink
+        template: "{{ .Path }} "
+        options:
+          home_icon: "~"
+          max_depth: 3
+          style: powerlevel
+
+      # git branch + diff (added / modified / deleted file counts)
+      - type: git
+        style: plain
+        foreground: p:lavender
+        template: "{{ .HEAD }}{{ if .Working.Changed }} <p:green>+{{ .Working.Added }}</> <p:yellow>~{{ .Working.Modified }}</> <p:red>-{{ .Working.Deleted }}</>{{ end }} "
+        options:
+          fetch_status: true
+          branch_icon: " "
+          cherry_pick_icon: " "
+          commit_icon: " "
+          fetch_upstream_icon: false
+          merge_icon: " "
+          no_commits_icon: " "
+          rebase_icon: " "
+          revert_icon: " "
+          tag_icon: " "
+
+      # vi-mode indicator — only renders once vi keybindings are active
+      - type: vimode
+        style: plain
+        template: '{{ if eq .Mode "insert" }}I {{ else if eq .Mode "visual" }}V {{ else if eq .Mode "replace" }}R {{ else if eq .Mode "viopp" }}O {{ else if eq .Mode "normal" }}N {{ end }}'
+        foreground_templates:
+          - '{{ if eq .Mode "insert" }}p:green{{ end }}'
+          - '{{ if eq .Mode "visual" }}p:pink{{ end }}'
+          - '{{ if eq .Mode "replace" }}p:red{{ end }}'
+          - p:blue
+
+      # prompt glyph
+      - type: text
+        style: plain
+        foreground: p:closer
+        template: ∝
+
+  # ── Primary prompt · right side ─────────────────────────────
+  - type: prompt
+    alignment: right
+    segments:
+      - type: executiontime
+        style: plain
+        foreground: p:os
+        template: "{{ .FormattedMs }}"
+        options:
+          threshold: 500
+          style: austin
+
+# collapsed prompt shown after a command runs — path only,
+# with execution time right-aligned (zsh / pwsh / fish only)
+transient_prompt:
+  background: transparent
+  foreground: p:pink
+  template: "{{ .Segments.Path.Path }} "
+  # right_template: "<p:os>{{ .Segments.Executiontime.FormattedMs }}</>"
+
+secondary_prompt:
+  template: "-> "
+
+version: 4
+final_space: false

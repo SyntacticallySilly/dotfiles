@@ -3,6 +3,7 @@
 
 return {
 	"folke/noice.nvim",
+	-- enabled = false,
 	event = "BufReadPre",
 	dependencies = {
 		"MunifTanjim/nui.nvim",

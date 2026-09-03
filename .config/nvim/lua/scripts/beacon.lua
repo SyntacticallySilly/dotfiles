@@ -109,6 +109,12 @@ M.config = {
 				return fg or { 147, 153, 178 }
 			end,
 		},
+		jjkk = {
+			from = function()
+				local fg = vim.opt.nvim_get_hl(0, { name = "Variable", create = false, link = false }), fg
+				return fg or { 147, 153, 178 }
+			end,
+		},
 		G = {
 			from = function()
 				local fg = vim.api.nvim_get_hl(0, { name = "Conditional", create = false, link = false }).fg
@@ -512,11 +518,11 @@ M.setup = function(config)
 		---|fS
 
 		if not M.config.set_keymap or not enabled then
-			vim.api.nvim_del_keymap("n", "<leader><leader>")
+			vim.api.nvim_del_keymap("n", "<C-Space>")
 			return
 		end
 
-		vim.api.nvim_set_keymap("n", "<leader><leader>", "", {
+		vim.api.nvim_set_keymap("n", "<leader><leader><leader>", "", {
 			callback = function()
 				instance:update(nil, M.config.default)
 				instance:start()

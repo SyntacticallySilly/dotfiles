@@ -2,6 +2,7 @@
 -- Enhanced navigation - jump anywhere with 2 keystrokes
 return {
 	"folke/flash.nvim",
+	enabled = false,
 	opts = {
 		multi_window = false,
 		mode = "fuzzy",

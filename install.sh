@@ -27,7 +27,7 @@ banner() {
   ╚══════╝   ╚═╝   ╚═╝  ╚═══╝╚═════╝  ╚═════╝    ╚═╝
 EOF
   echo -e "${RESET}"
-  echo -e "  ${BOLD}Dotfiles installer for Termux — powered by GNU Stow${RESET}"
+  echo -e "  ${BOLD}Made with <3 by synthyst>${RESET}"
   echo -e "  ─────────────────────────────────────────────────────\n"
 }
 
@@ -51,8 +51,9 @@ success "System updated."
 # STEP 2 — Add Repos (tur-repo, termux-void)
 #           Must be done before installing packages that live in them
 # ══════════════════════════════════════════════════════════════
-info "Installing extra repositories (tur-repo, termux-void)..."
-pkg install -y tur-repo
+info "Installing extra repositories (tur-repo, glibc, termux-void)..."
+pkg install -y tur-repo glibc-repo
+
 
 curl -sL https://termuxvoid.github.io/repo/install.sh | bash -s -- -s
 

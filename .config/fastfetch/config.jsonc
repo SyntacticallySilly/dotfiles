@@ -1,5 +1,5 @@
 {
-  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
     "type": "chafa",
     "source": "~/dotfiles/.config/fastfetch/mommy.png",
@@ -7,299 +7,92 @@
     "height": 21,
     "padding": {
       "top": 1
-    },
-    "printRemaining": true,
-    "preserveAspectRatio": false,
-    "recache": true,
-    "position": "left",
-    "chafa": {
-      "fgOnly": false,
-      "symbols": "block+border+space-wide-inverted"
     }
   },
   "display": {
-    "stat": false,
-    "pipe": false,
-    "showErrors": false,
-    "disableLinewrap": true,
-    "hideCursor": false,
-    "separator": ": ",
+    "separator": " -> ",
     "color": {
-      "keys": "",
-      "title": "",
-      "output": "",
-      "separator": ""
-    },
-    "brightColor": true,
-    "duration": {
-      "abbreviation": false,
-      "spaceBeforeUnit": "default"
-    },
-    "size": {
-      "maxPrefix": "YB",
-      "binaryPrefix": "iec",
-      "ndigits": 2,
-      "spaceBeforeUnit": "default"
-    },
-    "temp": {
-      "unit": "D",
-      "ndigits": 1,
-      "color": {
-        "green": "32",
-        "yellow": "93",
-        "red": "91"
-      },
-      "spaceBeforeUnit": "default"
-    },
-    "percent": {
-      "type": [
-        "num",
-        "num-color"
-      ],
-      "ndigits": 0,
-      "color": {
-        "green": "32",
-        "yellow": "93",
-        "red": "91"
-      },
-      "spaceBeforeUnit": "default",
-      "width": 0
-    },
-    "bar": {
-      "char": {
-        "elapsed": "■",
-        "total": "-"
-      },
-      "border": {
-        "left": "[ ",
-        "right": " ]",
-        "leftElapsed": "",
-        "rightElapsed": ""
-      },
-      "color": {
-        "elapsed": "auto",
-        "total": "97",
-        "border": "97"
-      },
-      "width": 10
-    },
-    "fraction": {
-      "ndigits": 2
-    },
-    "noBuffer": false,
-    "key": {
-      "width": 0,
-      "type": "string",
-      "paddingLeft": 0
-    },
-    "freq": {
-      "ndigits": 2,
-      "spaceBeforeUnit": "default"
-    },
-    "constants": []
-  },
-  "general": {
-    "thread": true,
-    "processingTimeout": 5000,
-    "detectVersion": true,
-    "playerName": "",
-    "dsForceDrm": false
+      "keys": "magenta",
+      "title": "cyan"
+    }
   },
   "modules": [
     {
-      "type": "title",
-      "key": " ",
-      "keyIcon": "",
-      "fqdn": false,
-      "color": {
-        "user": "",
-        "at": "",
-        "host": ""
-      }
-    },
-    {
-      "type": "separator",
-      "string": "-",
-      "outputColor": "",
-      "times": 0
-    },
-    {
       "type": "os",
-      "keyIcon": ""
-    },
-    {
-      "type": "host",
-      "keyIcon": "󰌢"
-    },
-    {
-      "type": "kernel",
-      "keyIcon": ""
-    },
-    {
-      "type": "uptime",
-      "keyIcon": ""
-    },
-    {
-      "type": "packages",
-      "keyIcon": "󰏖",
-      "disabled": [
-        "winget"
-      ],
-      "combined": false
+      "key": "OS",
+      "keyColor": "blue"
     },
     {
       "type": "shell",
-      "keyIcon": ""
-    },
-    {
-      "type": "display",
-      "keyIcon": "󰍹",
-      "compactType": "none",
-      "preciseRefreshRate": false,
-      "order": null
-    },
-    {
-      "type": "de",
-      "keyIcon": ""
-    },
-    {
-      "type": "wm",
-      "keyIcon": "",
-      "detectPlugin": true
-    },
-    {
-      "type": "wmtheme",
-      "keyIcon": "󰓸"
-    },
-    {
-      "type": "theme",
-      "keyIcon": "󰉼"
-    },
-    {
-      "type": "icons",
-      "keyIcon": ""
-    },
-    {
-      "type": "font",
-      "keyIcon": ""
-    },
-    {
-      "type": "cursor",
-      "keyIcon": "󰆿"
+      "key": "Shell",
+      "keyColor": "blue"
     },
     {
       "type": "terminal",
-      "keyIcon": ""
+      "key": "Terminal",
+      "keyColor": "blue"
     },
-    {
-      "type": "terminalfont",
-      "keyIcon": ""
-    },
+    "break",
     {
       "type": "cpu",
-      "keyIcon": "",
-      "temp": false,
-      "showPeCoreCount": false
-    },
-    {
-      "type": "gpu",
-      "keyIcon": "󰾲",
-      "driverSpecific": false,
-      "detectionMethod": "auto",
-      "temp": false,
-      "hideType": "none",
-      "percent": {
-        "green": 50,
-        "yellow": 80,
-        "type": 0
-      }
+      "key": "CPU",
+      "keyColor": "green",
+      "format": "{name}"
     },
     {
       "type": "memory",
-      "keyIcon": "",
-      "percent": {
-        "green": 50,
-        "yellow": 80,
-        "type": 0
-      }
-    },
-    {
-      "type": "swap",
-      "percent": {
-        "green": 50,
-        "yellow": 80,
-        "type": 0
-      },
-      "keyIcon": "󰓡",
-      "separate": false
-    },
-    {
-      "type": "disk",
-      "keyIcon": "",
-      "showRegular": true,
-      "showExternal": true,
-      "showHidden": false,
-      "showSubvolumes": false,
-      "showReadOnly": true,
-      "showUnknown": false,
-      "folders": "",
-      "hideFolders": "",
-      "hideFS": "",
-      "useAvailable": false,
-      "percent": {
-        "green": 50,
-        "yellow": 80,
-        "type": 0
-      }
-    },
-    {
-      "type": "localip",
-      "keyIcon": "󰩟",
-      "showIpv4": true,
-      "showIpv6": false,
-      "showMac": false,
-      "showLoop": false,
-      "showPrefixLen": true,
-      "showMtu": false,
-      "showSpeed": false,
-      "showFlags": false,
-      "compact": false,
-      "defaultRouteOnly": false,
-      "showAllIps": false,
-      "namePrefix": ""
+      "key": "Memory",
+      "keyColor": "green",
+      "format": "{total} ({percentage})"
     },
     {
       "type": "battery",
-      "keyIcon": "",
-      "temp": false,
-      "percent": {
-        "green": 50,
-        "yellow": 20,
-        "type": 0
-      }
+      "key": "Battery",
+      "keyColor": "green"
+    },
+    "break",
+    {
+      "type": "command",
+      "key": "Weather",
+      "keyColor": "cyan",
+      "text": "curl -s 'wttr.in/Bhachau?format=%l:+%c+%t+%w+%h' 2>/dev/null || echo 'N/A'"
     },
     {
-      "type": "poweradapter",
-      "keyIcon": "󰚥"
+      "type": "command",
+      "key": "SSH Status",
+      "keyColor": "red",
+      "text": "pgrep sshd >/dev/null 2>&1 && echo '✓ Running (Port: '$(netstat -tuln 2>/dev/null | grep :8022 | wc -l)')' || echo '✗ Not Running'"
     },
     {
-      "type": "locale",
-      "keyIcon": ""
+      "type": "command",
+      "key": "Uptime",
+      "keyColor": "magenta",
+      "text": "uptime -p | sed 's/up //'"
+    },
+    {
+      "type": "command",
+      "key": "Load Time",
+      "keyColor": "magenta",
+      "text": "uptime | awk -F'load average:' '{print $2}' | xargs"
+    },
+    "break",
+    {
+      "type": "packages",
+      "key": "Packages",
+      "keyColor": "yellow"
+    },
+    "break",
+    {
+        "type": "datetime",
+        "key": "Date",
+        "keyColor": "blue",
+        "format": "{day-in-month}/{month}/{year}"
     },
     "break",
     {
       "type": "colors",
-      "key": " ",
-      "keyIcon": "",
-      "symbol": "block",
-      "paddingLeft": 0,
-      "block": {
-        "width": 3,
-        "range": [
-          0,
-          15
-        ]
-      }
+      "paddingLeft": 2,
+      "symbol": "circle"
     }
   ]
 }

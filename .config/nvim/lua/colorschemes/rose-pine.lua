@@ -3,7 +3,8 @@ return {
 	"rose-pine/neovim",
 	name = "rose-pine",
 	lazy = true,
-	-- priority = 1000,
+	enabled = false,
+	priority = 1000,
 
 	config = function()
 		require("rose-pine").setup({
@@ -103,8 +104,12 @@ return {
 				NoiceLspProgressSpinner = { bg = "none", fg = "rose" },
 				NoiceLspProgressTitle = { bg = "none", fg = "iris" },
 				TablineAct = { bg = "none", fg = "iris", bold = true, italic = true },
+				MatchParen = { underline = true, bold = true, fg = "love" },
 				TablineNC = { bg = "none", fg = "subtle" },
 				RenderMarkdownCode = { bg = "none" },
+				Comment = { fg = "iris", italic = true },
+				["comment"] = { fg = "iris", italic = true },
+				["@comment"] = { fg = "iris", italic = true },
 			},
 		})
 

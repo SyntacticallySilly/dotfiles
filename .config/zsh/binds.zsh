@@ -21,3 +21,5 @@ bindkey -M vicmd 'U' redo
 bindkey ' ' magic-space
 
 bindkey -M vicmd 'yy' copy-buffer-to-clipboard
+
+bindkey '^R' atuin-search

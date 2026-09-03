@@ -43,6 +43,13 @@ return {
 			desc = "Search text",
 		},
 		{
+			"<leader>sq",
+			function()
+				Snacks.picker.pick()
+			end,
+			desc = "Search text",
+		},
+		{
 			"<leader>sb",
 			function()
 				Snacks.picker.buffers()
@@ -234,15 +241,15 @@ return {
 			width = 40,
 			sections = function()
 				local header = [[
-				   .-'''-.    ____     __ ,---.   .--.,---.  ,---..-./`) ,---.    ,---.
-				  / _     \   \   \   /  /|    \  |  ||   /  |   |\ .-.')|    \  /    |
-				 (`' )/`--'    \  _. /  ' |  ,  \ |  ||  |   |  .'/ `-' \|  ,  \/  ,  |
-				(_ o _).        _( )_ .'  |  |\_ \|  ||  | _ |  |  `-'`"`|  |\_   /|  |
-				 (_,_). '.  ___(_ o _)'   |  _( )_\  ||  _( )_  |  .---. |  _( )_/ |  |
-				.---.  \  :|   |(_,_)'    | (_ o _)  |\ (_ o._) /  |   | | (_ o _) |  |
-				\    `-'  ||   `-'  /     |  (_,_)\  | \ (_,_) /   |   | |  (_,_)  |  |
-				 \       /  \      /      |  |    |  |  \     /    |   | |  |      |  |
-				  `-...-'    `-..-'       '--'    '--'   `---`     '---' '--'      '--'
+	   .-'''-.    ____     __ ,---.   .--.,---.  ,---..-./`) ,---.    ,---.
+	  / _     \   \   \   /  /|    \  |  ||   /  |   |\ .-.')|    \  /    |
+	 (`' )/`--'    \  _. /  ' |  ,  \ |  ||  |   |  .'/ `-' \|  ,  \/  ,  |
+	(_ o _).        _( )_ .'  |  |\_ \|  ||  | _ |  |  `-'`"`|  |\_   /|  |
+	 (_,_). '.  ___(_ o _)'   |  _( )_\  ||  _( )_  |  .---. |  _( )_/ |  |
+	.---.  \  :|   |(_,_)'    | (_ o _)  |\ (_ o._) /  |   | | (_ o _) |  |
+	\    `-'  ||   `-'  /     |  (_,_)\  | \ (_,_) /   |   | |  (_,_)  |  |
+	 \       /  \      /      |  |    |  |  \     /    |   | |  |      |  |
+	  `-...-'    `-..-'       '--'    '--'   `---`     '---' '--'      '--'
 
 				          ]]
 				-- local header = [[
@@ -281,7 +288,7 @@ return {
             -- { icon = " ", key = "e", desc = "Explore", action = ":lua require('mini.files').open()" },
             { icon = "󰒲 ", key = "l", desc = "Plugins", action = ":Lazy" },
             { icon = " ", key = "t", desc = "Treesitter", action = ":TSManager" },
-            { icon = " ", key = "s", desc = "Restore Session", section = "session" },
+            { icon = " ", key = "r", desc = "Restore Session", action = ":lua require('resession').load()" },
             { icon = " ", key = "q", desc = "Quit", action = ":qa" }
           },
           { title = "Recent Files",    section = "recent_files", indent = 2, padding = 2 },
@@ -295,7 +302,6 @@ return {
           -- },
           { title = "Recent Projects", section = "projects",     indent = 2, padding = 1 },
           { section = "startup" },
-          { section = "terminal", cmd = "eza --icons=always --tree --color=always -L=2", height = 5, padding = 3}
         }
 			end,
 		},
@@ -309,16 +315,17 @@ return {
 		},
 
 		scroll = {
-			enabled = true,
+			enabled = false,
 		},
 
 		statuscolumn = {
-			left = { "sign" },
-			right = { "git" },
-			git = {
-				patterns = { "MiniDiffSign" },
-			},
-			refresh = 150, -- refresh at most every 50ms
+			enabled = false,
+			-- left = { "sign" },
+			-- right = { "git" },
+			-- git = {
+			-- 	patterns = { "MiniDiffSign" },
+			-- },
+			-- refresh = 150, -- refresh at most every 50ms
 		},
 
 		rename = { enabled = true },
@@ -327,6 +334,20 @@ return {
 			top_down = false,
 			style = "compact",
 			level = vim.log.levels.INFO,
+		},
+		styles = {
+			{
+				border = true,
+				zindex = 100,
+				ft = "markdown",
+				wo = {
+					winblend = 5,
+					wrap = false,
+					conceallevel = 3,
+					colorcolumn = "",
+				},
+				bo = { filetype = "snacks_notif" },
+			},
 		},
 
 		explorer = {

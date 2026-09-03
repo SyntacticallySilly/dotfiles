@@ -330,9 +330,6 @@ records = true
 # height = "60%"
 
 [ui]
-
-[ai]
-enabled = true
 ## Columns to display in the interactive search, from left to right.
 ## The selection indicator (" > ") is always shown first implicitly.
 ##
@@ -372,3 +369,4 @@ enabled = true
 ##
 ## Make directory expand instead of command:
 # columns = ["duration", "time", { type = "directory", expand = true }, { type = "command", expand = false }]
+
