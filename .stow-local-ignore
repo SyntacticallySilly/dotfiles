@@ -13,6 +13,7 @@
 ^/synvim.md
 ^/syndot.md
 
+^fish/*
 # fonts
 fonts/^.ttf
 ^/images/
