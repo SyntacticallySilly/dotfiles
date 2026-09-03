@@ -62,7 +62,7 @@ blocks:
       - type: text
         style: plain
         foreground: p:closer
-        template: ∝
+        template: "|>"
 
   # ── Primary prompt · right side ─────────────────────────────
   - type: prompt

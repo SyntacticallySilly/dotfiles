@@ -13,7 +13,7 @@ eval "$(zoxide init zsh)"
 #  Oh My Posh (Prompt Theme)
 # ───────────────────────────────────────────────────────────────
 # Load custom prompt configuration from syn.toml
-# eval "$(oh-my-posh init zsh --config ~/.config/omp/syn.yaml)"
+eval "$(oh-my-posh init zsh --config ~/.config/omp/syn.yaml)"
 
 # eval "$(starship init zsh)"
 
